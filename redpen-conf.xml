@@ -1,0 +1,19 @@
+<redpen-conf lang="ja">
+  <validators>
+    <validator name="SentenceLength">                // センテンス長の規約
+      <property name="max_len" value="100"/>
+    </validator>
+    <validator name="InvalidSymbol"/>                 // 記号の規約
+    <validator name="KatakanaEndHyphen"/>             // カタカナの規約
+    <validator name="KatakanaSpellCheck"/>            // カタカナのスペルチェック
+    <validator name="SectionLength">                  // セクションの規約
+      <property name="max_num" value="1500"/>
+    </validator>
+    <validator name="ParagraphNumber"/>               // パラグラフ数の規約
+<!--    <validator name="DoubledWord" /> -->                 // 一文内の同一単語の規約
+    <validator name="SpaceBetweenAlphabeticalWord" /> // 日本語文書内のアルファベットの規約
+    <validator name="CommaNumber" />                  // コンマの数の規約
+    <validator name="SuccessiveWord" />               // 単語の繰り返し規約
+    <validator name="JavaScript" />
+  </validators>
+</redpen-conf>

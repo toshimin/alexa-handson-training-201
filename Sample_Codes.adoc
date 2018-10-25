@@ -1,0 +1,36 @@
+[[サンプルコード]]
+= サンプルコード
+
+[[Sample1.js]]
+.Sample1.js
+[source,javascript,linenums]
+----
+include::src/UTF-8/Sample1.js[]
+----
+
+// 改ページ
+<<<
+[[Sample2.js]]
+.Sample2.js
+[source,javascript,linenums]
+----
+include::src/UTF-8/Sample2.js[]
+----
+
+// 改ページ
+<<<
+[[Sample3.js]]
+.Sample3.js
+[source,javascript,linenums]
+----
+include::src/UTF-8/Sample3.js[]
+----
+
+// 改ページ
+<<<
+[[Sample4.js]]
+.Sample4.js
+[source,javascript,linenums]
+----
+include::src/UTF-8/Sample4.js[]
+----

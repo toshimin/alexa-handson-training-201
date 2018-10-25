@@ -1,0 +1,85 @@
+= Alexaハンズオントレーニング 初級編
+:author: アマゾンジャパン合同会社
+:date: 2018/10/25
+:homepage: https://developer.amazon.com/jp/
+//==============================================================
+// Attribute / アトリビュート
+//==============================================================
+:lang: ja
+:doctype: book
+:description:
+:docname: Alexaハンズオンテキスト 初級編
+:imagesdir: ./images
+:icons: font
+:iconsdir: ./images/icons
+:title-logo-image: image:theme/Amazon_Alexa_Horizontal_RGB_Dark-Color.png[]
+:title-page-background-image: image:theme/hero-bkgd-100_blue.jpg[]
+:chapter-label:
+:sectnumlevels: 4
+:sectlinks:
+:toc: left
+:toclevels: 2
+:source-highlighter: rouge
+:autofit-option:
+:toc-title: 目次
+:appendix-caption: 付録
+:caution-caption: 注意
+:example-caption: 例
+:figure-caption: 図
+:important-caption: 重要
+:listing-caption: リスト
+:manname-title: 名前
+:note-caption: 注記
+:table-caption: 表
+:tip-caption: ヒント
+:untitled-label: 無題
+:warning-caption: 警告
+:author: ASK Developer Marketing, Amazon Japan
+:keywords: Alexa, Alexa Skills Kit, Node.js, トレーニング, ハンズオン, Amazon, Amazon Echo
+:revnumber: 2.8
+:revdate: 2018/10/25
+:preface-title: はじめに
+// 章のナンバリングをOFFにする
+:numbered!:
+
+include::Introduction.adoc[]
+
+// 章のナンバリングは1章から始める
+:leveloffset: 1
+:numbered:
+// 課題1
+include::EX1.adoc[]
+
+// 課題2
+include::EX2.adoc[]
+
+// 課題3
+include::EX3.adoc[]
+
+// 課題4
+include::EX4.adoc[]
+
+// 章のナンバリングをOFFにする
+:numbered!:
+// 補足
+include::Appendix.adoc[]
+// Node.js サンプルコード
+include::Sample_Codes.adoc[]
+// リファレンス
+include::References.adoc[]
+
+// 索引 (全ての単語にマークしないといけないので今はやめとく)
+//[index]
+//= 索引
+
+[[改定履歴]]
+= 改定履歴（主な変更点）
+* 2017.11.25 v1.0 初版（協力：クラスメソッド株式会社）
+* 2018.04.12 v2.0 UIの変更に伴い、内容を大幅に改定
+* 2018.05.16 v2.3 asciidocに移行（Alexa道場の動画リンクを追加）
+* 2018.06.01 v2.5 Lambdaのポリシーテンプレート選択のスクリーンショットを更新
+* 2018.06.03 v2.6 補足の追加（アカウントの問題の回避方法）
+* 2018.06.13 v2.7 サンプルコードを SDK Version2 に更新
+* 2018.06.18 v2.7.1 誤字修正、一部スクリーンショット差し替え
+* 2018.07.10 v2.7.2 Alexaシミュレータのサンプル発話の入力でウェイクワードを省略
+* 2018.10.28 v2.8.0 インテントの追加/スロットの演習を統合/発話のバリエーション/ASK CLIを追加

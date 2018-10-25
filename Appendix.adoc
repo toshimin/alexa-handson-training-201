@@ -1,0 +1,104 @@
+= 補足
+:imagesdir: ./images
+
+== Alexaの開発者アカウントに関する問題
+
+Alexaのスキル開発で使用する開発者アカウントは、Amazon Echoをセットアップした時に使用したアカウントと同じものを使用することを推奨します。
+作成したスキルを、同じアカウントでセットアップされたお手持ちのEchoデバイスですぐにテストできた方が便利だからです。
+
+この時使用するAmazon.co.jpと同じアカウントがAmazon.comにも存在し、かつ同じパスワードが設定されている場合、作成したスキルが日本の Alexa.amazon.co.jp のスキル一覧画面に表示されなくなります。これは、作成したスキルが米国向けのスキルを日本語で作成した状況になり、alexa.amazon.com 上に作成されてあしまったからです。
+この状態では日本用にセットアップされた Echoデバイス上ではテストできないことになります。
+
+=== 対策1 Amazon.com のアカウントのパスワードを変更する
+
+一つ目の対策は、Amazon.com のアカウントと Amazon.co.jp のアカウントのどちらかのパスワードを変更します。こうすることで開発者アカウントがどちらの国に所属するアカウントなのかを明確に切り分けることができるようになります。
+ここでは、Amazon.com の方のパスワードを変更する手順を示します。
+
+. https://amazon.com[https://amazon.com] にアクセスして、ログインし、「Account & Lists」のメニューから「Your Account」をクリックします。
++
+image::Appendix/anazon_com_Account_and_Lists.png[]
+. 「Login & Security」の枠内をクリックします。
++
+image::Appendix/Login_and_Security.png[]
++
+. 現在ログインしているアカウントのパスワードを入力します。
++
+image::Appendix/SignIn.png[]
++
+. Password:の項目の「Edit」ボタンをクリックします。
++
+image::Appendix/PasswordEditButton.png[]
++
+. パスワードを変更し「Save changes」ボタンをクリックします。
++
+image::Appendix/ChangePassword.png[]
++
+. 「Done」ボタンをクリックします。
++
+image::Appendix/PasswordChangeSuccess.png[]
++
+. パスワードを変更したらWebブラウザーを一度終了し再起動します。
++
+. Webブラウザが開いたら、 http://developer.amazon.com[https://developer.amazon.com]にアクセスし、**日本のアカウントとパスワード**でログインします。
++
+image::Appendix/DeveloperPortal.png[]
++
+. 開発者アカウントの新規登録画面が表示されたら、必要項目を入力し完了させます。この時「国/リージョン」を必ず日本を選択してください。
++
+[WARNING]
+====
+ここで、開発者アカウントの登録画面が出てこなかった場合は、残念ながらパスワードでのアカウントの切り分けはうまく行かない可能性があります。その場合は対策2をお試しください。
+====
++
+image::Appendix/DevAccount_Profiles.jpg[]
++
+. 以上で、正しく日本のスキル用の開発者アカウントが作成されました。以降は、このアカウントを使ってスキルの開発を行います。
+
+=== 対策2 Amazon.com のアカウントのメールアドレスを別のものに変更する
+
+既にUSのアカウントとして登録された開発者アカウントを別のメールアドレスに変更します。こうすることで、既存の amazon.co.jp のアカウントと開発者アカウントとの結び付きが解放され、新たに日本の開発者アカウントとして登録し直すことができます。以下に手順を示します。
+
+. https://developer.amazon.com にアクセスし、USの開発者アカウントとして登録されてしまったアカウントでログインします。
++
+image::Appendix/DevPortal_SignIn.png[]
++
+. ログインしたら「DeveloperPortal」のリンクをクリックします。
++
+image::Appendix/DevConsoleLink.png[]
++
+. 「設定」をクリックします。
++
+image::Appendix/DevPortal_Setting.png[]
++
+. Eメールアドレスの項目の右にある「編集」ボタンをクリックします。
++
+image::Appendix/Email_Change_Button.png[]
++
+. ログインとセキュリティの画面でEメールアドレスの「編集」ボタンをクリックします。
++
+image::Appendix/DevPortal_Login_Security.png[]
++
+. Eメールアドレスを変更し「変更内容を保存」ボタンをクリックします。
++
+image::Appendix/DevPortal_ChangeEmailAddress.png[]
++
+. 一度サインアウトし、再び開発者ポータルにログインします。この時、**Eメールを変更する前の日本で使いたい開発者アカウントのEメールを入力します**。
++
+image::Appendix/DevPortal_Signin.png[]
++
+. 開発者アカウントの新規登録画面が表示されたら、必要項目を入力し完了させます。この時「国/リージョン」を必ず日本を選択してください。
++
+image::Appendix/DevAccount_Profiles.jpg[]
++
+. 以上で、正しく日本のスキル用の開発者アカウントが作成されました。以降は、このアカウントを使ってスキルの開発を行います。
+
+=== 対策3 新規で amazon.co.jp のアカウントを作るところから始める
+
+最も確実な方法は、開発用に amazon.co.jp のアカウントを新規で作成し、そのアカウントで開発者アカウントを登録します。この場合、既に既存のアカウントでセットアップされたEchoデバイスとは別アカウントになるので、Echoデバイスでテストしたい場合は、開発用のアカウントでEchoデバイスをセットアップし直す必要があります。
+
+=== 対策4 Amazon のサポートに連絡する
+
+どうしてもアカウントの問題が解決できない場合は、Amazon のサポートに連絡しましょう。
+アカウント内部に何か不具合がある場合は、サポートスタッフが解決してくれる場合があります。
+
+https://developer.amazon.com/ja/support/contact-us[Amazon 開発者専用お問い合わせ窓口]

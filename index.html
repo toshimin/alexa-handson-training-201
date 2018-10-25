@@ -1,0 +1,3251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.7.1">
+<meta name="description" content="">
+<meta name="keywords" content="Alexa, Alexa Skills Kit, Node.js, トレーニング, ハンズオン, Amazon, Amazon Echo">
+<meta name="author" content="ASK Developer Marketing, Amazon Japan">
+<title>演習：カスタムスキルを作ろう</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+/* Uncomment @import statement below to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+script{display:none!important}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:transparent}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:none}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+*:not(pre)>code.nobreak{word-wrap:normal}
+*:not(pre)>code.nowrap{white-space:nowrap}
+pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #ddddd8}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
+#header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #ddddd8;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #efefed;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #efefed}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock pre:not(.highlight),.listingblock pre[class="highlight"],.listingblock pre[class^="highlight "],.listingblock pre.CodeRay,.listingblock pre.prettyprint{background:#f7f7f8}
+.sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
+.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
+.literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
+@media screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}
+.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:#999}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:#999}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0;line-height:1.45}
+table.pyhltable td.code{padding-left:.75em;padding-right:0}
+pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
+pre.pygments .lineno{display:inline-block;margin-right:.25em}
+table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock blockquote p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.5em;margin-right:.5ex;text-align:right}
+.quoteblock .quoteblock{margin-left:0;margin-right:0;padding:.5em 0;border-left:3px solid rgba(0,0,0,.6)}
+.quoteblock .quoteblock blockquote{padding:0 0 0 .75em}
+.quoteblock .quoteblock blockquote::before{display:none}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{word-spacing:0;line-height:1.6}
+.quoteblock.abstract blockquote::before,.quoteblock.abstract p::before{display:none}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd){background:#f8f8f7}
+table.stripes-none tr,table.stripes-odd tr:nth-of-type(even){background:none}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+td>div.verse{white-space:pre}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
+.imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background-color:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #ddddd8!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<h1>演習：カスタムスキルを作ろう</h1>
+<div class="details">
+<span id="author" class="author">ASK Developer Marketing, Amazon Japan</span><br>
+<span id="revnumber">version 2.7.1,</span>
+<span id="revdate">2018/06/18</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">目次</div>
+<ul class="sectlevel0">
+<li><a href="#はじめに">はじめに</a>
+<ul class="sectlevel1">
+<li><a href="#_トレーニングの学習目標">トレーニングの学習目標</a></li>
+<li><a href="#_課題実習の環境要件">課題実習の環境要件</a>
+<ul class="sectlevel2">
+<li><a href="#_ask_sdk_for_node_js_のバージョン">ASK SDK for Node.js のバージョン</a></li>
+</ul>
+</li>
+<li><a href="#_ダウンロード">ダウンロード</a>
+<ul class="sectlevel2">
+<li><a href="#_最新版教材のダウンロード">最新版教材のダウンロード</a></li>
+<li><a href="#_サンプルコードのダウンロード">サンプルコードのダウンロード</a></li>
+</ul>
+</li>
+<li><a href="#_プログラミング経験について">プログラミング経験について</a></li>
+<li><a href="#課題1_初めてのカスタムスキル">1. [課題1] 初めてのカスタムスキル</a>
+<ul class="sectlevel2">
+<li><a href="#対話モデルのデザイン">1.1. 対話モデルのデザイン</a></li>
+<li><a href="#エンドポイントの開発">1.2. エンドポイントの開発</a></li>
+<li><a href="#エンドポイントを登録する">1.3. エンドポイントを登録する</a></li>
+<li><a href="#テスト1">1.4. テストする</a></li>
+</ul>
+</li>
+<li><a href="#課題2_ビルトインスロットを使おう">2. [課題2] ビルトインスロットを使おう</a>
+<ul class="sectlevel2">
+<li><a href="#課題2のゴール">2.1. 課題2のゴール</a></li>
+<li><a href="#課題2で作る対話モデル">2.2. 課題2で作る対話モデル</a></li>
+<li><a href="#課題2_Lambdaのコードを改良する">2.3. Lambdaのコードを改良する</a></li>
+<li><a href="#テスト2">2.4. テストする</a></li>
+</ul>
+</li>
+<li><a href="#課題3_カスタムスロットタイプを使おう">3. [課題3] カスタムスロットタイプを使おう</a>
+<ul class="sectlevel2">
+<li><a href="#課題3のゴール">3.1. 課題3のゴール</a></li>
+<li><a href="#課題3で作る対話モデル">3.2. 課題3で作る対話モデル</a></li>
+<li><a href="#課題3_Lambdaのコードを改良する">3.3. Lambdaのコードを改良する</a></li>
+<li><a href="#テスト3">3.4. テストする</a></li>
+</ul>
+</li>
+<li><a href="#課題4_セッションアトリビュートを使おう">4. [課題4] セッションアトリビュートを使おう</a>
+<ul class="sectlevel2">
+<li><a href="#課題4のゴール">4.1. 課題4のゴール</a></li>
+<li><a href="#課題4で作る対話モデル">4.2. 課題4で作る対話モデル</a></li>
+<li><a href="#課題4_lambdaのコードを改良する">4.3. Lambdaのコードを改良する</a></li>
+<li><a href="#テスト4">4.4. テストする</a></li>
+</ul>
+</li>
+<li><a href="#_補足">補足</a>
+<ul class="sectlevel2">
+<li><a href="#_alexaの開発者アカウントに関する問題">Alexaの開発者アカウントに関する問題</a></li>
+</ul>
+</li>
+<li><a href="#サンプルコード">サンプルコード</a></li>
+<li><a href="#_リファレンス">リファレンス</a>
+<ul class="sectlevel2">
+<li><a href="#_alexa_の最新情報について">Alexa の最新情報について</a></li>
+<li><a href="#_スキル開発に関するご質問">スキル開発に関するご質問</a></li>
+<li><a href="#_教材に関するご意見やご要望など">教材に関するご意見やご要望など</a></li>
+</ul>
+</li>
+<li><a href="#改定履歴">改定履歴（主な変更点）</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<h1 id="はじめに" class="sect0"><a class="link" href="#はじめに">はじめに</a></h1>
+<div class="openblock partintro">
+<div class="content">
+<div class="paragraph">
+<p>この資料は <strong>アマゾンジャパン合同会社</strong> が主催する <a href="https://alexa.desgin/jp-events">Alexa ハンズオントレーニング</a> のために作成された演習教材です。</p>
+</div>
+<div class="paragraph">
+<p>所定のレクチャーを受けたあと、この教材のステップに従って演習課題を進めていくことで、スキル開発に必要な基本的な知識とテクニックを習得できるようにデザインされています。</p>
+</div>
+<div class="paragraph">
+<p><strong>Alexa ハンズオントレーニング</strong> は東京、大阪など主要都市で定期的に開催されています。遠方にお住いの方や、まとまった時間が取れない方は、オンラインセミナー  <a href="https://alexa.design/jp-alexadojo">Alexa道場</a> の収録動画をご覧ください。 <strong>Alexa道場</strong> は月2回のペースで定期的に開催し、スキル開発に関するテクニックの紹介や最新情報をお届けしています。第1回から第6回あたりまでがこの教材の内容をカバーしています。すでにトレーニングに参加された方がご覧になっても、より理解を深めることができるでしょう。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_dojo.png" alt="alexa dojo" width="40"></span>  <a href="https://alexa.design/jp-alexadojo">Alexa道場ホームページ</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_トレーニングの学習目標"><a class="link" href="#_トレーニングの学習目標">トレーニングの学習目標</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>このトレーニングを修了すると以下のことができるようになります。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>簡単なスキルの作成手順を体験することで、スキル開発の基本的なステップを実演できるようになる。</p>
+</li>
+<li>
+<p>簡単なサンプル発話を自分で設計することで、音声インターフェースデザインの基礎を習得することができる。</p>
+</li>
+<li>
+<p>ビルトインスロットタイプ及びカスタムスロットタイプを使ったカスタムスキルを自分で作成できるようになる。</p>
+</li>
+<li>
+<p>セッションアトリビュートを活用したマルチターンのスキルを作成できるようになる。</p>
+</li>
+<li>
+<p>エンドポイントの開発環境として AWS Lambda を使用するメリットを体験することができる。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_課題実習の環境要件"><a class="link" href="#_課題実習の環境要件">課題実習の環境要件</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>この教材の課題を行うには、以下の環境が必要です。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>インターネットに接続されているパソコン (Windows, Mac, Linux)</p>
+</li>
+<li>
+<p>Firefox または Chrome ブラウザ</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+この教材ではAlexaシミュレーターを使ってスキルの動作テストを行います。Amazon EchoをはじめとするAlexa搭載デバイスはなくても構いません。
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_ask_sdk_for_node_js_のバージョン"><a class="link" href="#_ask_sdk_for_node_js_のバージョン">ASK SDK for Node.js のバージョン</a></h3>
+<div class="paragraph">
+<p>この教材では、<strong>Alexa Skills Kit SDK for Node.js Version 2</strong> を使用しています。</p>
+</div>
+<div class="paragraph">
+<p>Alexa Skills Kit SDK は <a href="https://github.com/alexa">github.com/alexa</a> からオープンソースとして配布され無料で利用できます。日本語ドキュメントはこちらからアクセスしてください。</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs/blob/2.0.x/README.ja.md">Alexa Skills Kit SDK for Node.js Version 2 日本語ドキュメント</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ダウンロード"><a class="link" href="#_ダウンロード">ダウンロード</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_最新版教材のダウンロード"><a class="link" href="#_最新版教材のダウンロード">最新版教材のダウンロード</a></h3>
+<div class="paragraph">
+<p>Echoデバイス及びAlexaの進化に伴い、Alexaのスキル開発環境も凄まじいスピードで進化を遂げています。この資料も数週間に一回のペースでアップデートを繰り返しています。これからこの教材を使ってスキル開発の学習を始める場合は、下記のリンクから最新版のPDFをダウンロードしてお使いください。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://alexa.design/jp-text-v2">最新版の教材ダウンロード</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_サンプルコードのダウンロード"><a class="link" href="#_サンプルコードのダウンロード">サンプルコードのダウンロード</a></h3>
+<div class="paragraph">
+<p>この教材では、プログラミング経験がなくてもスキル開発のステップを体験できるように、あらかじめ用意したサンプルコードを利用します。下記のリンクからサンプルコードをダウンロードしておいてください。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://alexa.design/jp-samplecodes-v2">SampleCodes_v2.zip</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>サンプルコードはZIP形式の圧縮ファイルになっています。ファイルをダウンロードしたら解凍ツールで解凍してください。</p>
+</div>
+<div class="paragraph">
+<p>ZIPファイルを解凍すると、SJISまたはUTF-8というフォルダがあります。サンプルコードを開いてコピー＆ペーストする場合は、お使いのパソコンまたはテキストエディタの環境に合わせてどちらかの文字コードのファイルを選択してください。</p>
+</div>
+<div class="paragraph">
+<p>尚、<a href="#サンプルコード">サンプルコード</a>の内容はこのテキストの巻末にも掲載しています。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_プログラミング経験について"><a class="link" href="#_プログラミング経験について">プログラミング経験について</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>先に述べたように、この教材はプログラミング経験がなくてもスキル開発を体験できようにデザインされています。しかし、今後独自のスキルを開発するには最低限のプログラミング言語の知識は避けては通れません。</p>
+</div>
+<div class="paragraph">
+<p>もしこれからスキル開発を始めようとされる方は、以下のような書籍を使ってプログラミングの基礎を学習されることをおすすめします。</p>
+</div>
+<div class="paragraph">
+<p>特にスキル開発においては、ブラウザの画面を制御するためのJavaScriptではなく、Node.jsについて詳しく解説した書籍を選択した方が良いでしょう。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://amzn.asia/4Blg18Y">初めてのJavaScript 第3版</a></p>
+</li>
+<li>
+<p><a href="http://amzn.asia/0O8YtY8">Node.js超入門</a></p>
+</li>
+<li>
+<p><a href="http://amzn.asia/0OdTtmK">Node.js入門 ~ サーバーサイドJavaScriptを根本から理解する</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="課題1_初めてのカスタムスキル"><a class="link" href="#課題1_初めてのカスタムスキル">1. [課題1] 初めてのカスタムスキル</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>この実習課題ではシンプルなカスタムスキル <strong>「コーヒーショップ」</strong> を作成します。現在のところスキル内で代金を支払う機能を設けることはできませんので、注文した商品を店頭にて作り置きを依頼するためのスキルであると想定して下さい。</p>
+</div>
+<div class="exampleblock">
+<div class="title">例 1. 課題1の会話サンプル</div>
+<div class="content">
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ, コーヒーショップを開いてコーヒーを注文して」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="40"></span> 「コーヒーですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またのご利用をお待ちしております。」</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="ヒント"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>「呼び出し名」の意味と使い方を理解しよう</p>
+</li>
+<li>
+<p>「インテント」と「サンプル発話」を適切に設計しよう</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="sect2">
+<h3 id="対話モデルのデザイン"><a class="link" href="#対話モデルのデザイン">1.1. 対話モデルのデザイン</a></h3>
+<div class="paragraph">
+<p>このセクションでは最初のステップ、対話モデルのデザインを行います。ユーザーに何を言われたら、どのインテントリクエストをエンドポイント（開発者のサーバー）に送るのかを設計します。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Dev_Process_Step1.png" alt="Dev Process Step1">
+</div>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_dojo.png" alt="alexa dojo" width="40"></span>  <a href="https://alexa.design/jp-alexadojo003">第3回 Alexa道場：音声インターフェイスをデザインしよう</a></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="ヒント"></i>
+</td>
+<td class="content">
+このセクションでは開発者コンソールを使用します。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="title">参考ドキュメント</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/steps-to-build-a-custom-skill.html">カスタムスキルの構築手順</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="開発者コンソールへのログイン"><a class="link" href="#開発者コンソールへのログイン">1.1.1. 開発者コンソールへのログイン</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Webブラウザ (Firefox または Chrome )で開発者コンソールへアクセスします。<br>
+<a href="https://developer.amazon.com/ja/">https://developer.amazon.com/ja/</a></p>
+</li>
+<li>
+<p>「Developer Console」のリンクをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/DevConsole.jpg" alt="DevConsole">
+</div>
+</div>
+</li>
+<li>
+<p>ログインページが表示されたら、お手持ちのAmazon.co.jpアカウントでログインします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/DevConsole_Login.png" alt="DevConsole Login">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>初めて開発者アカウントを作成する場合でも、ログインするだけで自動的に登録画面に遷移します。決して下の「Amazon Developerアカウントを作成」ボタンから開発者アカウントを作成しないでください。このボタンはUSの開発者アカウントを作成します。</p>
+</li>
+<li>
+<p>特に支障がなければ普段Amazonでお買い物に利用しているアカウントをお使いください。</p>
+</li>
+<li>
+<p>Amazon.co.jp (日本)と Amazon.com (米国) アカウントの両方をお持ちの方は、それぞれ異なるパスワードを設定し、Amazon.co.jp のアカウントでログインする必要があります。もし同じパスワードを設定している場合は、自動的に Amazon.com のアカウントでUSのスキルを開発することになるのでご注意ください。</p>
+</li>
+<li>
+<p>よくわからない場合はサポートスタッフにお声がけください。</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>初めてログインした場合、開発者アカウントの登録画面が表示されます。必要事項を入力してください。</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="警告"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>この画面が表示されなかった場合、または英語のインターフェースで表示されてしまった場合は近くのサポートスタッフにお声がけください。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/DevAccount_Profiles.jpg" alt="DevAccount Profiles">
+</div>
+</div>
+</li>
+<li>
+<p>利用規約に同意します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/DevAccount_Agreements.jpg" alt="DevAccount Agreements">
+</div>
+</div>
+</li>
+<li>
+<p>収益化についての質問に答えて「保存して続行」ボタンをクリックしてください。今回は全て「いいえ」を選択します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/DevAccount_Payment.jpg" alt="DevAccount Payment">
+</div>
+</div>
+</li>
+<li>
+<p>開発者コンソールのTOP画面が表示されると開発者アカウントが正しく作成されています。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Developer_Console.png" alt="Developer Console">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="スキルの新規作成"><a class="link" href="#スキルの新規作成">1.1.2. スキルの新規作成</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>「ALEXA SKILLS KIT」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/TAB_Alexa_Skills_Kit.png" alt="TAB Alexa Skills Kit">
+</div>
+</div>
+</li>
+<li>
+<p>「スキルの作成」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Create_Skill_Button.png" alt="Create Skill Button">
+</div>
+</div>
+</li>
+<li>
+<p>「スキル名」の入力とスキルのデフォルト言語を選択します。
+スキル名とは、このスキル開発のプロジェクト名で、日本語でも英語でも構いません。ここではスキル名を <strong>「コーヒーショップ」</strong> 、スキル作成時のデフォルトは <strong>「日本語」</strong> を選択して「次へ」をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Default_Language.png" alt="Default Language">
+</div>
+</div>
+</li>
+<li>
+<p>スキルに追加するモデルを選択します。この課題ではカスタムスキルを作成するので、カスタムの「選択」ボタンをクリックして「スキル作成」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Select_Custom_Skill_Type.png" alt="Select Custom Skill Type">
+</div>
+</div>
+</li>
+<li>
+<p>スキルビルダーの画面が表示されます。<br>
+上のメニューバーで現在の作業ステップは「ビルド」であることを確認します。右側のチェックリストは、この画面で4つの作業ステップを完了すると、AlexaシミュレーターまたはEchoデバイスでテストができるようになることを表しています。<br>
+はじめに、左側の「対話モデル」タブにある「呼び出し名」をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Menu_Invocation_Name.png" alt="Menu Invocation Name">
+</div>
+</div>
+</li>
+<li>
+<p>スキルの呼び出し名を入力します。<br>
+ここには、このスキルを呼び出すための名前を設定します。呼び出し名は2〜50文字である必要があります。ここでは「コーヒーショップ」と入力しましょう。<br>
+そうすると、ユーザーは「アレクサ、コーヒーショップを開いて◯◯して。」のようにスキルに話すことができるようになります。<br>
+入力が終わったら一度「モデルを保存」をクリックして保存します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Invocation_Name.png" alt="Invocation Name">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="ヒント"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>画面下の「呼び出し名の要件」は必ず読むようにしてください。使用できない文字や単語などの重要な情報が記載されています。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="title">参考ドキュメント</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/steps-to-build-a-custom-skill.html">ユーザーによるカスタムスキルの呼び出し</a><br></p>
+</li>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/choose-the-invocation-name-for-a-custom-skill.html">カスタムスキルの呼び出し名を決定する</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="対話モデルの作成"><a class="link" href="#対話モデルの作成">1.1.3. 対話モデルの作成</a></h4>
+<div class="paragraph">
+<p>それでは、対話モデルのデザインに取りかかりましょう。ここでは、ユーザーがどのように発話すれば、どのようにAlexaがその意味を解釈し、その結果をどのようにイベントとしてエンドポイントのサーバーに伝えるべきかをデザインします。これらの入力データは「ビルド」という作業を経てAlexaの学習データとして取り込まれます。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>「対話モデル」タブの中のインテントの右にある「追加」をクリックしてカスタムインテントを追加します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Add_Intent.png" alt="Add Intent">
+</div>
+</div>
+</li>
+<li>
+<p>インテントの名前を入力します。ここでは <strong>OrderIntent</strong> と半角英文字で入力し「カスタムインテントを作成」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Create_Custom_Intent.png" alt="Create Custom Intent">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>OrderIntent のスペルは間違えないよう正確に入力してください。これを間違えると、エンドポイント側で正しい名前のインテントを取得できずエラーになります。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>インテント <strong>OrderIntent</strong> に紐づくサンプル発話を入力します。サンプル発話とは、インテントを呼び出すためにユーザーが話しかけるフレーズのことです。<br>
+ここでは、コーヒーショップのスキルを使ってコーヒーを注文するためのフレーズを考えて入力します。ユーザーのコーヒーの注文の仕方は一つではありません。思いつく全てのフレーズをできるだけ多く入力してください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Sample_Utterrances.png" alt="Sample Utterrances">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>サンプル発話の数は1インテントに対し最低6つ、理想は30と言われています。これは、サンプル発話がそのままAlexaの機械学習の教師モデルとなるため、サンプル発話が多ければ多いほど認識精度が向上するからです。</p>
+</div>
+<div class="ulist">
+<div class="title">参考ドキュメント</div>
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/voice-design-best-practices-legacy.html">音声インターフェース設計のベストプラクティス</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>インテントのサンプル発話の入力が完了したら「モデルを保存」をクリックし、最後に「モデルをビルド」ボタンをクリックします。モデルのビルドには1〜2分かかる場合があります。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Build_Model.png" alt="Build Model">
+</div>
+</div>
+</li>
+<li>
+<p>モデルのビルドが完了したら対話モデルの構築は完了です。左側の「カスタム」タブをクリックします。「ビルド」のトップ画面に戻り、スキルビルダーのチェックリストを確認しましょう。「3. モデルをビルド」まで完了し緑のチェックマークがついていればOKです。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/SkillBuilder_CheckList.png" alt="SkillBuilder CheckList">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>「4. エンドポイント」</strong> はこの後のステップでAWS Lambdaを使ったプログラミングが終わった段階で設定します。ここでは一旦そのままにしておきます。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>この後の処理で必要となるスキルIDの情報を取得するために、画面左上の「&lt;スキル一覧」をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Skill_List.png" alt="Skill List">
+</div>
+</div>
+</li>
+<li>
+<p>スキル一覧に「コーヒーショップ」スキルがリストされています。スキル名の下に表示されている長い英数文字列を確認します。これはスキルIDと呼ばれるもので後のステップで使用します。文字列の左の小さなアイコンをクリックして文字列をコピーし、テキストエディターなどに貼り付けて保存しておいてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Copy_Skill_ID.png" alt="Copy Skill ID">
+</div>
+</div>
+<div class="paragraph">
+<p>以上で、対話モデルのデザイン作業は終了です。ここまでの作業でAlexaはユーザーからの、「コーヒーが欲しい」と要求するさまざまな言い方を、エンドポイントのサーバー側がハンドリングしやすい <strong>OrderIntent</strong> というインテントリクエストに置き換え、サーバーに送信できるようになりました。</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>次に、インテントリクエスト <strong>OrderIntent</strong> を受け取る側、つまりエンドポイントのサーバーで処理をし、Alexaに応答を返すためのプログラムコードを書くステップに移りましょう。</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="エンドポイントの開発"><a class="link" href="#エンドポイントの開発">1.2. エンドポイントの開発</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Dev_Process_Step2.png" alt="Dev Process Step2">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>OrderIntent</strong> を受け取り、何らかの処理をした後、Alexaに応答を返すイベント駆動のサーバープログラムを作成します。ここではAWSのLambdaというサービスを使い、Amazon が提供するAlexaスキル開発用のライブラリ  <a href="https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs">Alexa Skills Kit SDK for Node.js</a> を使ってプログラミングを行います。実習ではサンプルコードをコピーするだけですので安心して取り組んでください。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_dojo.png" alt="alexa dojo" width="40"></span>  <a href="https://alexa.design/jp-alexadojo004"> 第4回 Alexa道場：Node jsを使ってAlexaスキルを作ろう</a></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="ヒント"></i>
+</td>
+<td class="content">
+このセクションでは、AWSマネージドコンソールを使用します。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="title">参考ドキュメント</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/host-a-custom-skill-as-an-aws-lambda-function.html">カスタムスキルのAWS Lambda関数を作成する</a></p>
+</li>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/handle-requests-sent-by-alexa.html">Alexaから送信されたリクエストを処理する</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="AWSマネージメントコンソールへのログイン"><a class="link" href="#AWSマネージメントコンソールへのログイン">1.2.1. AWSマネージメントコンソールへのログイン</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>AWSポータルへアクセスします。</p>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>URL: <a href="https://aws.amazon.com/jp/">https://aws.amazon.com/jp/</a></p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>「コンソールへログイン」をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/AWS_TopPage.png" alt="AWS TopPage">
+</div>
+</div>
+</li>
+<li>
+<p>AWSアカウントIDを入力します。</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="注意"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>AWSアカウントは無料で作成できますが、クレジットカードの登録が必要になります。どうしてもアカウントの作成が難しい場合はサポートスタッフにご相談ください。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/AWS_Signin_ID.jpg" alt="AWS Signin ID">
+</div>
+</div>
+</li>
+<li>
+<p>パスワードを入力し、ログインします。</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="警告"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>本来はセキュリティ上の理由からルートユーザーでのログインは推奨されません。必要であればIAMで開発用ユーザーを作成して開発を行ってください。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/AWS_Signin_Password.jpg" alt="AWS Signin Password">
+</div>
+</div>
+</li>
+<li>
+<p>Lambdaを選択してクリックします。Lambdaが表示されていない場合は、上の検索ボックスに Lambda と入力すると表示されます。Lambdaはコンピューティングのカテゴリにあります。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Search_Lambda.png" alt="Search Lambda">
+</div>
+</div>
+</li>
+<li>
+<p>右上のリージョンを<strong>「アジアパシフィック（東京）」</strong>に変更し、<strong>「関数の作成」</strong>ボタンをクリックしてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Select_Tokyo_Region.png" alt="Select Tokyo Region">
+</div>
+</div>
+</li>
+<li>
+<p><strong>「一から作成」</strong>を選択し、名前欄に「<strong>CoffeeShop</strong>」と入力します。ランタイムのバージョンを「<strong>Node.js 8.10</strong>」に変更し、「ロール」のプルダウンメニューから「<strong>テンプレートから新しいロールの作成</strong>」を選択してください。ロール名には適当な名前をつけてください。（例：AlexaRole など）</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Create_New_Function_From_Scratch.png" alt="Create New Function From Scratch">
+</div>
+</div>
+</li>
+<li>
+<p>ポリシーテンプレートは、「<strong>シンプルなマイクロサービスのアクセス権限</strong>」を選択してください。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>今回は Amazon CloudWatch Logsと Amazon DynamoDBにアクセスできるシンプルなロールテンプレートを選択します。S3など他のサービスにアクセスしたい場合は、適切なロールを追加してください。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Create_New_Role.png" alt="Create New Role">
+</div>
+</div>
+</li>
+<li>
+<p>下図のようになっていればOKです。画面下にある「<strong>関数の作成</strong>」ボタンをクリックしてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/IAM_Role.png" alt="IAM Role">
+</div>
+</div>
+</li>
+<li>
+<p>関数が作成されると次のような画面になります。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Lambda_Function_Created.png" alt="Lambda Function Created">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="トリガーを追加する"><a class="link" href="#トリガーを追加する">1.2.2. トリガーを追加する</a></h4>
+<div class="paragraph">
+<p>Lambda関数は様々なサービスと接続し呼びだすことができます。トリガーとは、作成した関数が何によって呼び出されるかを指定します。ここでは <strong>Alexa Skills Kit</strong> を指定します。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>画面左「トリガーの追加」から <strong>Alexa Skills Kit</strong> をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Choose_ASK_Trigger.png" alt="Choose ASK Trigger">
+</div>
+</div>
+</li>
+<li>
+<p><strong>Alexa Skills Kit</strong> が追加されると下のような表示になります。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Trigger_Setting.png" alt="Trigger Setting">
+</div>
+</div>
+</li>
+<li>
+<p>トリガーの設定では、スキルIDを検証を「有効」に設定し、アプリケーションIDのテキスト入力フィールドに、<a href="#対話モデルの作成">対話モデルの作成</a>のステップ7でコピーしておいたスキルIDを貼り付け、「追加」ボタンをクリックしてください。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>スキルIDの検証を「有効」にすることで、このLambda関数が、意図しない他のAlexaスキルから呼び出されないよう制限することができます。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Add_Application_ID.png" alt="Add Application ID">
+</div>
+</div>
+</li>
+<li>
+<p>「保存」をクリックしてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Save_Trigger.png" alt="Save Trigger">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Lambda関数のコードをアップロードする"><a class="link" href="#Lambda関数のコードをアップロードする">1.2.3. Lambda関数のコードをアップロードする</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Designer</strong> パネルの中に表示されている「CoffeeShop」と書かれたLambdaのアイコンをクリックしてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Coffeeshop_Lambda.png" alt="Coffeeshop Lambda">
+</div>
+</div>
+</li>
+<li>
+<p>画面の下方に関数のコードエディタが表示されます。左上のコードエントリタイプのプルダウンメニューから「<strong>.ZIPファイルをアップロード</strong>」を選択してください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Select_ZIP_File_Upload.png" alt="Select ZIP File Upload">
+</div>
+</div>
+</li>
+<li>
+<p>「<strong>アップロード</strong>」ボタンをクリックしてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Upload_Button.png" alt="Upload Button">
+</div>
+</div>
+</li>
+<li>
+<p>解凍したサンプルファイルのフォルダの中から、<strong>SampleCode1.zip</strong> ファイルを探し選択してください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Select_SampleCode1_ZIP_File.png" alt="Select SampleCode1 ZIP File">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>ソースコードとライブラリを含めたZIPファイルの作り方は、以下のSK SDK v2 for Node.js のドキュメントを参照してください。
+<a href="https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs/wiki/%5BJapanese%5D-Setting-Up-The-ASK-SDK">Setting Up The ASK SDK</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>画面右上の「<strong>保存</strong>」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Save_Button.png" alt="Save Button">
+</div>
+</div>
+</li>
+<li>
+<p>課題1のサンプルコードが読み込まれた状態でコードエディタが開きます。ここでは <strong>Sample1.js</strong> のコードが <strong>index.js</strong> として読み込まれています。また、<strong>ask-sdk-core</strong> および <strong>ask-sdk-model</strong> のライブラリも同時にアップロードされていることが確認できます。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Sample1_Uploaded.png" alt="Sample1 Uploaded">
+</div>
+</div>
+</li>
+<li>
+<p>画面右上に表示されている、ARNをクリップボードにコピーしておきます。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Copy_ARN.png" alt="Copy ARN">
+</div>
+</div>
+<div class="paragraph">
+<p>コピーする文字列は、以下のような形式になります。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>arn:aws:lambda:ap-northeast-1:XXXXXXXXX:function:coffeeshop</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>これが、Alexa からLambda関数を呼び出すエンドポイントのアドレスになります。この文字列が間違っていると目的のエンドポイントが見つからない、または別のエンドポイントに接続され、エラーとなるので注意してください。</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>次のセクションでは、ステップ(1)で作成した対話モデルに、このセクションで作成したエンドポイントのLambda関数を登録します。</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="エンドポイントを登録する"><a class="link" href="#エンドポイントを登録する">1.3. エンドポイントを登録する</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Dev_Process_Step3.png" alt="Dev Process Step3">
+</div>
+</div>
+<div class="paragraph">
+<p>対話モデルに、Lambda関数で作ったエンドポイントを登録し、Alexaから適切にLambda関数を呼び出せるようにします。</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="ヒント"></i>
+</td>
+<td class="content">
+このセクションでは開発者コンソールを使用します。
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>「ビルド」タブを開き、左のメニューから「エンドポイント」をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Menu_Endpoint.png" alt="Menu Endpoint">
+</div>
+</div>
+</li>
+<li>
+<p>サービスのエンドポイントをホスティングする方法は「AWS LambdaのARN」を選択します。「デフォルトの地域」のテキストボックスに先ほどコピーしておいたLambda関数のARNを貼り付けてください。その他の項目はデフォルトのままにしてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Default_Location.png" alt="Default Location">
+</div>
+</div>
+</li>
+<li>
+<p>「エンドポイントの保存」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Save_Endpoint.png" alt="Save Endpoint">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>以上で、音声ユーザーインターフェースにエンドポイントを登録する作業が完了しました。簡単ですね？</p>
+</div>
+<div class="paragraph">
+<p>これでスキルはほぼ完成に近づきました。次のステップでは、あなたのスキルが正しく動作するかテストしてみましょう。</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect2">
+<h3 id="テスト1"><a class="link" href="#テスト1">1.4. テストする</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Dev_Process_Step4.png" alt="Dev Process Step4">
+</div>
+</div>
+<div class="paragraph">
+<p>この段階で、あなたのスキルはほぼ出来上がっています。正しく動作するかどうかテストしてみましょう。もしうまく動作しなかった場合は、どこかの設定が間違っているのかもしれません。ステップ(1)から(3)に戻り、再確認しましょう。</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="ヒント"></i>
+</td>
+<td class="content">
+このセクションでは開発者コンソールを使用します。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="title">参考ドキュメント</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/devconsole/test-your-skill.html">スキルのテスト</a></p>
+</li>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/understanding-how-users-invoke-custom-skills.html">ユーザーによるカスタムスキルの呼び出し</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="alexaシミュレータでテストする"><a class="link" href="#alexaシミュレータでテストする">1.4.1. Alexaシミュレータでテストする</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>「テスト」タブを開きます。テストが無効になっている場合はスイッチをクリックしてテストを有効に変更します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Test_Switch.png" alt="Test Switch">
+</div>
+</div>
+</li>
+<li>
+<p>Alexaシミュレータを使って、スキルのテストをしましょう。言語が日本語になっていることを確認し、その隣のテキストボックスにAlexaに話しかけるフレーズをテキストで入力し[Enter]キーを押します。</p>
+<div class="listingblock">
+<div class="title">リスト 1. 入力例（ウェイクワードは省略することができます）</div>
+<div class="content">
+<pre>コーヒーショップを開いてコーヒーを注文して</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>もしくは下図のマイクのアイコンをクリックした状態で、同様のフレーズをパソコンのマイクに向かって声で話しかけます。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/AlexaSimulator_MicButton.png" alt="AlexaSimulator MicButton">
+</div>
+</div>
+</li>
+<li>
+<p>画面左側のパネルには、Alexaに送ったユーザーの発話と、Alexaからの応答メッセージが会話形式で表示されます。右側のパネルには、Alexa からスキルに送信されたJSONデータ (JSON入力) と、スキルからAlexaに送信されたJSONデータ (JSON出力) の中身を確認することができます。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Alexa_Simulator.png" alt="Alexa Simulator">
+</div>
+</div>
+</li>
+<li>
+<p>JSON入力の中から、どのようなインテントが送られてきているかを確認しましょう。</p>
+</li>
+<li>
+<p>JSON出力の中から <code>"outputSpeech":{"ssml": &lt;speech&gt; …</code> の文字列を探してみてください。レスポンスのJSONデータの中にAlexaが読み上げるテキストが埋め込まれていることがわかります。上部の右側の再生ボタンをクリックすると、Alexaが読み上げる音声を何度も再生することができます。</p>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="echoデバイスでテストする"><a class="link" href="#echoデバイスでテストする">1.4.2. （オプション）Echoデバイスでテストする</a></h4>
+<div class="paragraph">
+<p>Alexaアプリのスキル一覧ページに開発中のスキル（DEVスキル）が表示されているかどうかを確認します。</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="ヒント"></i>
+</td>
+<td class="content">
+ここではAlexaアプリを使用します。
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Alexaアプリにログインし「スキル」タブをクリックしてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/AlexaApp_Skills.png" alt="AlexaApp Skills">
+</div>
+</div>
+</li>
+<li>
+<p>「有効なスキル」をクリックしてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/AlexaApp_ActiveSkills.png" alt="AlexaApp ActiveSkills">
+</div>
+</div>
+</li>
+<li>
+<p>「DEVスキル」のタブをクリックすると開発中のスキルのリストが表示されます。アイコンの右下に緑色の <strong>devJP</strong> というマークのついたものが開発中のスキルを表しています。リストの中から、あなたが作成したスキルを探してください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/AlexaApp_DEV.png" alt="AlexaApp DEV">
+</div>
+</div>
+</li>
+<li>
+<p>スキルが有効になっていれば、開発者アカウントと同じアカウントでセットアップされているAlexa対応デバイス（Amazon Echoなど）でもテストすることができます。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/AlexaApp_Coffeeshop_Skill.png" alt="AlexaApp Coffeeshop Skill">
+</div>
+</div>
+</li>
+<li>
+<p>もし、手元にAlexa対応デバイスがある場合は、それを使って動作テストをしてみてください。<strong>スキルを起動する際は、スキルの呼び出し名を忘れずに！</strong></p>
+<div class="listingblock">
+<div class="title">リスト 2. 呼び出しフレーズ</div>
+<div class="content">
+<pre> アレクサ、コーヒーショップを開いてコーヒーを注文して」</pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Echo_Dot.jpg" alt="Echo Dot">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>スキル開発の基本ステップは以上です。初めて作成したスキルは動きましたか？</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="うまく動かない場合"><a class="link" href="#うまく動かない場合">1.4.3. うまく動かない場合</a></h4>
+<div class="paragraph">
+<p>うまく動かない場合、様々な要因がありますが特に以下の設定を見直してみましょう。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>スキルビルダーのチェックリストは全て緑のアイコンに変わっていますか？</p>
+</li>
+<li>
+<p>スキルビルダー側に登録したエンドポイントのARNは正しいですか？</p>
+</li>
+<li>
+<p>スキルビルダーで追加したインテント名のスペルと、Lambda関数で登録されているインテント名のスペルは一致していますか？</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="スキルからの応答に問題があります"><a class="link" href="#スキルからの応答に問題があります">1.4.4. 「スキルからの応答に問題があります」？</a></h4>
+<div class="paragraph">
+<p>Alexaが上記のフレーズを言って期待する動作をしない場合、Lambdaのコード内で何らかのエラーが発生し正しくレスポンスを返していない状態です。Lambda側で何が起きているのか <strong>CloudWatchLog</strong> を使ってエラーシューティングを行ってみましょう。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Lambda関数の編集画面を開き、「モニタリング」をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Monitoring_Tab.png" alt="Monitoring Tab">
+</div>
+</div>
+</li>
+<li>
+<p>CloudWatchメトリクスの画面が開きます。「呼び出しカウント」の枠内にある「ログにジャンプ」をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Monitoring.png" alt="Monitoring">
+</div>
+</div>
+</li>
+<li>
+<p>CloudWatchのログ画面が開きます。下に行くほど新しいログが表示されます。何らかのエラーが起こっている行を探します。フィルター機能を使って  <strong>Error</strong> 等の文字列で検索しても良いでしょう。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Error_Log.png" alt="Error Log">
+</div>
+</div>
+</li>
+<li>
+<p>エラーを見つけたら、メッセージを読みLambda関数内のエラー箇所を修正します。</p>
+</li>
+<li>
+<p>修正したら再びAlexaシミュレーターでテストをしましょう。正しく動作するまでこのデバッグ作業を繰り返します。根気よく頑張りましょう！</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>次は課題2です。課題2では <strong>「スロット」</strong> を使ってコーヒーの数をスキルで受け取れるように改良します。先に進む前に講師の指示に従ってください。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="課題2_ビルトインスロットを使おう"><a class="link" href="#課題2_ビルトインスロットを使おう">2. [課題2] ビルトインスロットを使おう</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="課題2のゴール"><a class="link" href="#課題2のゴール">2.1. 課題2のゴール</a></h3>
+<div class="paragraph">
+<p>課題2では <strong>コーヒーの数</strong> を受け取るようにスキルを改良します。</p>
+</div>
+<div class="paragraph">
+<p>この課題で学んだテクニックを使うと次のようなことができるようになります。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>対話モデルのサンプル発話にスロットを導入する手順を実演できる</p>
+</li>
+<li>
+<p>標準スロットタイプの種類を選択することができる。</p>
+</li>
+<li>
+<p>スロットで受け取ったデータがどのようにエンドポイントに渡されるかを説明できる。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="課題2で作る対話モデル"><a class="link" href="#課題2で作る対話モデル">2.2. 課題2で作る対話モデル</a></h3>
+<div class="exampleblock">
+<div class="title">例 2. 課題2の会話サンプル</div>
+<div class="content">
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ、コーヒーショップを開いて、コーヒーを2つください」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="40"></span> 「コーヒーを<strong>2つ</strong>ですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またのご利用をお待ちしております。」</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="ヒント"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>サンプル発話に「スロット」を追加し、エンドポイントでインテントと共にスロットの数字を受け取れるようにします。</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="title">参考ドキュメント</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/create-intents-utterances-and-slots.html">インテント、発話、スロットの作成</a></p>
+</li>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/slot-type-reference.html">スロットタイプリファレンス</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_dojo.png" alt="alexa dojo" width="40"></span>  <a href="https://alexa.design/jp-alexadojo005">第5回 Alexa道場：スロットを使って発話内の可変文字列を取得しよう</a></p>
+</div>
+<div class="sect3">
+<h4 id="スロットを追加する"><a class="link" href="#スロットを追加する">2.2.1. スロットを追加する</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>開発者コンソールに戻りスキルビルダーを開きます。</p>
+</li>
+<li>
+<p>インテント「<strong>OrderIntent</strong>」をクリックして、スロットを含むサンプル発話を追加します。まず「コーヒーを一つください」と入力してみましょう。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/OrderIntent.png" alt="OrderIntent">
+</div>
+</div>
+</li>
+<li>
+<p>スロットにしたい部分、この場合だと「一」（漢数字の1）の部分をマウスで選択します。下図のようなスロットを追加するポップアップが表示されます。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Add_New_Slot.png" alt="Add New Slot">
+</div>
+</div>
+</li>
+<li>
+<p>新しいスロットを作成のテキストフィールドに、追加したいスロット名「amount」を入力しましょう。スロット名は必ず半角英文字で入力します。入力したら「追加」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Add_Amount_Slot.png" alt="Add Amount Slot">
+</div>
+</div>
+</li>
+<li>
+<p>スロットを含むサンプル発話に置き換えられています。＋ボタンか、リターンキーを押して確定します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Amount_Slot.png" alt="Amount Slot">
+</div>
+</div>
+</li>
+<li>
+<p>画面の下の方を見ると、インテントスロットにamountが追加されていることが確認できます。amountのスロットタイプを設定しましょう。この場合「数値」を取得するので、標準スロットタイプのAMAZON.NUMBERを選択します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/SlotType_AMAZON_Number.png" alt="SlotType AMAZON Number">
+</div>
+</div>
+</li>
+<li>
+<p>次にもう一つ同じスロットamountを含むサンプル発話を追加します。「コーヒーを一つ注文して」と入力し、同じように漢字の「一」を選択します。今度は、既存のスロットを選択にamountが表示されるので、これを選択しクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Existing_Slot.png" alt="Existing Slot">
+</div>
+</div>
+</li>
+<li>
+<p>サンプル発話の入力中に、スロットを挿入したい部分でキーボードの <strong>{</strong> をタイプしてもスロット選択のポップアップが表示されます。好みの方法で、スロットを含むサンプル発話をどんどん追加してください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Select_Slot.png" alt="Select Slot">
+</div>
+</div>
+</li>
+<li>
+<p>充分な数のサンプル発話が追加できたら「モデルを保存」し「モデルをビルド」をクリックしてください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Save_and_Build.png" alt="Save and Build">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>「〜つ」、「〜個」や「〜杯」など数の数え方の単位も含め、あらゆるパターンを追加しましょう。ある程度はAlexaが自動で認識するようですが、何度ものテストを繰り返して満足できる認識結果が得られるまで調整しましょう。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="課題2_Lambdaのコードを改良する"><a class="link" href="#課題2_Lambdaのコードを改良する">2.3. Lambdaのコードを改良する</a></h3>
+<div class="paragraph">
+<p>次に、スロットの値を受け取れるようにLambda側のプログラムコードも修正しましょう。</p>
+</div>
+<div class="paragraph">
+<p>プログラミングに自信のない方は、Lambdaの <strong>indes.js</strong> をサンプルファイル <a href="#Sample2.js">Sample2.js</a> の中身をコピーして貼り付けてください。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Sample2_JS.png" alt="Sample2 JS">
+</div>
+</div>
+<div class="paragraph">
+<p>自分でコードを書いてみたい方は、以下のコードをヒントに、既存のコードに修正を加えてください。</p>
+</div>
+<div class="listingblock">
+<div class="title">リスト 3. スロット amount の値を取得し、amountの値を含めた応答を返すコード (node.js)</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
+
+const speechOutput = 'コーヒーを' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+
+return handlerInput.responseBuilder
+.speak(speechOutput)
+.getResponse();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lambda関数のコードの修正が完了したら「保存」ボタンをクリックしてテストしましょう。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="テスト2"><a class="link" href="#テスト2">2.4. テストする</a></h3>
+<div class="paragraph">
+<p>対話モデル及びLambda関数の修正が終わったらスロットの値が正しく取得できるかどうかテストしましょう。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Alexaシミュレータを開き、「<code>コーヒーショップを開いて、コーヒーを一つ注文して</code>」のようにスロットを含めた発話を入力してテストしてみましょう。このとき、スロットに数字を入れる場合は、漢数字で入れてください。半角や全角の数字はうまく認識しないので注意してください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Sample_Utterances.png" alt="Sample Utterances">
+</div>
+</div>
+</li>
+<li>
+<p>JSON入力で、スロットの値が正しく取得できているかどうかを観察します。下図のようにスロット名 <strong>amount</strong> に数字（下図の場合は1）が入ります。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/JSON_Input.png" alt="JSON Input">
+</div>
+</div>
+</li>
+<li>
+<p>JSON出力側も正しく数字の入った応答を返しているかを確認しましょう。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="課題3_カスタムスロットタイプを使おう"><a class="link" href="#課題3_カスタムスロットタイプを使おう">3. [課題3] カスタムスロットタイプを使おう</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ここまでのコーヒーショップスキルでは、コーヒーしか注文できません。他のメニューも用意したいところですよね？　そこで、カスタムスロットタイプを追加して、コーヒー以外にも「カフェラテ」「カプチーノ」なども注文できるようにしましょう。</p>
+</div>
+<div class="sect2">
+<h3 id="課題3のゴール"><a class="link" href="#課題3のゴール">3.1. 課題3のゴール</a></h3>
+<div class="paragraph">
+<p>課題3ではカスタムスロットタイプを定義して任意のリストからスロットの値を取得します。</p>
+</div>
+<div class="paragraph">
+<p>この課題で学習したテクニックを使うと、以下のことができるようになります。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>カスタムスロットタイプを定義することができる。</p>
+</li>
+<li>
+<p>カスタムスロットタイプが設定されたスロットをサンプル発話内に追加できる。</p>
+</li>
+<li>
+<p>カスタムスロットタイプのスロットから送られたデータをLambda関数内で取得できる。</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="title">参考ドキュメント</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/create-and-edit-custom-slot-types.html">カスタムスロットタイプの作成と編集</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="課題3で作る対話モデル"><a class="link" href="#課題3で作る対話モデル">3.2. 課題3で作る対話モデル</a></h3>
+<div class="exampleblock">
+<div class="title">例 3. 課題3の会話サンプル</div>
+<div class="content">
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ、コーヒーショップを開いて、<strong>カフェラテ</strong>を2つください」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="40"></span> 「<strong>カフェラテ</strong>を2つですね、ありがとうございます。今日は天気がいいので・・・」</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>課題2の対話モデルとほぼ同じですが、商品をコーヒー、カフェラテ、カプチーノ、エスプレッソなどから選択できるようになっています。</p>
+</div>
+<div class="paragraph">
+<p>まずは、スロットでメニュー品目を取得できるよう、カスタムスロットタイプを追加します。</p>
+</div>
+<div class="sect3">
+<h4 id="カスタムスロットタイプを追加する"><a class="link" href="#カスタムスロットタイプを追加する">3.2.1. カスタムスロットタイプを追加する</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>スキルビルダーを開き、左側のパネルからスロット値の「追加」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/Slot_Data.png" alt="Slot Data">
+</div>
+</div>
+</li>
+<li>
+<p>カスタムスロットタイプ名をMenuListにして、「カスタムスロットタイプを作成」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/Create_Custom_SlotType.png" alt="Create Custom SlotType">
+</div>
+</div>
+</li>
+<li>
+<p>スロット値を入力する画面が開きます。コーヒーショップで選択できるメニュー品目のリストを追加します。ここでは「コーヒー」「カフェオレ」「カプチーノ」「エスプレッソ」の4つを追加しましょう。追加が終わったら「モデルを保存」ボタンをクリックしておきます。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/Save_Model.png" alt="Save Model">
+</div>
+</div>
+</li>
+<li>
+<p>インテント OrderIntentの編集画面を表示し、既に登録されているサンプル発話の「コーヒー」と書かれている部分をマウスで選択します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/Add_Menu_Slot.png" alt="Add Menu Slot">
+</div>
+</div>
+</li>
+<li>
+<p>新しいスロットを作成のテキストフィールドに、追加するスロット名menuを入力し、「追加」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/Name_SlotType.png" alt="Name SlotType">
+</div>
+</div>
+</li>
+<li>
+<p>下方のインテントスロットを確認します。2行目を1クリックすると新しいスロットmenuが表示されます。スロットmenuのスロットタイプ MenuListをスロットタイプのリストから選択します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/Select_Menu_Slot.png" alt="Select Menu Slot">
+</div>
+</div>
+</li>
+<li>
+<p>他の既存のサンプル発話の「コーヒー」の部分を全てスロットmenuに置き換えましょう。手順は同様で既存のスロットの選択リストにmenuが追加されているはずです。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/Select_MenuList.png" alt="Select MenuList">
+</div>
+</div>
+</li>
+<li>
+<p>全ての「コーヒー」をスロットmenuに置き換えたら、「モデルを保存」ボタンと「モデルをビルド」ボタンを順にクリックしましょう。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/Save_And_Build2.png" alt="Save And Build2">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>以上で、対話モデルの修正は完了です。次にLambda関数の修正に移りましょう。</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="課題3_Lambdaのコードを改良する"><a class="link" href="#課題3_Lambdaのコードを改良する">3.3. Lambdaのコードを改良する</a></h3>
+<div class="paragraph">
+<p>スロットmenuの値を受け取れるようにLambda側のプログラムコードも修正しましょう。
+プログラミングに自信のない方は、Lambdaの <strong>indes.js</strong> をサンプルファイル <a href="#Sample3.js">Sample3.js</a> の中身をコピーして貼り付けてください。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/Sample3_JS.png" alt="Sample3 JS">
+</div>
+</div>
+<div class="paragraph">
+<p>自分でコードを書いてみたい方は、以下のコードをヒントに、既存のコードに修正を加えてください。</p>
+</div>
+<div class="listingblock">
+<div class="title">リスト 4. スロット menu の値を取得し、menuの値を含めた応答を返すコード</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
+var menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
+
+const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+
+return handlerInput.responseBuilder
+.speak(speechOutput)
+.getResponse();</code></pre>
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="注意"></i>
+</td>
+<td class="content">
+ユーザーは欲しい品目を言ってくれない場合もあります。例えば「アレクサ、コーヒーショップで一つ注文して」のような場合です（このサンプル発話も追加しておく必要があります）。この場合、何を注文したいのかユーザーに聞き返す処理が必要で、そのコードは次のように書くことができます。この処理もコードに追加しておきましょう。
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">リスト 5. ユーザーが欲しい商品を言ってくれなかった場合の判別と、ユーザーに尋ねるコード</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">if (menu === undefined){
+    const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
+    const reprompt = '何にしますか？';
+    return handlerInput.responseBuilder
+    .speak(speechOutput)
+    .reprompt(reprompt)
+    .getResponse();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lambda関数のコードの修正が完了したら「保存」ボタンをクリックしてテストしましょう。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="テスト3"><a class="link" href="#テスト3">3.4. テストする</a></h3>
+<div class="paragraph">
+<p>対話モデル及びLambda関数の修正が終わったらスロットの値が正しく取得できるかどうかテストしましょう。
+Alexaシミュレータを開き、「コーヒーショップを開いて、<strong>カプチーノ</strong>を<strong>一つ</strong>注文して」のようにスロットを含めた発話を入力してテストしてみましょう。タイプ入力だけではなく、音声入力でもテストを繰り返し、スロットの値が正しく取得できているかを確認しましょう。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/JSON_Input_MenuSlot.png" alt="JSON Input MenuSlot">
+</div>
+</div>
+<div class="paragraph">
+<p>ここまでくると、ずいぶん実用に近いスキルになってきました。対話モデルやLambdaコードを微調整し完成度を高めましょう。</p>
+</div>
+<div class="paragraph">
+<p>以上で課題3は終了です。お疲れ様でした！</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="課題4_セッションアトリビュートを使おう"><a class="link" href="#課題4_セッションアトリビュートを使おう">4. [課題4] セッションアトリビュートを使おう</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>メニューの品目と数量を取得できたら、お砂糖が必要かどうかをユーザーに尋ねるスキルを作ってみましょう。</p>
+</div>
+<div class="paragraph">
+<p>課題3までのコーヒーショップスキルは、ユーザーが注文するフレーズを話し、Alexaが応答してスキルが終了するという、一回のインタラクションしかないシンプルなものでした。</p>
+</div>
+<div class="paragraph">
+<p>これに、Alexaが「砂糖をおつけしますか？」という追加の質問を加えることで、複数回の対話を制御するコードが必要になります。</p>
+</div>
+<div class="sect2">
+<h3 id="課題4のゴール"><a class="link" href="#課題4のゴール">4.1. 課題4のゴール</a></h3>
+<div class="paragraph">
+<p>課題3の対話モデルに「砂糖をつけるかどうか」の質問を追加してマルチターンのスキルに改造します。</p>
+</div>
+<div class="paragraph">
+<p>この課題で学習したテクニックを使うと、以下のことができるようになります。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>セッションアトリビュート</strong> を使って過去の対話で取得した情報を保持しておくテクニックを使えるようになる。</p>
+</li>
+<li>
+<p>ユーザーのYES/NOの意思を取得するビルトインインテント  <strong>AMAZON.YesIntent</strong>、<strong>AMAZON.NoIntent</strong> を使えるようになる。</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="title">参考ドキュメント</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/create-and-edit-custom-slot-types.html">カスタムスロットタイプの作成と編集</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="課題4で作る対話モデル"><a class="link" href="#課題4で作る対話モデル">4.2. 課題4で作る対話モデル</a></h3>
+<div class="exampleblock">
+<div class="title">例 4. 課題4の会話サンプル-1</div>
+<div class="content">
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="25"></span>「アレクサ、コーヒーショップを開いて、コーヒーを2つください」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="25"></span> 「コーヒーを2つですね、ありがとうございます。<strong>お砂糖をおつけしますか？</strong>」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="25"></span>「はい」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="25"></span> 「コーヒーを2つ、<strong>お砂糖をつけて</strong> ご用意いたします。ご利用ありがとうございました。」</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>さらに、もしお客様が数量を言ってくれなかった場合にも、それを尋ねる処理も加えましょう。</p>
+</div>
+<div class="exampleblock">
+<div class="title">例 5. 課題4の会話サンプル-2</div>
+<div class="content">
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="25"></span>「アレクサ、コーヒーショップを開いて、コーヒーをください」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="25"></span> 「コーヒーですね。<strong>おいくつご用意しましょうか？</strong>」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="25"></span>「<strong>二つお願い</strong>」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="25"></span> 「コーヒーを2つですね。お砂糖はおつけしますか？」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="25"></span>「はい」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="25"></span> 「コーヒーを2つ、お砂糖をつけてご用意いたします。ご利用ありがとうございました。」</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>かなり自然な会話に近づきますね？これをどのようにスキルで実現するかを学習しましょう。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="課題4_lambdaのコードを改良する"><a class="link" href="#課題4_lambdaのコードを改良する">4.3. Lambdaのコードを改良する</a></h3>
+<div class="paragraph">
+<p>プログラミングに自信がない方は、サンプルコード <a href="#Sample4.js">Sample4.js</a> の中身をコピーしてLambda関数の内容を置き換え、スキルビルダーの対話モデルのみを編集してください。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Sample4_JS.png" alt="Sample4 JS">
+</div>
+</div>
+<div class="paragraph">
+<p>自力でプログラミングしたい方は、以下のヒントを元にコードを修正してください。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>「コーヒーを2つですね。ありがとうございます」と返して終了する部分を、「コーヒーを2つですね。お砂糖はおつけしますか？」とユーザーに尋ねるように変更しましょう。</p>
+<div class="listingblock">
+<div class="title">リスト 6. 変更前のコード</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+return handlerInput.responseBuilder
+.speak(speechOutput)
+.getResponse();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">リスト 7. 変更後のコード</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const speechOutput = menu + 'を' + amount + 'つですね。お砂糖はおつけしますか？';
+const reprompt = 'お砂糖はおつけしますか？';
+return handlerInput.responseBuilder
+.speak(speechOutput)
+.reprompt(reprompt)
+.getResponse();</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>「お砂糖をおつけしますか？」を聞かれた後、ユーザーは「はい」か「いいえ」と言った応答をしてくるでしょう。これを受け取るインテントも用意しておきます。これには標準インテントの <strong>AMAZON.YesIntent</strong>、<strong>AMAZON.NoIntent</strong> を利用します。スキルビルダーに追加しておきましょう。</p>
+</li>
+<li>
+<p>スキルビルダーのインテント画面を開き「インテントを追加」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Add_Intent_Button.png" alt="Add Intent Button">
+</div>
+</div>
+</li>
+<li>
+<p>「アレクサのビルトインライブラリから既存のインテントを使用」を選択し、検索フィールドに <strong>YES</strong> とタイプします。すると、<strong>AMAZON.YesIntent</strong> が表示されます。「インテントを追加」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Add_YesIntent.png" alt="Add YesIntent">
+</div>
+</div>
+</li>
+<li>
+<p>左側のビルトインインテントのリストに <strong>AMAZON.YesIntent</strong> が追加されたことを確認します。必要に応じ <strong>AMAZON.YesIntent</strong> のサンプル発話を追加し、モデルを保存します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Save_YesIntent.png" alt="Save YesIntent">
+</div>
+</div>
+</li>
+<li>
+<p>同様に、<strong>AMAZON.NoIntent</strong> も追加します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Add_NoIntent.png" alt="Add NoIntent">
+</div>
+</div>
+</li>
+<li>
+<p>もしお客様が数量を言ってくれなかった場合に、Alexaが数を聞き返す処理と、ユーザーが数量だけを話すスロットを含むインテント（<strong>AmountIntent</strong>）が必要になります。これらを追加しましょう。</p>
+<div class="listingblock">
+<div class="title">リスト 8. ユーザーに数量を聞き返すコード</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">if(amount === undefined){
+    attributes.menu = menu;
+    handlerInput.attributesManager.setSessionAttributes(attributes);
+
+    const speechOutput = menu + 'ですね。おいくつご用意しましょうか？';
+    const reprompt = 'おいくつご用意しますか？';
+    return handlerInput.responseBuilder
+    .speak(speechOutput)
+    .reprompt(reprompt)
+    .getResponse();
+}</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/AmountIntent.png" alt="AmountIntent">
+</div>
+<div class="title">図 1. ユーザーから数量の情報を受け取るインテントを追加する</div>
+</div>
+</li>
+<li>
+<p>はじめの会話で、メニュー品目と数量を取得し、Alexaは砂糖が必要かどうかを尋ねます。ユーザーがお砂糖の要不要の回答を受信するインテント、<strong>AMAZON.YesIntent</strong> や <strong>AMAZON.NoIntent</strong> には、メニュー品目や数量を取得するスロットはありません。これらの情報はどこから入手するのでしょうか？</p>
+<div class="paragraph">
+<p>これには、<strong>セッションアトリビュート</strong> の機能を利用すると良いでしょう。 セッションアトリビュートとは、ユーザーとの対話が継続している間（セッションと呼びます）、一時的に情報を保持するための機構です。情報を取得したタイミングで、以下のコードを追加し、セッションアトリビュートに保存しておきましょう。</p>
+</div>
+<div class="listingblock">
+<div class="title">リスト 9. セッションアトリビュートのデータを保存するコード</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">attributes.menu = menu;
+attributes.amount = amount;
+handlerInput.attributesManager.setSessionAttributes(attributes);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>対話の中でこれらの情報が必要ななった時は、以下のようなコードでセッションアトリビュートから情報を取得しましょう。</p>
+</div>
+<div class="listingblock">
+<div class="title">リスト 10. セッションアトリビュートのデータを取り出すコード</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const attributes = handlerInput.attributesManager.getSessionAttributes();
+const amount = attributes.amount;
+const menu = attributes.menu;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>以上の修正ができたら対話モデルの変更を保存しビルドしましょう。Lambda関数も正しく保存されていることも確認しましょう。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="テスト4"><a class="link" href="#テスト4">4.4. テストする</a></h3>
+<div class="paragraph">
+<p>でき上がったスキルをテストしましょう。Alexaシミュレータを開いて、マルチターンの会話がうまく動作するかテストしてください。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Alexa_Simulator_Demo.png" alt="Alexa Simulator Demo">
+</div>
+</div>
+<div class="paragraph">
+<p>以上で課題4は終了です。お疲れ様でした！</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_補足"><a class="link" href="#_補足">補足</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_alexaの開発者アカウントに関する問題"><a class="link" href="#_alexaの開発者アカウントに関する問題">Alexaの開発者アカウントに関する問題</a></h3>
+<div class="paragraph">
+<p>Alexaのスキル開発で使用する開発者アカウントは、Amazon Echoをセットアップした時に使用したアカウントと同じものを使用することを推奨します。
+作成したスキルを、同じアカウントでセットアップされたお手持ちのEchoデバイスですぐにテストできた方が便利だからです。</p>
+</div>
+<div class="paragraph">
+<p>この時使用するAmazon.co.jpと同じアカウントがAmazon.comにも存在し、かつ同じパスワードが設定されている場合、作成したスキルが日本の Alexa.amazon.co.jp のスキル一覧画面に表示されなくなります。これは、作成したスキルが米国向けのスキルを日本語で作成した状況になり、alexa.amazon.com 上に作成されてあしまったからです。
+この状態では日本用にセットアップされた Echoデバイス上ではテストできないことになります。</p>
+</div>
+<div class="sect3">
+<h4 id="_対策1_amazon_com_のアカウントのパスワードを変更する"><a class="link" href="#_対策1_amazon_com_のアカウントのパスワードを変更する">対策1 Amazon.com のアカウントのパスワードを変更する</a></h4>
+<div class="paragraph">
+<p>一つ目の対策は、Amazon.com のアカウントと Amazon.co.jp のアカウントのどちらかのパスワードを変更します。こうすることで開発者アカウントがどちらの国に所属するアカウントなのかを明確に切り分けることができるようになります。
+ここでは、Amazon.com の方のパスワードを変更する手順を示します。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://amazon.com">https://amazon.com</a> にアクセスして、ログインし、「Account &amp; Lists」のメニューから「Your Account」をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/anazon_com_Account_and_Lists.png" alt="anazon com Account and Lists">
+</div>
+</div>
+</li>
+<li>
+<p>「Login &amp; Security」の枠内をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/Login_and_Security.png" alt="Login and Security">
+</div>
+</div>
+</li>
+<li>
+<p>現在ログインしているアカウントのパスワードを入力します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/SignIn.png" alt="SignIn">
+</div>
+</div>
+</li>
+<li>
+<p>Password:の項目の「Edit」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/PasswordEditButton.png" alt="PasswordEditButton">
+</div>
+</div>
+</li>
+<li>
+<p>パスワードを変更し「Save changes」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/ChangePassword.png" alt="ChangePassword">
+</div>
+</div>
+</li>
+<li>
+<p>「Done」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/PasswordChangeSuccess.png" alt="PasswordChangeSuccess">
+</div>
+</div>
+</li>
+<li>
+<p>パスワードを変更したらWebブラウザーを一度終了し再起動します。</p>
+</li>
+<li>
+<p>Webブラウザが開いたら、 <a href="http://developer.amazon.com">https://developer.amazon.com</a>にアクセスし、<strong>日本のアカウントとパスワード</strong>でログインします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/DeveloperPortal.png" alt="DeveloperPortal">
+</div>
+</div>
+</li>
+<li>
+<p>開発者アカウントの新規登録画面が表示されたら、必要項目を入力し完了させます。この時「国/リージョン」を必ず日本を選択してください。</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="警告"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>ここで、開発者アカウントの登録画面が出てこなかった場合は、残念ながらパスワードでのアカウントの切り分けはうまく行かない可能性があります。その場合は対策2をお試しください。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/DevAccount_Profiles.jpg" alt="DevAccount Profiles">
+</div>
+</div>
+</li>
+<li>
+<p>以上で、正しく日本のスキル用の開発者アカウントが作成されました。以降は、このアカウントを使ってスキルの開発を行います。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_対策2_amazon_com_のアカウントのメールアドレスを別のものに変更する"><a class="link" href="#_対策2_amazon_com_のアカウントのメールアドレスを別のものに変更する">対策2 Amazon.com のアカウントのメールアドレスを別のものに変更する</a></h4>
+<div class="paragraph">
+<p>既にUSのアカウントとして登録された開発者アカウントを別のメールアドレスに変更します。こうすることで、既存の amazon.co.jp のアカウントと開発者アカウントとの結び付きが解放され、新たに日本の開発者アカウントとして登録し直すことができます。以下に手順を示します。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://developer.amazon.com" class="bare">https://developer.amazon.com</a> にアクセスし、USの開発者アカウントとして登録されてしまったアカウントでログインします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/DevPortal_SignIn.png" alt="DevPortal SignIn">
+</div>
+</div>
+</li>
+<li>
+<p>ログインしたら「DeveloperPortal」のリンクをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/DevConsoleLink.png" alt="DevConsoleLink">
+</div>
+</div>
+</li>
+<li>
+<p>「設定」をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/DevPortal_Setting.png" alt="DevPortal Setting">
+</div>
+</div>
+</li>
+<li>
+<p>Eメールアドレスの項目の右にある「編集」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/Email_Change_Button.png" alt="Email Change Button">
+</div>
+</div>
+</li>
+<li>
+<p>ログインとセキュリティの画面でEメールアドレスの「編集」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/DevPortal_Login_Security.png" alt="DevPortal Login Security">
+</div>
+</div>
+</li>
+<li>
+<p>Eメールアドレスを変更し「変更内容を保存」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/DevPortal_ChangeEmailAddress.png" alt="DevPortal ChangeEmailAddress">
+</div>
+</div>
+</li>
+<li>
+<p>一度サインアウトし、再び開発者ポータルにログインします。この時、<strong>Eメールを変更する前の日本で使いたい開発者アカウントのEメールを入力します</strong>。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/DevPortal_Signin.png" alt="DevPortal Signin">
+</div>
+</div>
+</li>
+<li>
+<p>開発者アカウントの新規登録画面が表示されたら、必要項目を入力し完了させます。この時「国/リージョン」を必ず日本を選択してください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Appendix/DevAccount_Profiles.jpg" alt="DevAccount Profiles">
+</div>
+</div>
+</li>
+<li>
+<p>以上で、正しく日本のスキル用の開発者アカウントが作成されました。以降は、このアカウントを使ってスキルの開発を行います。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_対策3_新規で_amazon_co_jp_のアカウントを作るところから始める"><a class="link" href="#_対策3_新規で_amazon_co_jp_のアカウントを作るところから始める">対策3 新規で amazon.co.jp のアカウントを作るところから始める</a></h4>
+<div class="paragraph">
+<p>最も確実な方法は、開発用に amazon.co.jp のアカウントを新規で作成し、そのアカウントで開発者アカウントを登録します。この場合、既に既存のアカウントでセットアップされたEchoデバイスとは別アカウントになるので、Echoデバイスでテストしたい場合は、開発用のアカウントでEchoデバイスをセットアップし直す必要があります。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_対策4_amazon_のサポートに連絡する"><a class="link" href="#_対策4_amazon_のサポートに連絡する">対策4 Amazon のサポートに連絡する</a></h4>
+<div class="paragraph">
+<p>どうしてもアカウントの問題が解決できない場合は、Amazon のサポートに連絡しましょう。
+アカウント内部に何か不具合がある場合は、サポートスタッフが解決してくれる場合があります。</p>
+</div>
+<div class="paragraph">
+<p><a href="https://developer.amazon.com/ja/support/contact-us">Amazon 開発者専用お問い合わせ窓口</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="サンプルコード"><a class="link" href="#サンプルコード">サンプルコード</a></h2>
+<div class="sectionbody">
+<div id="Sample1.js" class="listingblock">
+<div class="title">リスト 11. Sample1.js</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const Alexa = require('ask-sdk-core');
+
+const LaunchRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'いらっしゃいませ。コーヒーショップへようこそ。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
+
+const OrderIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
+
+const RecommendIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
+
+const HelpIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
+
+const CancelAndStopIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
+
+const SessionEndedRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder.getResponse();
+    }
+};
+
+const UnhandledIntentHandler = {
+    canHandle(handlerInput) {
+        return true;
+    },
+    handle(handlerInput) {
+      const message = "いずれのハンドラーにも該当しないリクエストがきた場合に処理されます。";
+      return handlerInput.responseBuilder
+        .speak(message)
+        .getResponse()
+    }
+};
+
+const ErrorHandler = {
+    canHandle () {
+      return true
+    },
+    handle (handlerInput, error) {
+      console.log(`Error handled: ${error.message}`)
+      const message = "すみません、なんだかうまく行かないようです。もう一度お試しください。";
+      return handlerInput.responseBuilder
+        .speak(message)
+        .getResponse()
+    }
+}
+
+const skillBuilder = Alexa.SkillBuilders.custom();
+exports.handler = skillBuilder
+  .addRequestHandlers(
+    LaunchRequestHandler,
+    OrderIntentHandler,
+    RecommendIntentHandler,
+    HelpIntentHandler,
+    CancelAndStopIntentHandler,
+    SessionEndedRequestHandler,
+    UnhandledIntentHandler
+  )
+  .addErrorHandlers(ErrorHandler)
+  .lambda();</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div id="Sample2.js" class="listingblock">
+<div class="title">リスト 12. Sample2.js</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const Alexa = require('ask-sdk-core');
+
+const LaunchRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'いらっしゃいませ。コーヒーショップへようこそ。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
+
+const OrderIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
+    },
+    handle(handlerInput) {
+        var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
+        if (amount === undefined){
+            const speechOutput = 'コーヒーですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+
+        } else {
+            const speechOutput = 'コーヒーを' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+        }
+    }
+};
+
+const RecommendIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
+
+const HelpIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
+
+const CancelAndStopIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
+
+const SessionEndedRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder.getResponse();
+    }
+};
+
+const ErrorHandler = {
+    canHandle () {
+      return true;
+    },
+    handle (handlerInput, error) {
+      console.log(`Error handled: ${error.message}`);
+      const message = "すみません、うまく聞き取れませんでした。もう一度言ってください。";
+      return handlerInput.responseBuilder
+        .speak(message)
+        .reprompt(message)
+        .getResponse()
+    }
+};
+
+const skillBuilder = Alexa.SkillBuilders.custom();
+exports.handler = skillBuilder
+  .addRequestHandlers(
+    LaunchRequestHandler,
+    OrderIntentHandler,
+    RecommendIntentHandler,
+    HelpIntentHandler,
+    CancelAndStopIntentHandler,
+    SessionEndedRequestHandler
+  )
+  .addErrorHandlers(ErrorHandler)
+  .lambda();</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div id="Sample3.js" class="listingblock">
+<div class="title">リスト 13. Sample3.js</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const Alexa = require('ask-sdk-core');
+
+const LaunchRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'いらっしゃいませ。コーヒーショップへようこそ。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
+
+const OrderIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
+    },
+    handle(handlerInput) {
+        var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
+        var menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
+        if (menu == undefined){
+            const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
+            const reprompt = '何にしますか？';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+        } else if (amount === undefined){
+            const speechOutput = menu + 'ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+        } else {
+            const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+        }
+    }
+};
+
+const RecommendIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
+
+const HelpIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
+
+const CancelAndStopIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
+
+const SessionEndedRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder.getResponse();
+    }
+};
+
+const ErrorHandler = {
+    canHandle () {
+      return true;
+    },
+    handle (handlerInput, error) {
+      console.log(`Error handled: ${error.message}`);
+      const message = "すみません、うまく聞き取れませんでした。もう一度言ってください。";
+      return handlerInput.responseBuilder
+        .speak(message)
+        .reprompt(message)
+        .getResponse()
+    }
+};
+
+const skillBuilder = Alexa.SkillBuilders.custom();
+exports.handler = skillBuilder
+  .addRequestHandlers(
+    LaunchRequestHandler,
+    OrderIntentHandler,
+    RecommendIntentHandler,
+    HelpIntentHandler,
+    CancelAndStopIntentHandler,
+    SessionEndedRequestHandler
+  )
+  .addErrorHandlers(ErrorHandler)
+  .lambda();</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div id="Sample4.js" class="listingblock">
+<div class="title">リスト 14. Sample4.js</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const Alexa = require('ask-sdk-core');
+
+const LaunchRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'いらっしゃいませ。コーヒーショップへようこそ。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
+
+const OrderIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'OrderIntent' ||
+                handlerInput.requestEnvelope.request.intent.name === 'AmountIntent');
+    },
+    handle(handlerInput) {
+        const attributes = handlerInput.attributesManager.getSessionAttributes();
+        let amount = attributes.amount;
+        let menu = attributes.menu;
+        if (amount === undefined){
+            if (handlerInput.requestEnvelope.request.intent.slots.amount) {
+                amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
+            }
+        }
+        if (menu === undefined){
+            if (handlerInput.requestEnvelope.request.intent.slots.menu) {
+                menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
+            }
+        }
+
+        if(menu === undefined){
+            const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
+            const reprompt = '何にしますか？';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+        }else if(amount === undefined){
+            attributes.menu = menu;
+            handlerInput.attributesManager.setSessionAttributes(attributes);
+
+            const speechOutput = menu + 'ですね。おいくつご用意しましょうか？';
+            const reprompt = 'おいくつご用意しますか？';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+        }else{
+            attributes.menu = menu;
+            attributes.amount = amount;
+            handlerInput.attributesManager.setSessionAttributes(attributes);
+
+            const speechOutput = menu + 'を' + amount + 'つですね。お砂糖はおつけしますか？';
+            const reprompt = 'お砂糖はおつけしますか？';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+        }
+    }
+};
+
+const YesIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent';
+    },
+    handle(handlerInput) {
+        const attributes = handlerInput.attributesManager.getSessionAttributes();
+        const amount = attributes.amount;
+        const menu = attributes.menu;
+
+        const speechOutput = menu + 'を' + amount + 'つ。お砂糖をつけてご用意いたします。ご利用ありがとうございました。';
+        return handlerInput.responseBuilder
+        .speak(speechOutput)
+        .getResponse();
+    }
+};
+
+const NoIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NoIntent';
+    },
+    handle(handlerInput) {
+        const attributes = handlerInput.attributesManager.getSessionAttributes();
+        const amount = attributes.amount;
+        const menu = attributes.menu;
+
+        const speechOutput = menu + 'を' + amount + 'つ。お砂糖なしでご用意いたします。ご利用ありがとうございました。';
+        return handlerInput.responseBuilder
+        .speak(speechOutput)
+        .getResponse();
+    }
+};
+
+const RecommendIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
+
+const HelpIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
+
+const CancelAndStopIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
+
+const SessionEndedRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder.getResponse();
+    }
+};
+
+const ErrorHandler = {
+    canHandle () {
+      return true;
+    },
+    handle (handlerInput, error) {
+      console.log(`Error handled: ${error.message}`);
+      const message = "すみません、うまく聞き取れませんでした。もう一度言ってください。";
+      return handlerInput.responseBuilder
+        .speak(message)
+        .reprompt(message)
+        .getResponse()
+    }
+};
+
+const skillBuilder = Alexa.SkillBuilders.custom();
+exports.handler = skillBuilder
+  .addRequestHandlers(
+    LaunchRequestHandler,
+    OrderIntentHandler,
+    RecommendIntentHandler,
+    YesIntentHandler,
+    NoIntentHandler,
+    HelpIntentHandler,
+    CancelAndStopIntentHandler,
+    SessionEndedRequestHandler
+  )
+  .addErrorHandlers(ErrorHandler)
+  .lambda();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_リファレンス"><a class="link" href="#_リファレンス">リファレンス</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_alexa_の最新情報について"><a class="link" href="#_alexa_の最新情報について">Alexa の最新情報について</a></h3>
+<div class="paragraph">
+<p>Echoデバイス及びAlexaの進化に伴い、Alexaのスキル開発環境も凄まじいスピードで進化を遂げています。Alexaのスキル開発に関する最新情報は下記のページから取得してください。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/alexa">Alexa 開発者ポータルWebサイト</a></p>
+</li>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/ask-overviews/build-skills-with-the-alexa-skills-kit.html">Alexa Skills Kit 関連ドキュメント</a></p>
+</li>
+<li>
+<p><a href="https://developer.amazon.com/ja/blogs/alexa/tag/japan">Alexa 開発者ブログ</a></p>
+</li>
+<li>
+<p><a href="https://www.facebook.com/AlexaDevsJP/">Alexa オフィシャルFacebookページ</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/AlexaDevsJP">Alexa オフィシャルTwitterアカウント</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_スキル開発に関するご質問"><a class="link" href="#_スキル開発に関するご質問">スキル開発に関するご質問</a></h3>
+<div class="paragraph">
+<p>スキル開発にあたり、不明な点や疑問点がある場合は下記の <strong>Alexa技術者フォーラム</strong> または個別の <strong>お問い合わせフォーム</strong> に質問を投稿してください。専任の担当者がご質問に対応します。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://alexa.design/jp-forum">Alexa 開発者フォーラム</a></p>
+</li>
+<li>
+<p><a href="https://developer.amazon.com/ja/support/contact-us">お問い合わせフォーム</a> (質問カテゴリでAlexaを選択してください)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_教材に関するご意見やご要望など"><a class="link" href="#_教材に関するご意見やご要望など">教材に関するご意見やご要望など</a></h3>
+<div class="paragraph">
+<p>この教材に関するご意見やご要望、誤植の報告などは下記のTwitterのハッシュタグを利用して投稿してください。品質の向上にご協力いただけると幸いです。</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><a class="image" href="https://twitter.com/search?src=typd&amp;q=%23Alexa%E3%83%88%E3%83%AC%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0"><i class="fa fa-twitter fa-2x"></i></a></span> <a href="https://twitter.com/search?src=typd&amp;q=%23Alexa%E3%83%88%E3%83%AC%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0">#Alexaトレーニング</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="改定履歴"><a class="link" href="#改定履歴">改定履歴（主な変更点）</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>2017.11.25 v1.0 初版（協力：クラスメソッド株式会社）</p>
+</li>
+<li>
+<p>2018.04.12 v2.0 UIの変更に伴い、内容を大幅に改定</p>
+</li>
+<li>
+<p>2018.05.16 v2.3 asciidocに移行（Alexa道場の動画リンクを追加）</p>
+</li>
+<li>
+<p>2018.06.01 v2.5 Lambdaのポリシーテンプレート選択のスクリーンショットを更新</p>
+</li>
+<li>
+<p>2018.06.03 v2.6 補足の追加（アカウントの問題の回避方法）</p>
+</li>
+<li>
+<p>2018.06.13 v2.7 サンプルコードを SDK Version2 に更新</p>
+</li>
+<li>
+<p>2018.06.18 v2.7.1 誤字修正、一部スクリーンショット差し替え</p>
+</li>
+<li>
+<p>2018.07.10 v2.7.2 Alexaシミュレータのサンプル発話の入力でウェイクワードを省略</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 2.7.1<br>
+Last updated 2018-07-11 15:46:32 PDT
+</div>
+</div>
+</body>
+</html>

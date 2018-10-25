@@ -1,0 +1,159 @@
+
+[[課題4_セッションアトリビュートを使おう]]
+= [課題4] セッションアトリビュートを使おう
+:imagesdir: ./images
+
+メニューの品目と数量を取得できたら、お砂糖が必要かどうかをユーザーに尋ねるスキルを作ってみましょう。
+
+課題3までのコーヒーショップスキルは、ユーザーが注文するフレーズを話し、Alexaが応答してスキルが終了するという、一回のインタラクションしかないシンプルなものでした。
+
+これに、Alexaが「砂糖をおつけしますか？」という追加の質問を加えることで、複数回の対話を制御するコードが必要になります。
+
+[[課題4のゴール]]
+== 課題4のゴール
+
+課題3の対話モデルに「砂糖をつけるかどうか」の質問を追加してマルチターンのスキルに改造します。
+
+この課題で学習したテクニックを使うと、以下のことができるようになります。
+
+* *セッションアトリビュート* を使って過去の対話で取得した情報を保持しておくテクニックを使えるようになる。
+* ユーザーのYES/NOの意思を取得するビルトインインテント  *AMAZON.YesIntent*、*AMAZON.NoIntent* を使えるようになる。
+
+.参考ドキュメント
+[NOTE]
+====
+* https://developer.amazon.com/ja/docs/custom-skills/create-and-edit-custom-slot-types.html[カスタムスロットタイプの作成と編集]
+====
+
+[[課題4で作る対話モデル]]
+== 課題4で作る対話モデル
+.課題4の会話サンプル-1
+====
+image:icons/user_speak.jpg[width="25"]「アレクサ、コーヒーショップを開いて、コーヒーを2つください」
+
+image:icons/alexa_icon.jpg[width="25"] 「コーヒーを2つですね、ありがとうございます。*お砂糖をおつけしますか？*」
+
+image:icons/user_speak.jpg[width="25"]「はい」
+
+image:icons/alexa_icon.jpg[width="25"] 「コーヒーを2つ、*お砂糖をつけて* ご用意いたします。ご利用ありがとうございました。」
+====
+
+さらに、もしお客様が数量を言ってくれなかった場合にも、それを尋ねる処理も加えましょう。
+
+.課題4の会話サンプル-2
+====
+image:icons/user_speak.jpg[width="25"]「アレクサ、コーヒーショップを開いて、コーヒーをください」
+
+image:icons/alexa_icon.jpg[width="25"] 「コーヒーですね。*おいくつご用意しましょうか？*」
+
+image:icons/user_speak.jpg[width="25"]「*二つお願い*」
+
+image:icons/alexa_icon.jpg[width="25"] 「コーヒーを2つですね。お砂糖はおつけしますか？」
+
+image:icons/user_speak.jpg[width="25"]「はい」
+
+image:icons/alexa_icon.jpg[width="25"] 「コーヒーを2つ、お砂糖をつけてご用意いたします。ご利用ありがとうございました。」
+====
+
+かなり自然な会話に近づきますね？これをどのようにスキルで実現するかを学習しましょう。
+
+[[課題4_lambdaのコードを改良する]]
+== Lambdaのコードを改良する
+
+プログラミングに自信がない方は、サンプルコード <<Sample4.js>> の中身をコピーしてLambda関数の内容を置き換え、スキルビルダーの対話モデルのみを編集してください。
+
+image::EX4/Sample4_JS.png[]
+
+自力でプログラミングしたい方は、以下のヒントを元にコードを修正してください。
+
+. 「コーヒーを2つですね。ありがとうございます」と返して終了する部分を、「コーヒーを2つですね。お砂糖はおつけしますか？」とユーザーに尋ねるように変更しましょう。
++
+.変更前のコード
+[source,javascript,linenums]
+----
+const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+return handlerInput.responseBuilder
+.speak(speechOutput)
+.getResponse();
+----
++
+.変更後のコード
+[source,javascript,linenums]
+----
+const speechOutput = menu + 'を' + amount + 'つですね。お砂糖はおつけしますか？';
+const reprompt = 'お砂糖はおつけしますか？';
+return handlerInput.responseBuilder
+.speak(speechOutput)
+.reprompt(reprompt)
+.getResponse();
+----
++
+. 「お砂糖をおつけしますか？」を聞かれた後、ユーザーは「はい」か「いいえ」と言った応答をしてくるでしょう。これを受け取るインテントも用意しておきます。これには標準インテントの *AMAZON.YesIntent*、*AMAZON.NoIntent* を利用します。スキルビルダーに追加しておきましょう。
+. スキルビルダーのインテント画面を開き「インテントを追加」ボタンをクリックします。
++
+image::EX4/Add_Intent_Button.png[]
++
+. 「アレクサのビルトインライブラリから既存のインテントを使用」を選択し、検索フィールドに *YES* とタイプします。すると、*AMAZON.YesIntent* が表示されます。「インテントを追加」ボタンをクリックします。
++
+image::EX4/Add_YesIntent.png[]
++
+. 左側のビルトインインテントのリストに *AMAZON.YesIntent* が追加されたことを確認します。必要に応じ *AMAZON.YesIntent* のサンプル発話を追加し、モデルを保存します。
++
+image::EX4/Save_YesIntent.png[]
++
+. 同様に、*AMAZON.NoIntent* も追加します。
++
+image::EX4/Add_NoIntent.png[]
++
+. もしお客様が数量を言ってくれなかった場合に、Alexaが数を聞き返す処理と、ユーザーが数量だけを話すスロットを含むインテント（*AmountIntent*）が必要になります。これらを追加しましょう。
++
+.ユーザーに数量を聞き返すコード
+[source,javascript,linenums]
+----
+if(amount === undefined){
+    attributes.menu = menu;
+    handlerInput.attributesManager.setSessionAttributes(attributes);
+
+    const speechOutput = menu + 'ですね。おいくつご用意しましょうか？';
+    const reprompt = 'おいくつご用意しますか？';
+    return handlerInput.responseBuilder
+    .speak(speechOutput)
+    .reprompt(reprompt)
+    .getResponse();
+}
+----
++
+.ユーザーから数量の情報を受け取るインテントを追加する
+image::EX4/AmountIntent.png[]
+. はじめの会話で、メニュー品目と数量を取得し、Alexaは砂糖が必要かどうかを尋ねます。ユーザーがお砂糖の要不要の回答を受信するインテント、*AMAZON.YesIntent* や *AMAZON.NoIntent* には、メニュー品目や数量を取得するスロットはありません。これらの情報はどこから入手するのでしょうか？
++
+これには、*セッションアトリビュート* の機能を利用すると良いでしょう。 セッションアトリビュートとは、ユーザーとの対話が継続している間（セッションと呼びます）、一時的に情報を保持するための機構です。情報を取得したタイミングで、以下のコードを追加し、セッションアトリビュートに保存しておきましょう。
++
+.セッションアトリビュートのデータを保存するコード
+[source,javascript,linenums]
+----
+attributes.menu = menu;
+attributes.amount = amount;
+handlerInput.attributesManager.setSessionAttributes(attributes);
+----
++
+対話の中でこれらの情報が必要ななった時は、以下のようなコードでセッションアトリビュートから情報を取得しましょう。
++
+.セッションアトリビュートのデータを取り出すコード
+[source,javascript,linenums]
+----
+const attributes = handlerInput.attributesManager.getSessionAttributes();
+const amount = attributes.amount;
+const menu = attributes.menu;
+----
+
+以上の修正ができたら対話モデルの変更を保存しビルドしましょう。Lambda関数も正しく保存されていることも確認しましょう。
+
+[[テスト4]]
+== テストする
+
+でき上がったスキルをテストしましょう。Alexaシミュレータを開いて、マルチターンの会話がうまく動作するかテストしてください。
+
+image::EX4/Alexa_Simulator_Demo.png[]
+
+以上で課題4は終了です。お疲れ様でした！

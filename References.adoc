@@ -1,0 +1,26 @@
+= リファレンス
+
+== Alexa の最新情報について
+
+Echoデバイス及びAlexaの進化に伴い、Alexaのスキル開発環境も凄まじいスピードで進化を遂げています。Alexaのスキル開発に関する最新情報は下記のページから取得してください。
+
+- https://developer.amazon.com/alexa[Alexa 開発者ポータルWebサイト]
+- https://developer.amazon.com/ja/docs/ask-overviews/build-skills-with-the-alexa-skills-kit.html[Alexa Skills Kit 関連ドキュメント]
+- https://developer.amazon.com/ja/blogs/alexa/tag/japan[Alexa 開発者ブログ]
+- https://www.facebook.com/AlexaDevsJP/[Alexa オフィシャルFacebookページ]
+- https://twitter.com/AlexaDevsJP[Alexa オフィシャルTwitterアカウント]
+
+== スキル開発に関するご質問
+
+スキル開発にあたり、不明な点や疑問点がある場合は下記の *Alexa技術者フォーラム* または個別の *お問い合わせフォーム* に質問を投稿してください。専任の担当者がご質問に対応します。
+
+- http://alexa.design/jp-forum[Alexa 開発者フォーラム]
+
+- https://developer.amazon.com/ja/support/contact-us[お問い合わせフォーム] (質問カテゴリでAlexaを選択してください)
+
+
+== 教材に関するご意見やご要望など
+
+この教材に関するご意見やご要望、誤植の報告などは下記のTwitterのハッシュタグを利用して投稿してください。品質の向上にご協力いただけると幸いです。
+
+icon:twitter[2x, link=https://twitter.com/search?src=typd&q=%23Alexa%E3%83%88%E3%83%AC%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0] https://twitter.com/search?src=typd&q=%23Alexa%E3%83%88%E3%83%AC%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0[#Alexaトレーニング]
