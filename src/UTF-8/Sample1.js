@@ -27,34 +27,6 @@ const OrderIntentHandler = {
     }
 };
 
-const RecommendIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const HelpIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
-        const reprompt = '今日は何にしますか？';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
 const CancelAndStopIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -96,8 +68,6 @@ exports.handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler,
     OrderIntentHandler,
-    RecommendIntentHandler,
-    HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler
   )

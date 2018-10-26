@@ -34,3 +34,12 @@ include::src/UTF-8/Sample3.js[]
 ----
 include::src/UTF-8/Sample4.js[]
 ----
+
+// 改ページ
+<<<
+[[Sample5.js]]
+.Sample5.js
+[source,javascript,linenums]
+----
+include::src/UTF-8/Sample5.js[]
+----

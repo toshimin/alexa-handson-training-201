@@ -28,39 +28,14 @@
                         }
                     ],
                     "samples": [
-                        "{menu}",
-                        "{menu} を {amount} つプリーズ",
-                        "{menu} を {amount} 杯プリーズ",
-                        "{menu} を {amount} 杯注文して",
-                        "{menu} を {amount} つ注文して",
-                        "{menu} を {amount} 杯頼む",
-                        "{menu} を {amount} 杯ください",
-                        "{menu} を {amount} つ頼む",
-                        "{menu} を {amount} つちょうだい",
-                        "{menu} を {amount} つください",
-                        "{menu} ください",
-                        "{menu} を注文して",
-                        "{menu} が欲しい",
-                        "{menu} にしようかな",
-                        "{menu} をください",
-                        "{menu} にして",
-                        "{menu} プリーズ",
-                        "{menu} よろしく",
-                        "{menu} お願い",
-                        "{menu} お願いします"
+                        "{menu} を {amount} つ注文して"
                     ]
                 },
                 {
                     "name": "RecommendIntent",
                     "slots": [],
                     "samples": [
-                        "今日のオススメは",
-                        "今日は何がいいかな",
-                        "今日はどう",
-                        "今日はどんなのがある",
-                        "今日は何がいい",
-                        "今日のオススメを教えて",
-                        "今日のオススメは何ですか"
+                        "今日のオススメは何"
                     ]
                 }
             ],
@@ -75,20 +50,12 @@
                         },
                         {
                             "name": {
-                                "value": "カフェラテ",
-                                "synonyms": [
-                                    "コーヒー牛乳",
-                                    "カフェオレ"
-                                ]
+                                "value": "カフェラテ"
                             }
                         },
                         {
                             "name": {
-                                "value": "コーヒー",
-                                "synonyms": [
-                                    "ブラック",
-                                    "カフェ"
-                                ]
+                                "value": "コーヒー"
                             }
                         }
                     ]

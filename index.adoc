@@ -47,24 +47,28 @@ include::Introduction.adoc[]
 // 章のナンバリングは1章から始める
 :leveloffset: 1
 :numbered:
-// 課題1
+// 実習1
 include::EX1.adoc[]
 
-// 課題2
+// 実習2
 include::EX2.adoc[]
 
-// 課題3
+// 実習3
 include::EX3.adoc[]
 
-// 課題4
+// 実習4
 include::EX4.adoc[]
+
+// 実習4
+include::EX5.adoc[]
+
 
 // 章のナンバリングをOFFにする
 :numbered!:
 // 補足
 include::Appendix.adoc[]
 // Node.js サンプルコード
-include::Sample_Codes.adoc[]
+//include::Sample_Codes.adoc[]
 // リファレンス
 include::References.adoc[]
 
@@ -72,7 +76,6 @@ include::References.adoc[]
 //[index]
 //= 索引
 
-[[改定履歴]]
 = 改定履歴（主な変更点）
 * 2017.11.25 v1.0 初版（協力：クラスメソッド株式会社）
 * 2018.04.12 v2.0 UIの変更に伴い、内容を大幅に改定

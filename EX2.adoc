@@ -1,117 +1,172 @@
-[[課題2_ビルトインスロットを使おう]]
-= [課題2] ビルトインスロットを使おう
+= インテントの追加
 :imagesdir: ./images
 
-[[課題2のゴール]]
-== 課題2のゴール
+== この実習の学習目標
 
-課題2では *コーヒーの数* を受け取るようにスキルを改良します。
+この実習では、ユーザーがコーヒーの注文とは関係のない発話をしてきた場合の受け取り方法と、ビルトイン・インテントの実装方法を学びます。
 
-この課題で学んだテクニックを使うと次のようなことができるようになります。
+この実習で学んだテクニックを使うと次のようなことができるようになります。
 
-* 対話モデルのサンプル発話にスロットを導入する手順を実演できる
-* 標準スロットタイプの種類を選択することができる。
-* スロットで受け取ったデータがどのようにエンドポイントに渡されるかを説明できる。
+* インテントとは何かを説明できるようになる。
+* 任意のインテントと、インテントハンドラーを追加することができる。
+* ビルトイン・インテントの追加と実装方法を実演できるようになる。
 
-[[課題2で作る対話モデル]]
-== 課題2で作る対話モデル
-.課題2の会話サンプル
+== 対話モデルの編集
+.スキルの会話サンプル
 ====
-image:icons/user_speak.jpg[width="40"]「アレクサ、コーヒーショップを開いて、コーヒーを2つください」
+image:icons/user_speak.jpg[width="40"]「アレクサ、コーヒーショップを開いて、おすすめは何？」
 
-image:icons/alexa_icon.jpg[width="40"] 「コーヒーを**2つ**ですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またのご利用をお待ちしております。」
-====
-
-[TIP]
-====
-* サンプル発話に「スロット」を追加し、エンドポイントでインテントと共にスロットの数字を受け取れるようにします。
+image:icons/alexa_icon.jpg[width="40"] 「今日は甘さスッキリのカフェラテがおすすめです。」
 ====
 
 .参考ドキュメント
 [NOTE]
 ====
 * https://developer.amazon.com/ja/docs/custom-skills/create-intents-utterances-and-slots.html[インテント、発話、スロットの作成]
-* https://developer.amazon.com/ja/docs/custom-skills/slot-type-reference.html[スロットタイプリファレンス]
 ====
 
-image:icons/alexa_dojo.png[width="40"]  https://alexa.design/jp-alexadojo005[第5回 Alexa道場：スロットを使って発話内の可変文字列を取得しよう]
+=== インテントを追加する
+. コーヒーショップスキルのスキルビルダーの画面を開きます。
+. 左パネルにあるインテントの「**追加**」ボタンをクリックします。
++
+image::EX2/Add_Intent.png[]
++
+. ユーザーの「おすすめは何？」という発話に対応するカスタムインテントを作成します。インテント名の入力フィールドに「**RecommendIntent**」と入力し、「カスタムインテントの作成」ボタンをクリックします。
++
+image::EX2/Add_RecommendIntent.png[]
++
+. インテント「RecommendIntent」に紐づくサンプル発話を2〜3フレーズ考えて入力し、「モデルを保存」ボタンをクリックします。
++
+[WARNING]
+サンプル発話を入力する際、疑問符(?)、英数文字、記号などは入力しないでください。
++
+image::EX2/RecommendIntent_SampleUtterances.png[]
++
+. 続いて、左パネルのインテントのグループに「ビルトインインテント(3)」が含まれていることを確認します。**AMAZON.HelpIntent** をクリックします。
++
+image::EX2/AMAZON.HelpIntent.png[]
++
+. 同様に、**AMAZON.CancelIntent**、**AMAZON.StopIntent** があることも確認します。これらは、スキル作成時にデフォルトで追加されているビルトイン・インテントです。対話モデルでは、特に何もする必要はありませんが、必要に応じて独自のサンプル発話を追加することもできます。一方、これらのインテントを受け取るLambdaのコードは必ず実装する必要があります。
++
+image::EX2/BuiltinIntents.png[]
 
-[[スロットを追加する]]
-=== スロットを追加する
-. 開発者コンソールに戻りスキルビルダーを開きます。
-. インテント「*OrderIntent*」をクリックして、スロットを含むサンプル発話を追加します。まず「コーヒーを一つください」と入力してみましょう。
-+
-image::EX2/OrderIntent.png[]
-+
-. スロットにしたい部分、この場合だと「一」（漢数字の1）の部分をマウスで選択します。下図のようなスロットを追加するポップアップが表示されます。
-+
-image::EX2/Add_New_Slot.png[]
-+
-. 新しいスロットを作成のテキストフィールドに、追加したいスロット名「amount」を入力しましょう。スロット名は必ず半角英文字で入力します。入力したら「追加」ボタンをクリックします。
-+
-image::EX2/Add_Amount_Slot.png[]
-+
-. スロットを含むサンプル発話に置き換えられています。＋ボタンか、リターンキーを押して確定します。
-+
-image::EX2/Amount_Slot.png[]
-+
-. 画面の下の方を見ると、インテントスロットにamountが追加されていることが確認できます。amountのスロットタイプを設定しましょう。この場合「数値」を取得するので、標準スロットタイプのAMAZON.NUMBERを選択します。
-+
-image::EX2/SlotType_AMAZON_Number.png[]
-+
-. 次にもう一つ同じスロットamountを含むサンプル発話を追加します。「コーヒーを一つ注文して」と入力し、同じように漢字の「一」を選択します。今度は、既存のスロットを選択にamountが表示されるので、これを選択しクリックします。
-+
-image::EX2/Existing_Slot.png[]
-+
-. サンプル発話の入力中に、スロットを挿入したい部分でキーボードの *{* をタイプしてもスロット選択のポップアップが表示されます。好みの方法で、スロットを含むサンプル発話をどんどん追加してください。
-+
-image::EX2/Select_Slot.png[]
-+
-. 充分な数のサンプル発話が追加できたら「モデルを保存」し「モデルをビルド」をクリックしてください。
-+
-image::EX2/Save_and_Build.png[]
+=== LambdaでRecommendIntent インテントハンドラーを追加する
 
 [NOTE]
-====
-「〜つ」、「〜個」や「〜杯」など数の数え方の単位も含め、あらゆるパターンを追加しましょう。ある程度はAlexaが自動で認識するようですが、何度ものテストを繰り返して満足できる認識結果が得られるまで調整しましょう。
-====
+プログラミングに自信のない方は、Lambdaの *index.js* のコードをサンプルファイル <<Sample2.js>> のコードに置き換えてください。
 
-[[課題2_Lambdaのコードを改良する]]
-== Lambdaのコードを改良する
+. AWSコンソール画面を開き、CoffeeshopスキルのLambda関数コード **index.js** を開きます。
++
+image::EX2/Coffeeshop_indexjs.png[]
++
+. OrderIntentHandlerが定義されているブロックをコピーし、「// この下に RecomentIntentHandlerのコードを追加してください。」と書かれているコメント行の下に貼り付け、以下のようにハンドラー名(RecommendIntent)、canHandle内のインテント名(RecommendIntent)、speechOutputに代入されている文字列を修正します。
++
+[source,javascript]
+.OrderIntentをコピーして追加修正したRecommendIntentのコード
+const RecommendIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};
 
-次に、スロットの値を受け取れるようにLambda側のプログラムコードも修正しましょう。
++
+. インテントハンドラーを追加したら、コードの下方に定義されている **SkillBuilder**オブジェクトに、先ほど追加した**RecommendIntentHandler**を登録します。
++
+[source,javascript]
+const skillBuilder = Alexa.SkillBuilders.custom();
+exports.handler = skillBuilder
+  .addRequestHandlers(
+    LaunchRequestHandler,
+    OrderIntentHandler,
+    // ここにRecommendIntentHandlerを追加登録してください。
+    RecommendIntentHandler, //<= 追加
+    // ここにHelpIntentHandlerを追加登録してください。
+    CancelAndStopIntentHandler,
+    SessionEndedRequestHandler
+  )
+  .addErrorHandlers(ErrorHandler)
+  .lambda();
 
-プログラミングに自信のない方は、Lambdaの *indes.js* をサンプルファイル <<Sample2.js>> の中身をコピーして貼り付けてください。
++
+. 同様の手順でビルトインインテント**AMAZON.HelpIntent**を処理する**HelpIntentHandler**を定義します。以下のコードを **RecommendIntent** の下に追加します。
++
+[source,javascript]
+const HelpIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
 
-image::EX2/Sample2_JS.png[]
++
+[NOTE]
+OrderIntentHandler, RecommendIntentHandlerと異なり、レスポンスを返す処理の記述に、**.reprompt(文字列)** が追加されていることに注目してください。AMAZON.HelpIntentは、ユーザーが使い方を尋ねてきた場合のインテントです。 スキルは、スキルの使い方を簡潔に伝えた後、次にどうするかをユーザーに尋ね返事待ちの状態にする必要があります。**.reprompt(文字列)** の行を追加すると、はじめに **.speak(文字列)** の文字列を話した後、Alexaはユーザーからの応答待ちになります（ブルーのリングライトが回転します）。8秒間ユーザーの応答がなかった場合、Alexaは**.reprompt(文字列)** の文字列の内容を話し、さらにユーザーからの応答を待ちます。それでもユーザーからの応答がなかった場合、スキルは終了します。
++
 
-自分でコードを書いてみたい方は、以下のコードをヒントに、既存のコードに修正を加えてください。
+. インテントハンドラーを追加したので、コードの下方に定義されている **SkillBuilder**オブジェクトに、**HelpIntentHandler**を登録します。
++
+[source,javascript]
+const skillBuilder = Alexa.SkillBuilders.custom();
+exports.handler = skillBuilder
+  .addRequestHandlers(
+    LaunchRequestHandler,
+    OrderIntentHandler,
+    // ここにRecommendIntentHandlerを追加登録してください。
+    RecommendIntentHandler,
+    // ここにHelpIntentHandlerを追加登録してください。
+    HelpIntentHandler, // <== 追加
+    CancelAndStopIntentHandler,
+    SessionEndedRequestHandler
+  )
+  .addErrorHandlers(ErrorHandler)
+  .lambda();
 
-.スロット amount の値を取得し、amountの値を含めた応答を返すコード (node.js)
-[source,javascript,linenums]
-----
-var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
++
+[NOTE]
+**skillBuiler**オブジェクトにハンドラーを登録する際の順番に注意してください。SDKは、登録された順にハンドラーの ** canHandle() **をチェックし、最初に True を返したハンドラーの **handle()**を実行します。
 
-const speechOutput = 'コーヒーを' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-
-return handlerInput.responseBuilder
-.speak(speechOutput)
-.getResponse();
-----
-
-Lambda関数のコードの修正が完了したら「保存」ボタンをクリックしてテストしましょう。
-
-[[テスト2]]
 == テストする
 
 対話モデル及びLambda関数の修正が終わったらスロットの値が正しく取得できるかどうかテストしましょう。
 
-. Alexaシミュレータを開き、「`コーヒーショップを開いて、コーヒーを一つ注文して`」のようにスロットを含めた発話を入力してテストしてみましょう。このとき、スロットに数字を入れる場合は、漢数字で入れてください。半角や全角の数字はうまく認識しないので注意してください。
-+
-image::EX2/Sample_Utterances.png[]
-+
-. JSON入力で、スロットの値が正しく取得できているかどうかを観察します。下図のようにスロット名 *amount* に数字（下図の場合は1）が入ります。
-+
-image::EX2/JSON_Input.png[]
-+
-. JSON出力側も正しく数字の入った応答を返しているかを確認しましょう。
+. Alexaシミュレータを開き、「`コーヒーショップを開いて、おすすめは何`」のように発話を入力してテストしてみましょう。
+. 次に「`コーヒーショップを開いて`」だけでスキルを起動してみましょう。インテントタイプ **LaunchRequest** が送信され、**LaunchRequestHandler** が実行され、ユーザーからの返答待ちになることを確認しましょう。
+. そのままの状態で、Alexaに「`ヘルプ`」と言ってみましょう。**AMAZON.HelpIntent** が受信され、**HelpIntentHandler** が実行されることを確認してください。
+
+以上のような手順で、インテントを追加するごとにインテントハンドラーを定義して**skillBuilder**オブジェクトに追加登録するのが ASK SDK for Node.js の基本パターンとなります。
+
+ただし、サンプルコードの**CancelAndStopIntentHandler**のように、インテントが異なっていても、処理の内容や応答が同じ場合には、１つのインテントハンドラーに処理をまとめることもできます。
+
+[NOTE]
+必ずしも、インテント:インテントハンドラーは1:1である必要はない。
+
+[source, javascript]
+.CancelAndStopIntentHandler インテントハンドラーの定義例（AMAZON.CancelIntentとAMAZON.StopIntentが同じハンドラーで処理されている）
+const CancelAndStopIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};

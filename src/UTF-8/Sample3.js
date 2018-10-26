@@ -22,24 +22,11 @@ const OrderIntentHandler = {
     handle(handlerInput) {
         var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
         var menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
-        if (menu == undefined){
-            const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
-            const reprompt = '何にしますか？';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-        } else if (amount === undefined){
-            const speechOutput = menu + 'ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-        } else {
-            const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-        }
+
+        const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+        return handlerInput.responseBuilder
+          .speak(speechOutput)
+          .getResponse();
     }
 };
 

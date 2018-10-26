@@ -62,50 +62,6 @@
                         "今日のオススメを教えて",
                         "今日のオススメは何ですか"
                     ]
-                },
-                {
-                    "name": "AMAZON.YesIntent",
-                    "samples": [
-                        "いいね",
-                        "頼むわ",
-                        "お願いします",
-                        "よろしく"
-                    ]
-                },
-                {
-                    "name": "AMAZON.NoIntent",
-                    "samples": [
-                        "男はブラックや",
-                        "そんなんいらん",
-                        "不要です",
-                        "いりません",
-                        "結構です",
-                        "いらんよ",
-                        "いらない",
-                        "いらん"
-                    ]
-                },
-                {
-                    "name": "AmountIntent",
-                    "slots": [
-                        {
-                            "name": "amount",
-                            "type": "AMAZON.NUMBER"
-                        }
-                    ],
-                    "samples": [
-                        "{amount}",
-                        "{amount} つでいいよ",
-                        "{amount} つでいいです",
-                        "{amount} つお願いします",
-                        "{amount} 杯お願いします",
-                        "{amount} つください",
-                        "{amount} 杯ください",
-                        "{amount} つお願い",
-                        "{amount} つでいいかな",
-                        "{amount} 杯",
-                        "{amount} つ"
-                    ]
                 }
             ],
             "types": [

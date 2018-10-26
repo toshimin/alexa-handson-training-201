@@ -4,9 +4,10 @@ FONTS_DIR=fonts
 STYLE_DIR=style
 DIST_DIR=dist
 SRC_DIR=src
-PDF_FILE=Alexa_HOT4Beginners_TextBook.pdf
-PRINT_FILE=Alexa_HOT4Beginners_TextBook_for_Printing.pdf
-EPUB_FILE=Alexa_HOT4Beginners_TextBook.epub
+PDF_FILE=AlexaBasicTextBook.pdf
+PRINT_FILE=AlexaBasicTextBook_Print.pdf
+EPUB_FILE=AlexaBasicTextBook.epub
+SAMPLE_FILE=Alexa_SampleCode_Basic.zip
 REDPEN_CONF=redpen-conf.xml
 S3_BUCKET=alexatrainingassets
 AWS_PROFILE=default
@@ -30,7 +31,7 @@ samples: $(SRC_DIR)/UTF-8
 	mkdir -p $(SRC_DIR)/SJIS 2>/dev/null
 	cp $(SRC_DIR)/UTF-8/* $(SRC_DIR)/SJIS/
 	nkf -sLw --overwrite $(SRC_DIR)/SJIS/*
-	zip -r $(DIST_DIR)/SampleCodes_BGN.zip $(SRC_DIR) -x "*.DS_Store"
+	zip -r $(DIST_DIR)/$(SAMPLE_FILE) $(SRC_DIR) -x "*.DS_Store"
 	rm -r $(SRC_DIR)/SJIS
 
 s3: $(DIST_DIR)

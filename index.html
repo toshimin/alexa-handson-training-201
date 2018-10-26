@@ -8,7 +8,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="Alexa, Alexa Skills Kit, Node.js, トレーニング, ハンズオン, Amazon, Amazon Echo">
 <meta name="author" content="ASK Developer Marketing, Amazon Japan">
-<title>演習：カスタムスキルを作ろう</title>
+<title>Alexaハンズオントレーニング 初級編</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -436,11 +436,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>演習：カスタムスキルを作ろう</h1>
+<h1>Alexaハンズオントレーニング 初級編</h1>
 <div class="details">
 <span id="author" class="author">ASK Developer Marketing, Amazon Japan</span><br>
-<span id="revnumber">version 2.7.1,</span>
-<span id="revdate">2018/06/18</span>
+<span id="revnumber">version 2.8,</span>
+<span id="revdate">2018/10/25</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">目次</div>
@@ -460,36 +460,44 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#_プログラミング経験について">プログラミング経験について</a></li>
-<li><a href="#課題1_初めてのカスタムスキル">1. [課題1] 初めてのカスタムスキル</a>
+<li><a href="#_初めて作るカスタムスキル">1. 初めて作るカスタムスキル</a>
 <ul class="sectlevel2">
-<li><a href="#対話モデルのデザイン">1.1. 対話モデルのデザイン</a></li>
-<li><a href="#エンドポイントの開発">1.2. エンドポイントの開発</a></li>
-<li><a href="#エンドポイントを登録する">1.3. エンドポイントを登録する</a></li>
-<li><a href="#テスト1">1.4. テストする</a></li>
+<li><a href="#_この実習の学習目標">1.1. この実習の学習目標</a></li>
+<li><a href="#_対話モデルのデザイン">1.2. 対話モデルのデザイン</a></li>
+<li><a href="#_エンドポイントの開発">1.3. エンドポイントの開発</a></li>
+<li><a href="#_エンドポイントを登録する">1.4. エンドポイントを登録する</a></li>
+<li><a href="#_テストする">1.5. テストする</a></li>
 </ul>
 </li>
-<li><a href="#課題2_ビルトインスロットを使おう">2. [課題2] ビルトインスロットを使おう</a>
+<li><a href="#_インテントの追加">2. インテントの追加</a>
 <ul class="sectlevel2">
-<li><a href="#課題2のゴール">2.1. 課題2のゴール</a></li>
-<li><a href="#課題2で作る対話モデル">2.2. 課題2で作る対話モデル</a></li>
-<li><a href="#課題2_Lambdaのコードを改良する">2.3. Lambdaのコードを改良する</a></li>
-<li><a href="#テスト2">2.4. テストする</a></li>
+<li><a href="#_この実習の学習目標_2">2.1. この実習の学習目標</a></li>
+<li><a href="#_対話モデルの編集">2.2. 対話モデルの編集</a></li>
+<li><a href="#_テストする_2">2.3. テストする</a></li>
 </ul>
 </li>
-<li><a href="#課題3_カスタムスロットタイプを使おう">3. [課題3] カスタムスロットタイプを使おう</a>
+<li><a href="#_スロットの使用">3. スロットの使用</a>
 <ul class="sectlevel2">
-<li><a href="#課題3のゴール">3.1. 課題3のゴール</a></li>
-<li><a href="#課題3で作る対話モデル">3.2. 課題3で作る対話モデル</a></li>
-<li><a href="#課題3_Lambdaのコードを改良する">3.3. Lambdaのコードを改良する</a></li>
-<li><a href="#テスト3">3.4. テストする</a></li>
+<li><a href="#_この実習の学習目標_3">3.1. この実習の学習目標</a></li>
+<li><a href="#_対話モデルの編集_2">3.2. 対話モデルの編集</a></li>
+<li><a href="#_lambdaのコードを改良する">3.3. Lambdaのコードを改良する</a></li>
+<li><a href="#_テストする_3">3.4. テストする</a></li>
 </ul>
 </li>
-<li><a href="#課題4_セッションアトリビュートを使おう">4. [課題4] セッションアトリビュートを使おう</a>
+<li><a href="#_発話のバリエーション">4. 発話のバリエーション</a>
 <ul class="sectlevel2">
-<li><a href="#課題4のゴール">4.1. 課題4のゴール</a></li>
-<li><a href="#課題4で作る対話モデル">4.2. 課題4で作る対話モデル</a></li>
-<li><a href="#課題4_lambdaのコードを改良する">4.3. Lambdaのコードを改良する</a></li>
-<li><a href="#テスト4">4.4. テストする</a></li>
+<li><a href="#_この実習の学習目標_4">4.1. この実習の学習目標</a></li>
+<li><a href="#_対話モデルの編集_3">4.2. 対話モデルの編集</a></li>
+<li><a href="#_lambdaのコードを改良する_2">4.3. Lambdaのコードを改良する</a></li>
+<li><a href="#_テストする_4">4.4. テストする</a></li>
+</ul>
+</li>
+<li><a href="#_セッションアトリビュートを使う">5. セッションアトリビュートを使う</a>
+<ul class="sectlevel2">
+<li><a href="#_この実習の学習目標_5">5.1. この実習の学習目標</a></li>
+<li><a href="#_会話のサンプル">5.2. 会話のサンプル</a></li>
+<li><a href="#_lambdaのコードを改良する_3">5.3. Lambdaのコードを改良する</a></li>
+<li><a href="#_テストする_5">5.4. テストする</a></li>
 </ul>
 </li>
 <li><a href="#_補足">補足</a>
@@ -497,7 +505,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_alexaの開発者アカウントに関する問題">Alexaの開発者アカウントに関する問題</a></li>
 </ul>
 </li>
-<li><a href="#サンプルコード">サンプルコード</a></li>
 <li><a href="#_リファレンス">リファレンス</a>
 <ul class="sectlevel2">
 <li><a href="#_alexa_の最新情報について">Alexa の最新情報について</a></li>
@@ -505,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_教材に関するご意見やご要望など">教材に関するご意見やご要望など</a></li>
 </ul>
 </li>
-<li><a href="#改定履歴">改定履歴（主な変更点）</a></li>
+<li><a href="#_改定履歴主な変更点">改定履歴（主な変更点）</a></li>
 </ul>
 </li>
 </ul>
@@ -519,10 +526,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>この資料は <strong>アマゾンジャパン合同会社</strong> が主催する <a href="https://alexa.desgin/jp-events">Alexa ハンズオントレーニング</a> のために作成された演習教材です。</p>
 </div>
 <div class="paragraph">
-<p>所定のレクチャーを受けたあと、この教材のステップに従って演習課題を進めていくことで、スキル開発に必要な基本的な知識とテクニックを習得できるようにデザインされています。</p>
+<p>所定のレクチャーを受けたあと、この教材のステップに従って実習課題を進めていくことで、スキル開発に必要な基本的な知識とテクニックを習得できるようにデザインされています。</p>
 </div>
 <div class="paragraph">
-<p><strong>Alexa ハンズオントレーニング</strong> は東京、大阪など主要都市で定期的に開催されています。遠方にお住いの方や、まとまった時間が取れない方は、オンラインセミナー  <a href="https://alexa.design/jp-alexadojo">Alexa道場</a> の収録動画をご覧ください。 <strong>Alexa道場</strong> は月2回のペースで定期的に開催し、スキル開発に関するテクニックの紹介や最新情報をお届けしています。第1回から第6回あたりまでがこの教材の内容をカバーしています。すでにトレーニングに参加された方がご覧になっても、より理解を深めることができるでしょう。</p>
+<p><strong>Alexa ハンズオントレーニング</strong> は東京、大阪など主要都市で定期的に開催されています。遠方にお住いの方や、まとまった時間が取れない方は、オンラインセミナー  <a href="https://alexa.design/jp-alexadojo">Alexa道場</a> の収録動画をご覧ください。すでにトレーニングに参加された方がご覧になっても、より理解を深めることができるでしょう。</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="./images/icons/alexa_dojo.png" alt="alexa dojo" width="40"></span>  <a href="https://alexa.design/jp-alexadojo">Alexa道場ホームページ</a></p>
@@ -584,6 +591,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 </table>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="警告"></i>
+</td>
+<td class="content">
+管理者権限で利用できるパソコンの利用を推奨します。所属する会社から貸与されているパソコンの場合、厳しいセキュリティ設定のため利用するツールがうまく動作しない場合があります。
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="_ask_sdk_for_node_js_のバージョン"><a class="link" href="#_ask_sdk_for_node_js_のバージョン">ASK SDK for Node.js のバージョン</a></h3>
 <div class="paragraph">
@@ -609,7 +628,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><a href="http://alexa.design/jp-text-v2">最新版の教材ダウンロード</a></p>
+<p><a href="http://alexa.design/jp-text-basic">最新版の教材ダウンロード</a></p>
 </li>
 </ul>
 </div>
@@ -622,7 +641,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://alexa.design/jp-samplecodes-v2">SampleCodes_v2.zip</a></p>
+<p><a href="https://alexa.design/jp-sample-basic">Alexa_SampleCode_Basic.zip</a></p>
 </li>
 </ul>
 </div>
@@ -631,9 +650,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="paragraph">
 <p>ZIPファイルを解凍すると、SJISまたはUTF-8というフォルダがあります。サンプルコードを開いてコピー＆ペーストする場合は、お使いのパソコンまたはテキストエディタの環境に合わせてどちらかの文字コードのファイルを選択してください。</p>
-</div>
-<div class="paragraph">
-<p>尚、<a href="#サンプルコード">サンプルコード</a>の内容はこのテキストの巻末にも掲載しています。</p>
 </div>
 </div>
 </div>
@@ -666,13 +682,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="課題1_初めてのカスタムスキル"><a class="link" href="#課題1_初めてのカスタムスキル">1. [課題1] 初めてのカスタムスキル</a></h2>
+<h2 id="_初めて作るカスタムスキル"><a class="link" href="#_初めて作るカスタムスキル">1. 初めて作るカスタムスキル</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>この実習課題ではシンプルなカスタムスキル <strong>「コーヒーショップ」</strong> を作成します。現在のところスキル内で代金を支払う機能を設けることはできませんので、注文した商品を店頭にて作り置きを依頼するためのスキルであると想定して下さい。</p>
+<p>この実習ではシンプルなカスタムスキル <strong>「コーヒーショップ」</strong> を作成します。現在のところスキル内で代金を支払う機能を設けることはできませんので、注文した商品を店頭にて作り置きを依頼するためのスキルであると想定して下さい。</p>
+</div>
+<div class="sect2">
+<h3 id="_この実習の学習目標"><a class="link" href="#_この実習の学習目標">1.1. この実習の学習目標</a></h3>
+<div class="paragraph">
+<p>この実習で学んだテクニックを使うと次のようなことができるようになります。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>スキルビルダーを使って対話モデルを作成することができる。</p>
+</li>
+<li>
+<p>AWS LambdaとASK SDKを使ってエンドポイントのプログラムを作成できる。</p>
+</li>
+<li>
+<p>Alexa シミュレーターを使って作成したスキルをテストできる。</p>
+</li>
+</ul>
 </div>
 <div class="exampleblock">
-<div class="title">例 1. 課題1の会話サンプル</div>
+<div class="title">例 1. スキルの会話サンプル</div>
 <div class="content">
 <div class="paragraph">
 <p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ, コーヒーショップを開いてコーヒーを注文して」</p>
@@ -704,10 +738,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
 <div class="sect2">
-<h3 id="対話モデルのデザイン"><a class="link" href="#対話モデルのデザイン">1.1. 対話モデルのデザイン</a></h3>
+<h3 id="_対話モデルのデザイン"><a class="link" href="#_対話モデルのデザイン">1.2. 対話モデルのデザイン</a></h3>
 <div class="paragraph">
-<p>このセクションでは最初のステップ、対話モデルのデザインを行います。ユーザーに何を言われたら、どのインテントリクエストをエンドポイント（開発者のサーバー）に送るのかを設計します。</p>
+<p>このセクションでは最初のステップ、対話モデルのデザインを行います。ユーザーがAlexaに対して何か話したら、Alexaがそれをどのように理解し、どのようなデータをエンドポイント（開発者のプログラムが動作するサーバー）に送るのかを設計します。</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -724,7 +759,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="ヒント"></i>
 </td>
 <td class="content">
-このセクションでは開発者コンソールを使用します。
+このセクションでは、開発者コンソールを使用します。
 </td>
 </tr>
 </table>
@@ -749,7 +784,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="sect3">
-<h4 id="開発者コンソールへのログイン"><a class="link" href="#開発者コンソールへのログイン">1.1.1. 開発者コンソールへのログイン</a></h4>
+<h4 id="_開発者コンソールへのログイン"><a class="link" href="#_開発者コンソールへのログイン">1.2.1. 開発者コンソールへのログイン</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -781,10 +816,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>初めて開発者アカウントを作成する場合でも、ログインするだけで自動的に登録画面に遷移します。決して下の「Amazon Developerアカウントを作成」ボタンから開発者アカウントを作成しないでください。このボタンはUSの開発者アカウントを作成します。</p>
-</li>
-<li>
-<p>特に支障がなければ普段Amazonでお買い物に利用しているアカウントをお使いください。</p>
+<p>初めて開発者アカウントを作成する場合でも、ログインするだけで自動的に登録画面に遷移します。Echoデバイスをお持ちの方は、そのデバイスをセットアップした時に使用したアカウントをお使いください。作成したスキルをお手持ちのデバイスでもテストできるので便利です。</p>
 </li>
 <li>
 <p>Amazon.co.jp (日本)と Amazon.com (米国) アカウントの両方をお持ちの方は、それぞれ異なるパスワードを設定し、Amazon.co.jp のアカウントでログインする必要があります。もし同じパスワードを設定している場合は、自動的に Amazon.com のアカウントでUSのスキルを開発することになるのでご注意ください。</p>
@@ -850,11 +882,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="スキルの新規作成"><a class="link" href="#スキルの新規作成">1.1.2. スキルの新規作成</a></h4>
+<h4 id="_スキルの新規作成"><a class="link" href="#_スキルの新規作成">1.2.2. スキルの新規作成</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>「ALEXA SKILLS KIT」ボタンをクリックします。</p>
+<p>「Alexa」メニューから「Alexa Skills Kit」をクリックします。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/TAB_Alexa_Skills_Kit.png" alt="TAB Alexa Skills Kit">
@@ -862,7 +894,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>「スキルの作成」ボタンをクリックします。</p>
+<p>「スキル名」の入力とスキルのデフォルト言語を選択します。
+スキル名とは、このスキルを公開した際、スキルストアに表示されるスキルの名称です。ここではスキル名を <strong>「コーヒーショップ」</strong> 、スキル作成時のデフォルトは <strong>「日本語」</strong> を選択します。<br>
+「スキルに追加するモデルの選択」では「カスタム」を選択し「スキルを作成」ボタンをクリックします。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Create_Skill_Button.png" alt="Create Skill Button">
@@ -870,37 +904,42 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>「スキル名」の入力とスキルのデフォルト言語を選択します。
-スキル名とは、このスキル開発のプロジェクト名で、日本語でも英語でも構いません。ここではスキル名を <strong>「コーヒーショップ」</strong> 、スキル作成時のデフォルトは <strong>「日本語」</strong> を選択して「次へ」をクリックします。</p>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX1/Default_Language.png" alt="Default Language">
-</div>
-</div>
-</li>
-<li>
-<p>スキルに追加するモデルを選択します。この課題ではカスタムスキルを作成するので、カスタムの「選択」ボタンをクリックして「スキル作成」ボタンをクリックします。</p>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX1/Select_Custom_Skill_Type.png" alt="Select Custom Skill Type">
-</div>
-</div>
-</li>
-<li>
 <p>スキルビルダーの画面が表示されます。<br>
-上のメニューバーで現在の作業ステップは「ビルド」であることを確認します。右側のチェックリストは、この画面で4つの作業ステップを完了すると、AlexaシミュレーターまたはEchoデバイスでテストができるようになることを表しています。<br>
-はじめに、左側の「対話モデル」タブにある「呼び出し名」をクリックします。</p>
+右側のチェックリストは、この画面では4つの作業ステップあり、全てのステップをクリアすると、次のステップの「テスト」へ進めることを表しています。<br>
+チェックリストの手順に従い、「1.呼び出し名」のボックスをクリックします。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+左側パネルの「カスタム」をクリックするといつでもこの画面に戻ることができます。
+</td>
+</tr>
+</table>
+</div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX1/Menu_Invocation_Name.png" alt="Menu Invocation Name">
+<img src="./images/EX1/Skill_Builder.png" alt="Skill Builder">
 </div>
 </div>
 </li>
 <li>
 <p>スキルの呼び出し名を入力します。<br>
-ここには、このスキルを呼び出すための名前を設定します。呼び出し名は2〜50文字である必要があります。ここでは「コーヒーショップ」と入力しましょう。<br>
-そうすると、ユーザーは「アレクサ、コーヒーショップを開いて◯◯して。」のようにスキルに話すことができるようになります。<br>
-入力が終わったら一度「モデルを保存」をクリックして保存します。</p>
+このスキルを起動するための呼び出す名を設定します。呼び出し名は2〜50文字である必要があります。ここでは「コーヒーショップ」と入力し「モデルを保存」をクリックします。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+これで、ユーザーは「アレクサ、コーヒーショップを開いて、◯◯して。」のようにスキルを起動してスキルと会話できるようになります。
+</td>
+</tr>
+</table>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Invocation_Name.png" alt="Invocation Name">
@@ -943,19 +982,42 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 </li>
+<li>
+<p>左パネルの「カスタム」をクリックし元の画面に戻ります。</p>
+</li>
+<li>
+<p>スキルビルダーのチェックリストの「1.呼び出し名」に緑のチェックが付いていることを確認します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Confirm_InvovationName.png" alt="Confirm InvovationName">
+</div>
+</div>
+</li>
 </ol>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="対話モデルの作成"><a class="link" href="#対話モデルの作成">1.1.3. 対話モデルの作成</a></h4>
+<h4 id="_対話モデルの作成"><a class="link" href="#_対話モデルの作成">1.2.3. 対話モデルの作成</a></h4>
 <div class="paragraph">
-<p>それでは、対話モデルのデザインに取りかかりましょう。ここでは、ユーザーがどのように発話すれば、どのようにAlexaがその意味を解釈し、その結果をどのようにイベントとしてエンドポイントのサーバーに伝えるべきかをデザインします。これらの入力データは「ビルド」という作業を経てAlexaの学習データとして取り込まれます。</p>
+<p>対話モデルのデザインに取りかかります。ここでは、ユーザーがどのように発話すれば、どのようにAlexaがその意味を解釈し、その結果をどのようにイベントとしてエンドポイントのサーバーに伝えるべきかをデザインします。これらの入力データは「ビルド」という作業を経てAlexaの学習データとして取り込まれます。</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>「対話モデル」タブの中のインテントの右にある「追加」をクリックしてカスタムインテントを追加します。</p>
+<p>スキルビルダーのチェックリストの「2.インテント、サンプル、スロット」のボックスをクリックします。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+左パネルの「インテント」の右にある「追加」ボタンをクリックしても同じ画面に遷移します。
+</td>
+</tr>
+</table>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Add_Intent.png" alt="Add Intent">
@@ -963,7 +1025,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>インテントの名前を入力します。ここでは <strong>OrderIntent</strong> と半角英文字で入力し「カスタムインテントを作成」ボタンをクリックします。</p>
+<p>カスタムインテントの名前を入力します。ここでは <strong>OrderIntent</strong> と半角英文字で入力し「カスタムインテントを作成」ボタンをクリックします。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Create_Custom_Intent.png" alt="Create Custom Intent">
@@ -985,34 +1047,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>インテント <strong>OrderIntent</strong> に紐づくサンプル発話を入力します。サンプル発話とは、インテントを呼び出すためにユーザーが話しかけるフレーズのことです。<br>
-ここでは、コーヒーショップのスキルを使ってコーヒーを注文するためのフレーズを考えて入力します。ユーザーのコーヒーの注文の仕方は一つではありません。思いつく全てのフレーズをできるだけ多く入力してください。</p>
+<p>インテント <strong>OrderIntent</strong> に紐づくサンプル発話を入力します。サンプル発話とは、インテントを呼び出すためにユーザーがAlexaに話しかけるフレーズのことです。<br>
+ここでは、コーヒーショップのスキルを使ってコーヒーを注文するためのフレーズ「コーヒーを注文して」と入力します。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Sample_Utterrances.png" alt="Sample Utterrances">
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="注記"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>サンプル発話の数は1インテントに対し最低6つ、理想は30と言われています。これは、サンプル発話がそのままAlexaの機械学習の教師モデルとなるため、サンプル発話が多ければ多いほど認識精度が向上するからです。</p>
-</div>
-<div class="ulist">
-<div class="title">参考ドキュメント</div>
-<ul>
-<li>
-<p><a href="https://developer.amazon.com/ja/docs/custom-skills/voice-design-best-practices-legacy.html">音声インターフェース設計のベストプラクティス</a></p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </li>
 <li>
@@ -1030,60 +1070,51 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <img src="./images/EX1/SkillBuilder_CheckList.png" alt="SkillBuilder CheckList">
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="注記"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p><strong>「4. エンドポイント」</strong> はこの後のステップでAWS Lambdaを使ったプログラミングが終わった段階で設定します。ここでは一旦そのままにしておきます。</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 </li>
 <li>
-<p>この後の処理で必要となるスキルIDの情報を取得するために、画面左上の「&lt;スキル一覧」をクリックします。</p>
+<p><strong>「4. エンドポイント」</strong> のボックスをクリックします。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX1/Skill_List.png" alt="Skill List">
+<img src="./images/EX1/EndPointBox.png" alt="EndPointBox">
 </div>
 </div>
 </li>
 <li>
-<p>スキル一覧に「コーヒーショップ」スキルがリストされています。スキル名の下に表示されている長い英数文字列を確認します。これはスキルIDと呼ばれるもので後のステップで使用します。文字列の左の小さなアイコンをクリックして文字列をコピーし、テキストエディターなどに貼り付けて保存しておいてください。</p>
+<p>サービスのエンドポイントの種類では「AWS LambdaのARN」を選択します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/AWS_Lambda_ARN.png" alt="AWS Lambda ARN">
+</div>
+</div>
+</li>
+<li>
+<p>「クリップボードにコピー」のリンクをクリックし、スキルIDの文字列をコピーしておきます。この後の処理で必要となりますので、テキストエディタ等を開いてこの文字列を保存しておいてください。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Copy_Skill_ID.png" alt="Copy Skill ID">
 </div>
 </div>
-<div class="paragraph">
-<p>以上で、対話モデルのデザイン作業は終了です。ここまでの作業でAlexaはユーザーからの、「コーヒーが欲しい」と要求するさまざまな言い方を、エンドポイントのサーバー側がハンドリングしやすい <strong>OrderIntent</strong> というインテントリクエストに置き換え、サーバーに送信できるようになりました。</p>
-</div>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>次に、インテントリクエスト <strong>OrderIntent</strong> を受け取る側、つまりエンドポイントのサーバーで処理をし、Alexaに応答を返すためのプログラムコードを書くステップに移りましょう。</p>
+<p>以上で、対話モデルの作業は終了です。ここまでの作業で、Alexaはユーザーの「コーヒーを注文して」という要求フレーズを理解し、エンドポイントのプログラムに <strong>OrderIntent</strong> というリクエストを送信できるようになります。</p>
+</div>
+<div class="paragraph">
+<p>次に、リクエスト <strong>OrderIntent</strong> を受け取る側、つまりエンドポイントのプログラムを書くステップに移ります。</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="エンドポイントの開発"><a class="link" href="#エンドポイントの開発">1.2. エンドポイントの開発</a></h3>
+<h3 id="_エンドポイントの開発"><a class="link" href="#_エンドポイントの開発">1.3. エンドポイントの開発</a></h3>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Dev_Process_Step2.png" alt="Dev Process Step2">
 </div>
 </div>
 <div class="paragraph">
-<p><strong>OrderIntent</strong> を受け取り、何らかの処理をした後、Alexaに応答を返すイベント駆動のサーバープログラムを作成します。ここではAWSのLambdaというサービスを使い、Amazon が提供するAlexaスキル開発用のライブラリ  <a href="https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs">Alexa Skills Kit SDK for Node.js</a> を使ってプログラミングを行います。実習ではサンプルコードをコピーするだけですので安心して取り組んでください。</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/icons/alexa_dojo.png" alt="alexa dojo" width="40"></span>  <a href="https://alexa.design/jp-alexadojo004"> 第4回 Alexa道場：Node jsを使ってAlexaスキルを作ろう</a></p>
+<p><strong>OrderIntent</strong> を受け取り、何らかの処理をした後、Alexaに応答を返すイベント駆動のサーバープログラムを作成します。サーバーのプラットフォームには、AWSのLambdaというサービスを利用します。スキルのプログラムコードは、Alexaスキル開発用のライブラリ  <a href="https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs">Alexa Skills Kit SDK for Node.js</a> を使って作成します。</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1120,11 +1151,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="sect3">
-<h4 id="AWSマネージメントコンソールへのログイン"><a class="link" href="#AWSマネージメントコンソールへのログイン">1.2.1. AWSマネージメントコンソールへのログイン</a></h4>
+<h4 id="_awsコンソールへのログイン"><a class="link" href="#_awsコンソールへのログイン">1.3.1. AWSコンソールへのログイン</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>AWSポータルへアクセスします。</p>
+<p>以下のリンクからAWSポータルにアクセスします。</p>
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
@@ -1173,7 +1204,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </td>
 <td class="content">
 <div class="paragraph">
-<p>本来はセキュリティ上の理由からルートユーザーでのログインは推奨されません。必要であればIAMで開発用ユーザーを作成して開発を行ってください。</p>
+<p>本来はセキュリティ上の理由からルートユーザーでのログインは推奨されません。通常はIAMで開発用ユーザーを追加し、開発用ユーザーでログインし直して作業を行ってください。</p>
 </div>
 </td>
 </tr>
@@ -1195,6 +1226,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>右上のリージョンを<strong>「アジアパシフィック（東京）」</strong>に変更し、<strong>「関数の作成」</strong>ボタンをクリックしてください。</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="警告"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>2018年10月時点でAlexaに接続できるリージョンは、「米国東部(バージニア北部)」「米国西部(オレゴン)」「EU(アイルランド)」「アジアパシフィック(東京)」の４つとなっています。これ以外のリージョンでは、Alexaに接続できなくなるので注意してください。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Select_Tokyo_Region.png" alt="Select Tokyo Region">
@@ -1252,7 +1297,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="トリガーを追加する"><a class="link" href="#トリガーを追加する">1.2.2. トリガーを追加する</a></h4>
+<h4 id="_トリガーを追加する"><a class="link" href="#_トリガーを追加する">1.3.2. トリガーを追加する</a></h4>
 <div class="paragraph">
 <p>Lambda関数は様々なサービスと接続し呼びだすことができます。トリガーとは、作成した関数が何によって呼び出されるかを指定します。ここでは <strong>Alexa Skills Kit</strong> を指定します。</p>
 </div>
@@ -1275,7 +1320,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>トリガーの設定では、スキルIDを検証を「有効」に設定し、アプリケーションIDのテキスト入力フィールドに、<a href="#対話モデルの作成">対話モデルの作成</a>のステップ7でコピーしておいたスキルIDを貼り付け、「追加」ボタンをクリックしてください。</p>
+<p>トリガーの設定では、スキルIDを検証を「有効」に設定し、アプリケーションIDのテキスト入力フィールドに、<a href="#対話モデルの作成">[対話モデルの作成]</a>のステップ7でコピーしておいたスキルIDを貼り付け、「追加」ボタンをクリックしてください。</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1308,7 +1353,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect3">
-<h4 id="Lambda関数のコードをアップロードする"><a class="link" href="#Lambda関数のコードをアップロードする">1.2.3. Lambda関数のコードをアップロードする</a></h4>
+<h4 id="_lambda関数のコードをアップロードする"><a class="link" href="#_lambda関数のコードをアップロードする">1.3.3. Lambda関数のコードをアップロードする</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1402,7 +1447,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="エンドポイントを登録する"><a class="link" href="#エンドポイントを登録する">1.3. エンドポイントを登録する</a></h3>
+<h3 id="_エンドポイントを登録する"><a class="link" href="#_エンドポイントを登録する">1.4. エンドポイントを登録する</a></h3>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Dev_Process_Step3.png" alt="Dev Process Step3">
@@ -1426,7 +1471,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>「ビルド」タブを開き、左のメニューから「エンドポイント」をクリックします。</p>
+<p>スキルビルダーの「カスタム」の画面に戻り、スキルビルダーのチェックリストから「4.エンドポイント」をクリックします。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+左パネルの「エンドポイント」をクリックしても同じです。
+</td>
+</tr>
+</table>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Menu_Endpoint.png" alt="Menu Endpoint">
@@ -1460,7 +1517,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="テスト1"><a class="link" href="#テスト1">1.4. テストする</a></h3>
+<h3 id="_テストする"><a class="link" href="#_テストする">1.5. テストする</a></h3>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Dev_Process_Step4.png" alt="Dev Process Step4">
@@ -1504,7 +1561,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="sect3">
-<h4 id="alexaシミュレータでテストする"><a class="link" href="#alexaシミュレータでテストする">1.4.1. Alexaシミュレータでテストする</a></h4>
+<h4 id="_alexaシミュレータでテストする"><a class="link" href="#_alexaシミュレータでテストする">1.5.1. Alexaシミュレータでテストする</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1551,9 +1608,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="echoデバイスでテストする"><a class="link" href="#echoデバイスでテストする">1.4.2. （オプション）Echoデバイスでテストする</a></h4>
+<h4 id="_オプションechoデバイスでテストする"><a class="link" href="#_オプションechoデバイスでテストする">1.5.2. （オプション）Echoデバイスでテストする。</a></h4>
 <div class="paragraph">
-<p>Alexaアプリのスキル一覧ページに開発中のスキル（DEVスキル）が表示されているかどうかを確認します。</p>
+<p>お手持ちのEchoデバイスを使ってテストする手順を説明します。はじめに、Alexaアプリのスキル一覧ページに開発中のスキルが表示されているかどうかを確認します。</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1562,7 +1619,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-tip" title="ヒント"></i>
 </td>
 <td class="content">
-ここではAlexaアプリを使用します。
+ここではAlexaアプリを使用します。(<a href="https://alexa.amazon.co.jp" class="bare">https://alexa.amazon.co.jp</a>)
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="警告"></i>
+</td>
+<td class="content">
+まだ１台も自分のアカウントでEchoデバイスをセットアップしたことがない場合、Alexaアプリにログインするとデバイスのセットアップ画面が表示され、自分のスキルを確認することはできません。
 </td>
 </tr>
 </table>
@@ -1570,7 +1639,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Alexaアプリにログインし「スキル」タブをクリックしてください。</p>
+<p>Alexaアプリにログインし「スキル」タブをクリックします。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/AlexaApp_Skills.png" alt="AlexaApp Skills">
@@ -1578,7 +1647,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>「有効なスキル」をクリックしてください。</p>
+<p>「有効なスキル」をクリックします。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/AlexaApp_ActiveSkills.png" alt="AlexaApp ActiveSkills">
@@ -1586,10 +1655,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>「DEVスキル」のタブをクリックすると開発中のスキルのリストが表示されます。アイコンの右下に緑色の <strong>devJP</strong> というマークのついたものが開発中のスキルを表しています。リストの中から、あなたが作成したスキルを探してください。</p>
+<p>「開発スキル」のタブをクリックします。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/AlexaApp_DEV.png" alt="AlexaApp DEV">
+</div>
+</div>
+<div class="paragraph">
+<p>現在開発中（非公開）のスキルのリストが表示されます。リストの中から、あなたが作成した「コーヒーショップ」スキルを探してください。アイコンの右下に緑色の <strong>devJP</strong> というマークのついたものが開発中のスキルを表しています。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX1/Find_Coffeeshop_Skill.png" alt="Find Coffeeshop Skill">
 </div>
 </div>
 </li>
@@ -1611,7 +1688,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX1/Echo_Dot.jpg" alt="Echo Dot">
+<img src="./images/EX1/echo_dot_main.jpg" alt="echo dot main">
 </div>
 </div>
 </li>
@@ -1623,7 +1700,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="うまく動かない場合"><a class="link" href="#うまく動かない場合">1.4.3. うまく動かない場合</a></h4>
+<h4 id="_うまく動かない場合"><a class="link" href="#_うまく動かない場合">1.5.3. うまく動かない場合</a></h4>
 <div class="paragraph">
 <p>うまく動かない場合、様々な要因がありますが特に以下の設定を見直してみましょう。</p>
 </div>
@@ -1638,11 +1715,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>スキルビルダーで追加したインテント名のスペルと、Lambda関数で登録されているインテント名のスペルは一致していますか？</p>
 </li>
+<li>
+<p>Alexaシミュレーターで、音声を使ってスキルを起動した際の「呼び出し名」の認識文字列と、スキルビルダーで設定した「呼び出し名」は完全に一致していますか？</p>
+</li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="スキルからの応答に問題があります"><a class="link" href="#スキルからの応答に問題があります">1.4.4. 「スキルからの応答に問題があります」？</a></h4>
+<h4 id="_スキルからの応答に問題があります"><a class="link" href="#_スキルからの応答に問題があります">1.5.4. 「スキルからの応答に問題があります」？</a></h4>
 <div class="paragraph">
 <p>Alexaが上記のフレーズを言って期待する動作をしない場合、Lambdaのコード内で何らかのエラーが発生し正しくレスポンスを返していない状態です。Lambda側で何が起きているのか <strong>CloudWatchLog</strong> を使ってエラーシューティングを行ってみましょう。</p>
 </div>
@@ -1680,23 +1760,330 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ol>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_インテントの追加"><a class="link" href="#_インテントの追加">2. インテントの追加</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_この実習の学習目標_2"><a class="link" href="#_この実習の学習目標_2">2.1. この実習の学習目標</a></h3>
 <div class="paragraph">
-<p>次は課題2です。課題2では <strong>「スロット」</strong> を使ってコーヒーの数をスキルで受け取れるように改良します。先に進む前に講師の指示に従ってください。</p>
+<p>この実習では、ユーザーがコーヒーの注文とは関係のない発話をしてきた場合の受け取り方法と、ビルトイン・インテントの実装方法を学びます。</p>
+</div>
+<div class="paragraph">
+<p>この実習で学んだテクニックを使うと次のようなことができるようになります。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>インテントとは何かを説明できるようになる。</p>
+</li>
+<li>
+<p>任意のインテントと、インテントハンドラーを追加することができる。</p>
+</li>
+<li>
+<p>ビルトイン・インテントの追加と実装方法を実演できるようになる。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_対話モデルの編集"><a class="link" href="#_対話モデルの編集">2.2. 対話モデルの編集</a></h3>
+<div class="exampleblock">
+<div class="title">例 2. スキルの会話サンプル</div>
+<div class="content">
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ、コーヒーショップを開いて、おすすめは何？」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="40"></span> 「今日は甘さスッキリのカフェラテがおすすめです。」</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="title">参考ドキュメント</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/create-intents-utterances-and-slots.html">インテント、発話、スロットの作成</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_インテントを追加する"><a class="link" href="#_インテントを追加する">2.2.1. インテントを追加する</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>コーヒーショップスキルのスキルビルダーの画面を開きます。</p>
+</li>
+<li>
+<p>左パネルにあるインテントの「<strong>追加</strong>」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Add_Intent.png" alt="Add Intent">
+</div>
+</div>
+</li>
+<li>
+<p>ユーザーの「おすすめは何？」という発話に対応するカスタムインテントを作成します。インテント名の入力フィールドに「<strong>RecommendIntent</strong>」と入力し、「カスタムインテントの作成」ボタンをクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Add_RecommendIntent.png" alt="Add RecommendIntent">
+</div>
+</div>
+</li>
+<li>
+<p>インテント「RecommendIntent」に紐づくサンプル発話を2〜3フレーズ考えて入力し、「モデルを保存」ボタンをクリックします。</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="警告"></i>
+</td>
+<td class="content">
+サンプル発話を入力する際、疑問符(?)、英数文字、記号などは入力しないでください。
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/RecommendIntent_SampleUtterances.png" alt="RecommendIntent SampleUtterances">
+</div>
+</div>
+</li>
+<li>
+<p>続いて、左パネルのインテントのグループに「ビルトインインテント(3)」が含まれていることを確認します。<strong>AMAZON.HelpIntent</strong> をクリックします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/AMAZON.HelpIntent.png" alt="AMAZON.HelpIntent">
+</div>
+</div>
+</li>
+<li>
+<p>同様に、<strong>AMAZON.CancelIntent</strong>、<strong>AMAZON.StopIntent</strong> があることも確認します。これらは、スキル作成時にデフォルトで追加されているビルトイン・インテントです。対話モデルでは、特に何もする必要はありませんが、必要に応じて独自のサンプル発話を追加することもできます。一方、これらのインテントを受け取るLambdaのコードは必ず実装する必要があります。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/BuiltinIntents.png" alt="BuiltinIntents">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_lambdaでrecommendintent_インテントハンドラーを追加する"><a class="link" href="#_lambdaでrecommendintent_インテントハンドラーを追加する">2.2.2. LambdaでRecommendIntent インテントハンドラーを追加する</a></h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+プログラミングに自信のない方は、Lambdaの <strong>index.js</strong> のコードをサンプルファイル <a href="#Sample2.js">[Sample2.js]</a> のコードに置き換えてください。
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>AWSコンソール画面を開き、CoffeeshopスキルのLambda関数コード <strong>index.js</strong> を開きます。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX2/Coffeeshop_indexjs.png" alt="Coffeeshop indexjs">
+</div>
+</div>
+</li>
+<li>
+<p>OrderIntentHandlerが定義されているブロックをコピーし、「// この下に RecomentIntentHandlerのコードを追加してください。」と書かれているコメント行の下に貼り付け、以下のようにハンドラー名(RecommendIntent)、canHandle内のインテント名(RecommendIntent)、speechOutputに代入されている文字列を修正します。</p>
+<div class="listingblock">
+<div class="title">リスト 3. OrderIntentをコピーして追加修正したRecommendIntentのコード</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const RecommendIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>インテントハンドラーを追加したら、コードの下方に定義されている <strong>SkillBuilder</strong>オブジェクトに、先ほど追加した<strong>RecommendIntentHandler</strong>を登録します。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const skillBuilder = Alexa.SkillBuilders.custom();
+exports.handler = skillBuilder
+  .addRequestHandlers(
+    LaunchRequestHandler,
+    OrderIntentHandler,
+    // ここにRecommendIntentHandlerを追加登録してください。
+    RecommendIntentHandler, //&lt;= 追加
+    // ここにHelpIntentHandlerを追加登録してください。
+    CancelAndStopIntentHandler,
+    SessionEndedRequestHandler
+  )
+  .addErrorHandlers(ErrorHandler)
+  .lambda();</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>同様の手順でビルトインインテント<strong>AMAZON.HelpIntent</strong>を処理する<strong>HelpIntentHandler</strong>を定義します。以下のコードを <strong>RecommendIntent</strong> の下に追加します。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const HelpIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
+        const reprompt = '今日は何にしますか？';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+OrderIntentHandler, RecommendIntentHandlerと異なり、レスポンスを返す処理の記述に、<strong>.reprompt(文字列)</strong> が追加されていることに注目してください。AMAZON.HelpIntentは、ユーザーが使い方を尋ねてきた場合のインテントです。 スキルは、スキルの使い方を簡潔に伝えた後、次にどうするかをユーザーに尋ね返事待ちの状態にする必要があります。<strong>.reprompt(文字列)</strong> の行を追加すると、はじめに <strong>.speak(文字列)</strong> の文字列を話した後、Alexaはユーザーからの応答待ちになります（ブルーのリングライトが回転します）。8秒間ユーザーの応答がなかった場合、Alexaは<strong>.reprompt(文字列)</strong> の文字列の内容を話し、さらにユーザーからの応答を待ちます。それでもユーザーからの応答がなかった場合、スキルは終了します。
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>インテントハンドラーを追加したので、コードの下方に定義されている <strong>SkillBuilder</strong>オブジェクトに、<strong>HelpIntentHandler</strong>を登録します。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const skillBuilder = Alexa.SkillBuilders.custom();
+exports.handler = skillBuilder
+  .addRequestHandlers(
+    LaunchRequestHandler,
+    OrderIntentHandler,
+    // ここにRecommendIntentHandlerを追加登録してください。
+    RecommendIntentHandler,
+    // ここにHelpIntentHandlerを追加登録してください。
+    HelpIntentHandler, // &lt;== 追加
+    CancelAndStopIntentHandler,
+    SessionEndedRequestHandler
+  )
+  .addErrorHandlers(ErrorHandler)
+  .lambda();</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<strong>skillBuiler</strong>オブジェクトにハンドラーを登録する際の順番に注意してください。SDKは、登録された順にハンドラーの <strong> canHandle() </strong>をチェックし、最初に True を返したハンドラーの <strong>handle()</strong>を実行します。
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_テストする_2"><a class="link" href="#_テストする_2">2.3. テストする</a></h3>
+<div class="paragraph">
+<p>対話モデル及びLambda関数の修正が終わったらスロットの値が正しく取得できるかどうかテストしましょう。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Alexaシミュレータを開き、「<code>コーヒーショップを開いて、おすすめは何</code>」のように発話を入力してテストしてみましょう。</p>
+</li>
+<li>
+<p>次に「<code>コーヒーショップを開いて</code>」だけでスキルを起動してみましょう。インテントタイプ <strong>LaunchRequest</strong> が送信され、<strong>LaunchRequestHandler</strong> が実行され、ユーザーからの返答待ちになることを確認しましょう。</p>
+</li>
+<li>
+<p>そのままの状態で、Alexaに「<code>ヘルプ</code>」と言ってみましょう。<strong>AMAZON.HelpIntent</strong> が受信され、<strong>HelpIntentHandler</strong> が実行されることを確認してください。</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>以上のような手順で、インテントを追加するごとにインテントハンドラーを定義して<strong>skillBuilder</strong>オブジェクトに追加登録するのが ASK SDK for Node.js の基本パターンとなります。</p>
+</div>
+<div class="paragraph">
+<p>ただし、サンプルコードの<strong>CancelAndStopIntentHandler</strong>のように、インテントが異なっていても、処理の内容や応答が同じ場合には、１つのインテントハンドラーに処理をまとめることもできます。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+必ずしも、インテント:インテントハンドラーは1:1である必要はない。
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">リスト 4. CancelAndStopIntentHandler インテントハンドラーの定義例（AMAZON.CancelIntentとAMAZON.StopIntentが同じハンドラーで処理されている）</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const CancelAndStopIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+    },
+    handle(handlerInput) {
+        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+    }
+};</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="課題2_ビルトインスロットを使おう"><a class="link" href="#課題2_ビルトインスロットを使おう">2. [課題2] ビルトインスロットを使おう</a></h2>
+<h2 id="_スロットの使用"><a class="link" href="#_スロットの使用">3. スロットの使用</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="課題2のゴール"><a class="link" href="#課題2のゴール">2.1. 課題2のゴール</a></h3>
+<h3 id="_この実習の学習目標_3"><a class="link" href="#_この実習の学習目標_3">3.1. この実習の学習目標</a></h3>
 <div class="paragraph">
-<p>課題2では <strong>コーヒーの数</strong> を受け取るようにスキルを改良します。</p>
+<p>この実習ではユーザーの発話から <strong>ドリンクのメニュー</strong> と <strong>ドリンクの数</strong> の情報を受け取るようにスキルを改良します。</p>
 </div>
 <div class="paragraph">
-<p>この課題で学んだテクニックを使うと次のようなことができるようになります。</p>
+<p>この実習で学んだテクニックを使うと次のようなことができるようになります。</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1704,7 +2091,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>対話モデルのサンプル発話にスロットを導入する手順を実演できる</p>
 </li>
 <li>
-<p>標準スロットタイプの種類を選択することができる。</p>
+<p>標準スロットタイプとカスタムスロットタイプを使い分けることができる。</p>
 </li>
 <li>
 <p>スロットで受け取ったデータがどのようにエンドポイントに渡されるかを説明できる。</p>
@@ -1713,15 +2100,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="課題2で作る対話モデル"><a class="link" href="#課題2で作る対話モデル">2.2. 課題2で作る対話モデル</a></h3>
+<h3 id="_対話モデルの編集_2"><a class="link" href="#_対話モデルの編集_2">3.2. 対話モデルの編集</a></h3>
 <div class="exampleblock">
-<div class="title">例 2. 課題2の会話サンプル</div>
+<div class="title">例 3. スキルの会話サンプル</div>
 <div class="content">
 <div class="paragraph">
-<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ、コーヒーショップを開いて、コーヒーを2つください」</p>
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ、コーヒーショップを開いて、<strong>カフェラテ</strong>を<strong>二つ</strong>ください」</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="40"></span> 「コーヒーを<strong>2つ</strong>ですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またのご利用をお待ちしております。」</p>
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="40"></span> 「<strong>カフェラテ</strong>を<strong>2つ</strong>ですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またのご利用をお待ちしております。」</p>
 </div>
 </div>
 </div>
@@ -1735,7 +2122,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>サンプル発話に「スロット」を追加し、エンドポイントでインテントと共にスロットの数字を受け取れるようにします。</p>
+<p>サンプル発話に「スロット」を追加し、エンドポイントでインテントと共にスロットの値を受け取れるようにします。</p>
 </li>
 </ul>
 </div>
@@ -1759,6 +2146,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p><a href="https://developer.amazon.com/ja/docs/custom-skills/slot-type-reference.html">スロットタイプリファレンス</a></p>
 </li>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/create-and-edit-custom-slot-types.html">カスタムスロットタイプの作成と編集</a></p>
+</li>
 </ul>
 </div>
 </td>
@@ -1769,7 +2159,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><span class="image"><img src="./images/icons/alexa_dojo.png" alt="alexa dojo" width="40"></span>  <a href="https://alexa.design/jp-alexadojo005">第5回 Alexa道場：スロットを使って発話内の可変文字列を取得しよう</a></p>
 </div>
 <div class="sect3">
-<h4 id="スロットを追加する"><a class="link" href="#スロットを追加する">2.2.1. スロットを追加する</a></h4>
+<h4 id="_スロットを追加する"><a class="link" href="#_スロットを追加する">3.2.1. スロットを追加する</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1779,15 +2169,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>インテント「<strong>OrderIntent</strong>」をクリックして、スロットを含むサンプル発話を追加します。まず「コーヒーを一つください」と入力してみましょう。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX2/OrderIntent.png" alt="OrderIntent">
+<img src="./images/EX3/OrderIntent.png" alt="OrderIntent">
 </div>
 </div>
 </li>
 <li>
-<p>スロットにしたい部分、この場合だと「一」（漢数字の1）の部分をマウスで選択します。下図のようなスロットを追加するポップアップが表示されます。</p>
+<p>スロットにしたい部分「一」（漢数字の1）マウスで選択します。下図のようなスロットを追加するポップアップが表示されます。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX2/Add_New_Slot.png" alt="Add New Slot">
+<img src="./images/EX3/Add_New_Slot.png" alt="Add New Slot">
 </div>
 </div>
 </li>
@@ -1795,7 +2185,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>新しいスロットを作成のテキストフィールドに、追加したいスロット名「amount」を入力しましょう。スロット名は必ず半角英文字で入力します。入力したら「追加」ボタンをクリックします。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX2/Add_Amount_Slot.png" alt="Add Amount Slot">
+<img src="./images/EX3/Add_Amount_Slot.png" alt="Add Amount Slot">
 </div>
 </div>
 </li>
@@ -1803,7 +2193,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>スロットを含むサンプル発話に置き換えられています。＋ボタンか、リターンキーを押して確定します。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX2/Amount_Slot.png" alt="Amount Slot">
+<img src="./images/EX3/Amount_Slot.png" alt="Amount Slot">
 </div>
 </div>
 </li>
@@ -1811,7 +2201,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>画面の下の方を見ると、インテントスロットにamountが追加されていることが確認できます。amountのスロットタイプを設定しましょう。この場合「数値」を取得するので、標準スロットタイプのAMAZON.NUMBERを選択します。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX2/SlotType_AMAZON_Number.png" alt="SlotType AMAZON Number">
+<img src="./images/EX3/SlotType_AMAZON_Number.png" alt="SlotType AMAZON Number">
 </div>
 </div>
 </li>
@@ -1819,7 +2209,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>次にもう一つ同じスロットamountを含むサンプル発話を追加します。「コーヒーを一つ注文して」と入力し、同じように漢字の「一」を選択します。今度は、既存のスロットを選択にamountが表示されるので、これを選択しクリックします。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX2/Existing_Slot.png" alt="Existing Slot">
+<img src="./images/EX3/Existing_Slot.png" alt="Existing Slot">
 </div>
 </div>
 </li>
@@ -1827,7 +2217,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>サンプル発話の入力中に、スロットを挿入したい部分でキーボードの <strong>{</strong> をタイプしてもスロット選択のポップアップが表示されます。好みの方法で、スロットを含むサンプル発話をどんどん追加してください。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX2/Select_Slot.png" alt="Select Slot">
+<img src="./images/EX3/Select_Slot.png" alt="Select Slot">
 </div>
 </div>
 </li>
@@ -1835,7 +2225,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>充分な数のサンプル発話が追加できたら「モデルを保存」し「モデルをビルド」をクリックしてください。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX2/Save_and_Build.png" alt="Save and Build">
+<img src="./images/EX3/Save_and_Build.png" alt="Save and Build">
 </div>
 </div>
 </li>
@@ -1849,145 +2239,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </td>
 <td class="content">
 <div class="paragraph">
-<p>「〜つ」、「〜個」や「〜杯」など数の数え方の単位も含め、あらゆるパターンを追加しましょう。ある程度はAlexaが自動で認識するようですが、何度ものテストを繰り返して満足できる認識結果が得られるまで調整しましょう。</p>
+<p>「〜つ」、「〜個」や「〜杯」など数の数え方の単位も含め、あらゆるパターンを追加しましょう。ある程度はAlexaが補完して認識しますが、何度ものテストを繰り返して満足できる認識結果が得られるまで調整しましょう。</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="課題2_Lambdaのコードを改良する"><a class="link" href="#課題2_Lambdaのコードを改良する">2.3. Lambdaのコードを改良する</a></h3>
-<div class="paragraph">
-<p>次に、スロットの値を受け取れるようにLambda側のプログラムコードも修正しましょう。</p>
-</div>
-<div class="paragraph">
-<p>プログラミングに自信のない方は、Lambdaの <strong>indes.js</strong> をサンプルファイル <a href="#Sample2.js">Sample2.js</a> の中身をコピーして貼り付けてください。</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX2/Sample2_JS.png" alt="Sample2 JS">
-</div>
-</div>
-<div class="paragraph">
-<p>自分でコードを書いてみたい方は、以下のコードをヒントに、既存のコードに修正を加えてください。</p>
-</div>
-<div class="listingblock">
-<div class="title">リスト 3. スロット amount の値を取得し、amountの値を含めた応答を返すコード (node.js)</div>
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
-
-const speechOutput = 'コーヒーを' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-
-return handlerInput.responseBuilder
-.speak(speechOutput)
-.getResponse();</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Lambda関数のコードの修正が完了したら「保存」ボタンをクリックしてテストしましょう。</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="テスト2"><a class="link" href="#テスト2">2.4. テストする</a></h3>
-<div class="paragraph">
-<p>対話モデル及びLambda関数の修正が終わったらスロットの値が正しく取得できるかどうかテストしましょう。</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Alexaシミュレータを開き、「<code>コーヒーショップを開いて、コーヒーを一つ注文して</code>」のようにスロットを含めた発話を入力してテストしてみましょう。このとき、スロットに数字を入れる場合は、漢数字で入れてください。半角や全角の数字はうまく認識しないので注意してください。</p>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX2/Sample_Utterances.png" alt="Sample Utterances">
-</div>
-</div>
-</li>
-<li>
-<p>JSON入力で、スロットの値が正しく取得できているかどうかを観察します。下図のようにスロット名 <strong>amount</strong> に数字（下図の場合は1）が入ります。</p>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX2/JSON_Input.png" alt="JSON Input">
-</div>
-</div>
-</li>
-<li>
-<p>JSON出力側も正しく数字の入った応答を返しているかを確認しましょう。</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="課題3_カスタムスロットタイプを使おう"><a class="link" href="#課題3_カスタムスロットタイプを使おう">3. [課題3] カスタムスロットタイプを使おう</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>ここまでのコーヒーショップスキルでは、コーヒーしか注文できません。他のメニューも用意したいところですよね？　そこで、カスタムスロットタイプを追加して、コーヒー以外にも「カフェラテ」「カプチーノ」なども注文できるようにしましょう。</p>
-</div>
-<div class="sect2">
-<h3 id="課題3のゴール"><a class="link" href="#課題3のゴール">3.1. 課題3のゴール</a></h3>
-<div class="paragraph">
-<p>課題3ではカスタムスロットタイプを定義して任意のリストからスロットの値を取得します。</p>
-</div>
-<div class="paragraph">
-<p>この課題で学習したテクニックを使うと、以下のことができるようになります。</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>カスタムスロットタイプを定義することができる。</p>
-</li>
-<li>
-<p>カスタムスロットタイプが設定されたスロットをサンプル発話内に追加できる。</p>
-</li>
-<li>
-<p>カスタムスロットタイプのスロットから送られたデータをLambda関数内で取得できる。</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="注記"></i>
-</td>
-<td class="content">
-<div class="title">参考ドキュメント</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://developer.amazon.com/ja/docs/custom-skills/create-and-edit-custom-slot-types.html">カスタムスロットタイプの作成と編集</a></p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="課題3で作る対話モデル"><a class="link" href="#課題3で作る対話モデル">3.2. 課題3で作る対話モデル</a></h3>
-<div class="exampleblock">
-<div class="title">例 3. 課題3の会話サンプル</div>
-<div class="content">
-<div class="paragraph">
-<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ、コーヒーショップを開いて、<strong>カフェラテ</strong>を2つください」</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="40"></span> 「<strong>カフェラテ</strong>を2つですね、ありがとうございます。今日は天気がいいので・・・」</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>課題2の対話モデルとほぼ同じですが、商品をコーヒー、カフェラテ、カプチーノ、エスプレッソなどから選択できるようになっています。</p>
-</div>
-<div class="paragraph">
-<p>まずは、スロットでメニュー品目を取得できるよう、カスタムスロットタイプを追加します。</p>
 </div>
 <div class="sect3">
-<h4 id="カスタムスロットタイプを追加する"><a class="link" href="#カスタムスロットタイプを追加する">3.2.1. カスタムスロットタイプを追加する</a></h4>
+<h4 id="_カスタムスロットタイプを追加する"><a class="link" href="#_カスタムスロットタイプを追加する">3.2.2. カスタムスロットタイプを追加する</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2062,21 +2322,29 @@ return handlerInput.responseBuilder
 </div>
 </div>
 <div class="sect2">
-<h3 id="課題3_Lambdaのコードを改良する"><a class="link" href="#課題3_Lambdaのコードを改良する">3.3. Lambdaのコードを改良する</a></h3>
+<h3 id="_lambdaのコードを改良する"><a class="link" href="#_lambdaのコードを改良する">3.3. Lambdaのコードを改良する</a></h3>
 <div class="paragraph">
-<p>スロットmenuの値を受け取れるようにLambda側のプログラムコードも修正しましょう。
-プログラミングに自信のない方は、Lambdaの <strong>indes.js</strong> をサンプルファイル <a href="#Sample3.js">Sample3.js</a> の中身をコピーして貼り付けてください。</p>
+<p>スロットmenuの値を受け取れるようにLambda側のプログラムコードも修正しましょう。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+プログラミングに自信のない方は、Lambdaの <strong>index.js</strong> のコードをサンプルファイル <a href="#Sample3.js">[Sample3.js]</a> のコードに置き換えてください。自分でコードを書いてみたい方は、以下のコードをヒントに、既存のコードに修正を加えてください。
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX3/Sample3_JS.png" alt="Sample3 JS">
 </div>
 </div>
-<div class="paragraph">
-<p>自分でコードを書いてみたい方は、以下のコードをヒントに、既存のコードに修正を加えてください。</p>
-</div>
 <div class="listingblock">
-<div class="title">リスト 4. スロット menu の値を取得し、menuの値を含めた応答を返すコード</div>
+<div class="title">リスト 5. スロット menu と amount の値を取得し、それぞれの値を含めた応答を返すコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
 var menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
@@ -2101,7 +2369,7 @@ return handlerInput.responseBuilder
 </table>
 </div>
 <div class="listingblock">
-<div class="title">リスト 5. ユーザーが欲しい商品を言ってくれなかった場合の判別と、ユーザーに尋ねるコード</div>
+<div class="title">リスト 6. ユーザーが欲しい商品を言ってくれなかった場合の判別と、ユーザーに尋ねるコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">if (menu === undefined){
     const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
@@ -2118,27 +2386,313 @@ return handlerInput.responseBuilder
 </div>
 </div>
 <div class="sect2">
-<h3 id="テスト3"><a class="link" href="#テスト3">3.4. テストする</a></h3>
+<h3 id="_テストする_3"><a class="link" href="#_テストする_3">3.4. テストする</a></h3>
 <div class="paragraph">
-<p>対話モデル及びLambda関数の修正が終わったらスロットの値が正しく取得できるかどうかテストしましょう。
-Alexaシミュレータを開き、「コーヒーショップを開いて、<strong>カプチーノ</strong>を<strong>一つ</strong>注文して」のようにスロットを含めた発話を入力してテストしてみましょう。タイプ入力だけではなく、音声入力でもテストを繰り返し、スロットの値が正しく取得できているかを確認しましょう。</p>
+<p>対話モデル及びLambda関数の修正が終わったらスロットの値が正しく取得できるかどうかテストしましょう。</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Alexaシミュレータを開き、「<code>コーヒーショップを開いて、コーヒーを一つ注文して</code>」のようにスロットを含めた発話を入力してテストしてみましょう。このとき、スロットに数字を入れる場合は、漢数字で入れてください。半角や全角の数字はうまく認識しないので注意してください。タイプ入力だけではなく、音声入力でもテストを繰り返し、スロットの値が正しく取得できているかを確認しましょう。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX3/JSON_Input_MenuSlot.png" alt="JSON Input MenuSlot">
+<img src="./images/EX3/Sample_Utterances.png" alt="Sample Utterances">
 </div>
 </div>
-<div class="paragraph">
-<p>ここまでくると、ずいぶん実用に近いスキルになってきました。対話モデルやLambdaコードを微調整し完成度を高めましょう。</p>
+</li>
+<li>
+<p>JSON入力で、スロットの値が正しく取得できているかどうかを観察します。下図のようにスロット名 <strong>menu</strong> にユーザーが発話したメニューの名前（下図の場合は <strong>コーヒー</strong>）、 <strong>amount</strong> に数（下図の場合は数字の <strong>2</strong> ）が入ることを確認します。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX3/JSON_Input_Slot_Menu_Amount.png" alt="JSON Input Slot Menu Amount">
 </div>
-<div class="paragraph">
-<p>以上で課題3は終了です。お疲れ様でした！</p>
+</div>
+</li>
+<li>
+<p>JSON出力側も正しく数字の入った応答を返しているかを確認しましょう。</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="課題4_セッションアトリビュートを使おう"><a class="link" href="#課題4_セッションアトリビュートを使おう">4. [課題4] セッションアトリビュートを使おう</a></h2>
+<h2 id="_発話のバリエーション"><a class="link" href="#_発話のバリエーション">4. 発話のバリエーション</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_この実習の学習目標_4"><a class="link" href="#_この実習の学習目標_4">4.1. この実習の学習目標</a></h3>
+<div class="paragraph">
+<p>この実習では、ユーザーの様々な発話パターンをAlexaが正しく認識できるように改良するテクニックを学びます。</p>
+</div>
+<div class="paragraph">
+<p>この実習で学んだテクニックを使うと次のようなことができるようになります。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>対話モデルのインテントに適切な数のサンプル発話を追加して、ユーザーの発話の認識率を向上させることができる。</p>
+</li>
+<li>
+<p>スロットに同義語（シノニム）を追加して、同じ意味をもつ別の言い方にも対応できるように改良できる。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_対話モデルの編集_3"><a class="link" href="#_対話モデルの編集_3">4.2. 対話モデルの編集</a></h3>
+<div class="exampleblock">
+<div class="title">例 4. スキルの会話サンプル</div>
+<div class="content">
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ、コーヒーショップで、<strong>冷たいコーヒー</strong>を<strong>一</strong>つ頼む」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="40"></span> 「<strong>冷たいコーヒー</strong>を<strong>1つ</strong>ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。」</p>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="40"></span>「アレクサ、コーヒーショップを開いて、<strong>カフェラテ</strong>をください」</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/icons/alexa_icon.jpg" alt="alexa icon" width="40"></span> 「<strong>カフェラテ</strong>ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。」</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="title">参考ドキュメント</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/create-intents-utterances-and-slots.html">インテント、発話、スロットの作成</a></p>
+</li>
+<li>
+<p><a href="https://developer.amazon.com/ja/docs/custom-skills/define-synonyms-and-ids-for-slot-type-values-entity-resolution.html">スロットタイプ値の同義語とIDを定義する（エンティティ解決）</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_インテントのサンプル発話を追加する"><a class="link" href="#_インテントのサンプル発話を追加する">4.2.1. インテントのサンプル発話を追加する</a></h4>
+<div class="paragraph">
+<p>インテントに対するユーザーの発話パターンは一つとは限りません。同じ内容のことを話す場合でも、人によって様々な言い回しをします。住む地域によっては方言もあるでしょう。これら発話の多様性に対応できるようスキルを改良しましょう。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>開発者コンソールのスキルビルダーを開きます。</p>
+</li>
+<li>
+<p>インテント「<strong>OrderIntent</strong>」をクリックして、サンプル発話を追加します。言葉の揺れ、異なる言い回し、方言なども考慮すると良いでしょう。また、全てのスロットが含まれる場合、一部のスロットしか含まれない場合、スロットが全く含まれない場合、スロットの順番が異なる場合など、あらゆる発話パターンを想定し、できるだけ多く入力します。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+サンプル発話に入力したフレーズは、Alexaの機械学習の教師データとして登録されます。サンプル発話の数が多ければ多いほど、認識率が向上します。
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Add_OrderIntent_SampleUtterances.png" alt="Add OrderIntent SampleUtterances">
+</div>
+</div>
+</li>
+<li>
+<p>同様に、インテント「<strong>RecommendIntent</strong>」をクリックして、サンプル発話を追加します。</p>
+</li>
+<li>
+<p>対話モデルを修正したら対話モデルを保存し、ビルドします。</p>
+</li>
+<li>
+<p>AlexaシミュレーターまたはAlexa対応デバイスでテストをします。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="シノニムを追加する"><a class="link" href="#シノニムを追加する">4.2.2. 同義語（シノニム）を追加する</a></h4>
+<div class="paragraph">
+<p>同じ意味を持つ言葉でも様々なフレーズを使います。例えば「アイスコーヒー」のことを「冷たいコーヒー」という人もいるでしょう。「カフェオレ」という人もいれば「カフェオーレ」という人もいるでしょう。こうした言葉の揺れはスロット値の取得に影響を及ぼします。異なるフレーズでも同じスロット値として取り扱いたい場合には、シノニムの機能を使うと便利です。</p>
+</div>
+<div class="paragraph">
+<p>ここでは、既に登録済みの <strong>MenuList</strong> スロットタイプの各値にシノニムを追加しましょう。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>開発者コンソールのスキルビルダーを開きます。</p>
+</li>
+<li>
+<p>左パネルの「スロットタイプ」から <strong>MenuList</strong> をクリックします。</p>
+</li>
+<li>
+<p>既に登録されているドリンクメニューの名前に対し、それぞれ別の言い回しを追加します。</p>
+</li>
+<li>
+<p>プログラムコードで処理しやすいように各スロット値に固有のIdを付与することもできます。Idは任意で入力します。</p>
+</li>
+<li>
+<p>対話モデルを修正したら対話モデルを保存し、ビルドします。</p>
+</li>
+<li>
+<p>AlexaシミュレーターまたはAlexa対応デバイスでテストをします。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Add_Synonyms.png" alt="Add Synonyms">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lambdaのコードを改良する_2"><a class="link" href="#_lambdaのコードを改良する_2">4.3. Lambdaのコードを改良する</a></h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+プログラミングに自信のない方は、Lambdaの <strong>index.js</strong> のコードをサンプルファイル <a href="#Sample4.js">[Sample4.js]</a> のコードに置き換えてください。
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_スロット値の有無によって応答を変える"><a class="link" href="#_スロット値の有無によって応答を変える">4.3.1. スロット値の有無によって応答を変える</a></h4>
+<div class="paragraph">
+<p>例えば <strong>OrderIntent</strong> に注目した場合、ユーザーは必ずしもメニューと個数を言ってくれるとは限りません。もし発話の中でスロット値が提供されなかった場合、リクエストデータにはそのスロット値は含まれず、Node.js のスロット変数の値は <code>undefined</code> となります。</p>
+</div>
+<div class="paragraph">
+<p>コードの中ではこのような場合のエラー処理も考慮する必要があります。例えば下のようにコードを修正します。</p>
+</div>
+<div class="listingblock">
+<div class="title">リスト 7. スロット値の有無によって応答を変えるコードの例</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">const OrderIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
+    },
+    handle(handlerInput) {
+        var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
+        var menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
+        if (menu == undefined){
+          // ユーザーがメニューを言わなかった場合
+            const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
+            const reprompt = '何にしますか？';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+        } else if(amount === undefined){
+            // ユーザーが数量を言わなかった場合
+            const speechOutput = menu + 'ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+        } else {
+            // ユーザーがメニューと数量の両方を言った場合
+            const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+        }
+    }
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_同義語に含まれるフレーズかどうかを確認するエンティティ解決"><a class="link" href="#_同義語に含まれるフレーズかどうかを確認するエンティティ解決">4.3.2. 同義語に含まれるフレーズかどうかを確認する（エンティティ解決）</a></h4>
+<div class="paragraph">
+<p>ユーザーが話したスロット値が、同義語に含まれるフレーズかそうではないかは、<code>slots</code> データに含まれるステータスコード <code>&lt;slot名&gt;.resolutions.resolutionsPerAuthority[].status.code</code> の値を調べることで判別できます。</p>
+</div>
+<div class="paragraph">
+<p>ステータスコードの意味は、次の通りです。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ユーザーの値がカスタム値または同義語の1つに一致した場合、ステータスコードは<strong>ER_SUCCESS_MATCH</strong>になります。</p>
+</li>
+<li>
+<p>ユーザーの値がそれ以外の値（そのタイプのビルトインデータなど）に一致した場合、ステータスコードは<strong>ER_SUCCESS_NO_MATCH</strong>になります。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>ステータスコードを調べ、同義語に含まれる場合、そのスロット値の代表値で応答を返すサンプルコードは以下のようになります。お好みでLambdaコードに組み込んでください。</p>
+</div>
+<div class="listingblock">
+<div class="title">リスト 8. 同義語に含まれる場合は、その代表値で応答を返すコードの例</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript"> // ステータスコードを取得する
+let status = handlerInput.requestEnvelope.request.intent.slots.menu.resolutions.resolutionsPerAuthority[0].status.code;
+if (status === "ER_SUCCESS_MATCH"){
+    // ステータスコードを調べて、MATCHだったら代表値を取得してmenuにセットする
+    menu = handlerInput.requestEnvelope.request.intent.slots.menu.resolutions.resolutionsPerAuthority[0].values[0].value.name;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_テストする_4"><a class="link" href="#_テストする_4">4.4. テストする</a></h3>
+<div class="paragraph">
+<p>対話モデル及びLambda関数の修正が終わったら、あらゆるユーザーの発話のバリエーションでも正しくスキルが動作するかどうかテストしましょう。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Alexaシミュレータを開き、様々な発話のバリエーションを試してください。テキストのタイプ入力だけでなく、音声入力でも試してください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Test_VariousUtterances.png" alt="Test VariousUtterances">
+</div>
+<div class="title">図 1. 様々な発話のバリエーションでテストする</div>
+</div>
+</li>
+<li>
+<p>カスタムスロットタイプのリストに含まれるメニューを言った場合と、含まれないメニューを言った場合のJSONデータの違いを確認してください。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Review_JSON_IO.png" alt="Review JSON IO">
+</div>
+<div class="title">図 2. カスタムスロットタイプの同義語に含まれる場合</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EX4/Review_JSON_IO2.png" alt="Review JSON IO2">
+</div>
+<div class="title">図 3. カスタムスロットタイプの同義語に含まれない場合</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_セッションアトリビュートを使う"><a class="link" href="#_セッションアトリビュートを使う">5. セッションアトリビュートを使う</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>メニューの品目と数量を取得できたら、お砂糖が必要かどうかをユーザーに尋ねるスキルを作ってみましょう。</p>
@@ -2150,12 +2704,12 @@ Alexaシミュレータを開き、「コーヒーショップを開いて、<st
 <p>これに、Alexaが「砂糖をおつけしますか？」という追加の質問を加えることで、複数回の対話を制御するコードが必要になります。</p>
 </div>
 <div class="sect2">
-<h3 id="課題4のゴール"><a class="link" href="#課題4のゴール">4.1. 課題4のゴール</a></h3>
+<h3 id="_この実習の学習目標_5"><a class="link" href="#_この実習の学習目標_5">5.1. この実習の学習目標</a></h3>
 <div class="paragraph">
-<p>課題3の対話モデルに「砂糖をつけるかどうか」の質問を追加してマルチターンのスキルに改造します。</p>
+<p>コーヒーショップスキルの対話モデルに「砂糖をつけるかどうか」の質問を追加してマルチターンのスキルに改造します。</p>
 </div>
 <div class="paragraph">
-<p>この課題で学習したテクニックを使うと、以下のことができるようになります。</p>
+<p>この実習で学習したテクニックを使うと、以下のことができるようになります。</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2188,9 +2742,9 @@ Alexaシミュレータを開き、「コーヒーショップを開いて、<st
 </div>
 </div>
 <div class="sect2">
-<h3 id="課題4で作る対話モデル"><a class="link" href="#課題4で作る対話モデル">4.2. 課題4で作る対話モデル</a></h3>
+<h3 id="_会話のサンプル"><a class="link" href="#_会話のサンプル">5.2. 会話のサンプル</a></h3>
 <div class="exampleblock">
-<div class="title">例 4. 課題4の会話サンプル-1</div>
+<div class="title">例 5. サンプル1</div>
 <div class="content">
 <div class="paragraph">
 <p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="25"></span>「アレクサ、コーヒーショップを開いて、コーヒーを2つください」</p>
@@ -2210,7 +2764,7 @@ Alexaシミュレータを開き、「コーヒーショップを開いて、<st
 <p>さらに、もしお客様が数量を言ってくれなかった場合にも、それを尋ねる処理も加えましょう。</p>
 </div>
 <div class="exampleblock">
-<div class="title">例 5. 課題4の会話サンプル-2</div>
+<div class="title">例 6. サンプル2</div>
 <div class="content">
 <div class="paragraph">
 <p><span class="image"><img src="./images/icons/user_speak.jpg" alt="user speak" width="25"></span>「アレクサ、コーヒーショップを開いて、コーヒーをください」</p>
@@ -2237,14 +2791,18 @@ Alexaシミュレータを開き、「コーヒーショップを開いて、<st
 </div>
 </div>
 <div class="sect2">
-<h3 id="課題4_lambdaのコードを改良する"><a class="link" href="#課題4_lambdaのコードを改良する">4.3. Lambdaのコードを改良する</a></h3>
-<div class="paragraph">
-<p>プログラミングに自信がない方は、サンプルコード <a href="#Sample4.js">Sample4.js</a> の中身をコピーしてLambda関数の内容を置き換え、スキルビルダーの対話モデルのみを編集してください。</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX4/Sample4_JS.png" alt="Sample4 JS">
-</div>
+<h3 id="_lambdaのコードを改良する_3"><a class="link" href="#_lambdaのコードを改良する_3">5.3. Lambdaのコードを改良する</a></h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+プログラミングに自信のない方は、Lambdaの <strong>index.js</strong> のコードをサンプルファイル <a href="#Sample5.js">[Sample5.js]</a> のコードに置き換えてください。
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>自力でプログラミングしたい方は、以下のヒントを元にコードを修正してください。</p>
@@ -2254,7 +2812,7 @@ Alexaシミュレータを開き、「コーヒーショップを開いて、<st
 <li>
 <p>「コーヒーを2つですね。ありがとうございます」と返して終了する部分を、「コーヒーを2つですね。お砂糖はおつけしますか？」とユーザーに尋ねるように変更しましょう。</p>
 <div class="listingblock">
-<div class="title">リスト 6. 変更前のコード</div>
+<div class="title">リスト 9. 変更前のコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
 return handlerInput.responseBuilder
@@ -2263,7 +2821,7 @@ return handlerInput.responseBuilder
 </div>
 </div>
 <div class="listingblock">
-<div class="title">リスト 7. 変更後のコード</div>
+<div class="title">リスト 10. 変更後のコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">const speechOutput = menu + 'を' + amount + 'つですね。お砂糖はおつけしますか？';
 const reprompt = 'お砂糖はおつけしますか？';
@@ -2281,7 +2839,7 @@ return handlerInput.responseBuilder
 <p>スキルビルダーのインテント画面を開き「インテントを追加」ボタンをクリックします。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX4/Add_Intent_Button.png" alt="Add Intent Button">
+<img src="./images/EX5/Add_Intent_Button.png" alt="Add Intent Button">
 </div>
 </div>
 </li>
@@ -2289,7 +2847,7 @@ return handlerInput.responseBuilder
 <p>「アレクサのビルトインライブラリから既存のインテントを使用」を選択し、検索フィールドに <strong>YES</strong> とタイプします。すると、<strong>AMAZON.YesIntent</strong> が表示されます。「インテントを追加」ボタンをクリックします。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX4/Add_YesIntent.png" alt="Add YesIntent">
+<img src="./images/EX5/Add_YesIntent.png" alt="Add YesIntent">
 </div>
 </div>
 </li>
@@ -2297,7 +2855,7 @@ return handlerInput.responseBuilder
 <p>左側のビルトインインテントのリストに <strong>AMAZON.YesIntent</strong> が追加されたことを確認します。必要に応じ <strong>AMAZON.YesIntent</strong> のサンプル発話を追加し、モデルを保存します。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX4/Save_YesIntent.png" alt="Save YesIntent">
+<img src="./images/EX5/Save_YesIntent.png" alt="Save YesIntent">
 </div>
 </div>
 </li>
@@ -2305,14 +2863,14 @@ return handlerInput.responseBuilder
 <p>同様に、<strong>AMAZON.NoIntent</strong> も追加します。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX4/Add_NoIntent.png" alt="Add NoIntent">
+<img src="./images/EX5/Add_NoIntent.png" alt="Add NoIntent">
 </div>
 </div>
 </li>
 <li>
 <p>もしお客様が数量を言ってくれなかった場合に、Alexaが数を聞き返す処理と、ユーザーが数量だけを話すスロットを含むインテント（<strong>AmountIntent</strong>）が必要になります。これらを追加しましょう。</p>
 <div class="listingblock">
-<div class="title">リスト 8. ユーザーに数量を聞き返すコード</div>
+<div class="title">リスト 11. ユーザーに数量を聞き返すコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">if(amount === undefined){
     attributes.menu = menu;
@@ -2329,9 +2887,9 @@ return handlerInput.responseBuilder
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX4/AmountIntent.png" alt="AmountIntent">
+<img src="./images/EX5/AmountIntent.png" alt="AmountIntent">
 </div>
-<div class="title">図 1. ユーザーから数量の情報を受け取るインテントを追加する</div>
+<div class="title">図 4. ユーザーから数量の情報を受け取るインテントを追加する</div>
 </div>
 </li>
 <li>
@@ -2340,7 +2898,7 @@ return handlerInput.responseBuilder
 <p>これには、<strong>セッションアトリビュート</strong> の機能を利用すると良いでしょう。 セッションアトリビュートとは、ユーザーとの対話が継続している間（セッションと呼びます）、一時的に情報を保持するための機構です。情報を取得したタイミングで、以下のコードを追加し、セッションアトリビュートに保存しておきましょう。</p>
 </div>
 <div class="listingblock">
-<div class="title">リスト 9. セッションアトリビュートのデータを保存するコード</div>
+<div class="title">リスト 12. セッションアトリビュートのデータを保存するコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">attributes.menu = menu;
 attributes.amount = amount;
@@ -2351,7 +2909,7 @@ handlerInput.attributesManager.setSessionAttributes(attributes);</code></pre>
 <p>対話の中でこれらの情報が必要ななった時は、以下のようなコードでセッションアトリビュートから情報を取得しましょう。</p>
 </div>
 <div class="listingblock">
-<div class="title">リスト 10. セッションアトリビュートのデータを取り出すコード</div>
+<div class="title">リスト 13. セッションアトリビュートのデータを取り出すコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">const attributes = handlerInput.attributesManager.getSessionAttributes();
 const amount = attributes.amount;
@@ -2366,17 +2924,14 @@ const menu = attributes.menu;</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="テスト4"><a class="link" href="#テスト4">4.4. テストする</a></h3>
+<h3 id="_テストする_5"><a class="link" href="#_テストする_5">5.4. テストする</a></h3>
 <div class="paragraph">
 <p>でき上がったスキルをテストしましょう。Alexaシミュレータを開いて、マルチターンの会話がうまく動作するかテストしてください。</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX4/Alexa_Simulator_Demo.png" alt="Alexa Simulator Demo">
+<img src="./images/EX5/Alexa_Simulator_Demo.png" alt="Alexa Simulator Demo">
 </div>
-</div>
-<div class="paragraph">
-<p>以上で課題4は終了です。お疲れ様でした！</p>
 </div>
 </div>
 </div>
@@ -2586,573 +3141,6 @@ const menu = attributes.menu;</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="サンプルコード"><a class="link" href="#サンプルコード">サンプルコード</a></h2>
-<div class="sectionbody">
-<div id="Sample1.js" class="listingblock">
-<div class="title">リスト 11. Sample1.js</div>
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">const Alexa = require('ask-sdk-core');
-
-const LaunchRequestHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'いらっしゃいませ。コーヒーショップへようこそ。今日は何にしますか?';
-        const reprompt = '今日は何にしますか？';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
-const OrderIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const RecommendIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const HelpIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
-        const reprompt = '今日は何にしますか？';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
-const CancelAndStopIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const SessionEndedRequestHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
-    },
-    handle(handlerInput) {
-        return handlerInput.responseBuilder.getResponse();
-    }
-};
-
-const UnhandledIntentHandler = {
-    canHandle(handlerInput) {
-        return true;
-    },
-    handle(handlerInput) {
-      const message = "いずれのハンドラーにも該当しないリクエストがきた場合に処理されます。";
-      return handlerInput.responseBuilder
-        .speak(message)
-        .getResponse()
-    }
-};
-
-const ErrorHandler = {
-    canHandle () {
-      return true
-    },
-    handle (handlerInput, error) {
-      console.log(`Error handled: ${error.message}`)
-      const message = "すみません、なんだかうまく行かないようです。もう一度お試しください。";
-      return handlerInput.responseBuilder
-        .speak(message)
-        .getResponse()
-    }
-}
-
-const skillBuilder = Alexa.SkillBuilders.custom();
-exports.handler = skillBuilder
-  .addRequestHandlers(
-    LaunchRequestHandler,
-    OrderIntentHandler,
-    RecommendIntentHandler,
-    HelpIntentHandler,
-    CancelAndStopIntentHandler,
-    SessionEndedRequestHandler,
-    UnhandledIntentHandler
-  )
-  .addErrorHandlers(ErrorHandler)
-  .lambda();</code></pre>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-<div id="Sample2.js" class="listingblock">
-<div class="title">リスト 12. Sample2.js</div>
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">const Alexa = require('ask-sdk-core');
-
-const LaunchRequestHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'いらっしゃいませ。コーヒーショップへようこそ。今日は何にしますか?';
-        const reprompt = '今日は何にしますか？';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
-const OrderIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
-    },
-    handle(handlerInput) {
-        var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
-        if (amount === undefined){
-            const speechOutput = 'コーヒーですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-
-        } else {
-            const speechOutput = 'コーヒーを' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-        }
-    }
-};
-
-const RecommendIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const HelpIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
-        const reprompt = '今日は何にしますか？';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
-const CancelAndStopIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const SessionEndedRequestHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
-    },
-    handle(handlerInput) {
-        return handlerInput.responseBuilder.getResponse();
-    }
-};
-
-const ErrorHandler = {
-    canHandle () {
-      return true;
-    },
-    handle (handlerInput, error) {
-      console.log(`Error handled: ${error.message}`);
-      const message = "すみません、うまく聞き取れませんでした。もう一度言ってください。";
-      return handlerInput.responseBuilder
-        .speak(message)
-        .reprompt(message)
-        .getResponse()
-    }
-};
-
-const skillBuilder = Alexa.SkillBuilders.custom();
-exports.handler = skillBuilder
-  .addRequestHandlers(
-    LaunchRequestHandler,
-    OrderIntentHandler,
-    RecommendIntentHandler,
-    HelpIntentHandler,
-    CancelAndStopIntentHandler,
-    SessionEndedRequestHandler
-  )
-  .addErrorHandlers(ErrorHandler)
-  .lambda();</code></pre>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-<div id="Sample3.js" class="listingblock">
-<div class="title">リスト 13. Sample3.js</div>
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">const Alexa = require('ask-sdk-core');
-
-const LaunchRequestHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'いらっしゃいませ。コーヒーショップへようこそ。今日は何にしますか?';
-        const reprompt = '今日は何にしますか？';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
-const OrderIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
-    },
-    handle(handlerInput) {
-        var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
-        var menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
-        if (menu == undefined){
-            const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
-            const reprompt = '何にしますか？';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-        } else if (amount === undefined){
-            const speechOutput = menu + 'ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-        } else {
-            const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-        }
-    }
-};
-
-const RecommendIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const HelpIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
-        const reprompt = '今日は何にしますか？';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
-const CancelAndStopIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const SessionEndedRequestHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
-    },
-    handle(handlerInput) {
-        return handlerInput.responseBuilder.getResponse();
-    }
-};
-
-const ErrorHandler = {
-    canHandle () {
-      return true;
-    },
-    handle (handlerInput, error) {
-      console.log(`Error handled: ${error.message}`);
-      const message = "すみません、うまく聞き取れませんでした。もう一度言ってください。";
-      return handlerInput.responseBuilder
-        .speak(message)
-        .reprompt(message)
-        .getResponse()
-    }
-};
-
-const skillBuilder = Alexa.SkillBuilders.custom();
-exports.handler = skillBuilder
-  .addRequestHandlers(
-    LaunchRequestHandler,
-    OrderIntentHandler,
-    RecommendIntentHandler,
-    HelpIntentHandler,
-    CancelAndStopIntentHandler,
-    SessionEndedRequestHandler
-  )
-  .addErrorHandlers(ErrorHandler)
-  .lambda();</code></pre>
-</div>
-</div>
-<div style="page-break-after: always;"></div>
-<div id="Sample4.js" class="listingblock">
-<div class="title">リスト 14. Sample4.js</div>
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">const Alexa = require('ask-sdk-core');
-
-const LaunchRequestHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'いらっしゃいませ。コーヒーショップへようこそ。今日は何にしますか?';
-        const reprompt = '今日は何にしますか？';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
-const OrderIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'OrderIntent' ||
-                handlerInput.requestEnvelope.request.intent.name === 'AmountIntent');
-    },
-    handle(handlerInput) {
-        const attributes = handlerInput.attributesManager.getSessionAttributes();
-        let amount = attributes.amount;
-        let menu = attributes.menu;
-        if (amount === undefined){
-            if (handlerInput.requestEnvelope.request.intent.slots.amount) {
-                amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
-            }
-        }
-        if (menu === undefined){
-            if (handlerInput.requestEnvelope.request.intent.slots.menu) {
-                menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
-            }
-        }
-
-        if(menu === undefined){
-            const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
-            const reprompt = '何にしますか？';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-        }else if(amount === undefined){
-            attributes.menu = menu;
-            handlerInput.attributesManager.setSessionAttributes(attributes);
-
-            const speechOutput = menu + 'ですね。おいくつご用意しましょうか？';
-            const reprompt = 'おいくつご用意しますか？';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-        }else{
-            attributes.menu = menu;
-            attributes.amount = amount;
-            handlerInput.attributesManager.setSessionAttributes(attributes);
-
-            const speechOutput = menu + 'を' + amount + 'つですね。お砂糖はおつけしますか？';
-            const reprompt = 'お砂糖はおつけしますか？';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-        }
-    }
-};
-
-const YesIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent';
-    },
-    handle(handlerInput) {
-        const attributes = handlerInput.attributesManager.getSessionAttributes();
-        const amount = attributes.amount;
-        const menu = attributes.menu;
-
-        const speechOutput = menu + 'を' + amount + 'つ。お砂糖をつけてご用意いたします。ご利用ありがとうございました。';
-        return handlerInput.responseBuilder
-        .speak(speechOutput)
-        .getResponse();
-    }
-};
-
-const NoIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NoIntent';
-    },
-    handle(handlerInput) {
-        const attributes = handlerInput.attributesManager.getSessionAttributes();
-        const amount = attributes.amount;
-        const menu = attributes.menu;
-
-        const speechOutput = menu + 'を' + amount + 'つ。お砂糖なしでご用意いたします。ご利用ありがとうございました。';
-        return handlerInput.responseBuilder
-        .speak(speechOutput)
-        .getResponse();
-    }
-};
-
-const RecommendIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'RecommendIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = '今日は甘さスッキリのカフェラテがおすすめです。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const HelpIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーショップです。挽きたての美味しいコーヒーをお届けしています。今日は何にしますか?';
-        const reprompt = '今日は何にしますか？';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
-const CancelAndStopIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            &amp;&amp; (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-                || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
-    },
-    handle(handlerInput) {
-        const speechOutput = 'コーヒーショップをご利用ありがとうございました。';
-        return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-    }
-};
-
-const SessionEndedRequestHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
-    },
-    handle(handlerInput) {
-        return handlerInput.responseBuilder.getResponse();
-    }
-};
-
-const ErrorHandler = {
-    canHandle () {
-      return true;
-    },
-    handle (handlerInput, error) {
-      console.log(`Error handled: ${error.message}`);
-      const message = "すみません、うまく聞き取れませんでした。もう一度言ってください。";
-      return handlerInput.responseBuilder
-        .speak(message)
-        .reprompt(message)
-        .getResponse()
-    }
-};
-
-const skillBuilder = Alexa.SkillBuilders.custom();
-exports.handler = skillBuilder
-  .addRequestHandlers(
-    LaunchRequestHandler,
-    OrderIntentHandler,
-    RecommendIntentHandler,
-    YesIntentHandler,
-    NoIntentHandler,
-    HelpIntentHandler,
-    CancelAndStopIntentHandler,
-    SessionEndedRequestHandler
-  )
-  .addErrorHandlers(ErrorHandler)
-  .lambda();</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_リファレンス"><a class="link" href="#_リファレンス">リファレンス</a></h2>
 <div class="sectionbody">
 <div class="sect2">
@@ -3208,7 +3196,7 @@ exports.handler = skillBuilder
 </div>
 </div>
 <div class="sect1">
-<h2 id="改定履歴"><a class="link" href="#改定履歴">改定履歴（主な変更点）</a></h2>
+<h2 id="_改定履歴主な変更点"><a class="link" href="#_改定履歴主な変更点">改定履歴（主な変更点）</a></h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -3236,6 +3224,9 @@ exports.handler = skillBuilder
 <li>
 <p>2018.07.10 v2.7.2 Alexaシミュレータのサンプル発話の入力でウェイクワードを省略</p>
 </li>
+<li>
+<p>2018.10.28 v2.8.0 インテントの追加/スロットの演習を統合/発話のバリエーション/ASK CLIを追加</p>
+</li>
 </ul>
 </div>
 </div>
@@ -3243,8 +3234,8 @@ exports.handler = skillBuilder
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.7.1<br>
-Last updated 2018-07-11 15:46:32 PDT
+Version 2.8<br>
+Last updated 2018-10-26 19:54:45 JST
 </div>
 </div>
 </body>

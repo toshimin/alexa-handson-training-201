@@ -1,159 +1,149 @@
-
-[[課題4_セッションアトリビュートを使おう]]
-= [課題4] セッションアトリビュートを使おう
+= 発話のバリエーション
 :imagesdir: ./images
 
-メニューの品目と数量を取得できたら、お砂糖が必要かどうかをユーザーに尋ねるスキルを作ってみましょう。
+== この実習の学習目標
 
-課題3までのコーヒーショップスキルは、ユーザーが注文するフレーズを話し、Alexaが応答してスキルが終了するという、一回のインタラクションしかないシンプルなものでした。
+この実習では、ユーザーの様々な発話パターンをAlexaが正しく認識できるように改良するテクニックを学びます。
 
-これに、Alexaが「砂糖をおつけしますか？」という追加の質問を加えることで、複数回の対話を制御するコードが必要になります。
+この実習で学んだテクニックを使うと次のようなことができるようになります。
 
-[[課題4のゴール]]
-== 課題4のゴール
+* 対話モデルのインテントに適切な数のサンプル発話を追加して、ユーザーの発話の認識率を向上させることができる。
+* スロットに同義語（シノニム）を追加して、同じ意味をもつ別の言い方にも対応できるように改良できる。
 
-課題3の対話モデルに「砂糖をつけるかどうか」の質問を追加してマルチターンのスキルに改造します。
+== 対話モデルの編集
+.スキルの会話サンプル
+====
+image:icons/user_speak.jpg[width="40"]「アレクサ、コーヒーショップで、**冷たいコーヒー**を**一**つ頼む」
 
-この課題で学習したテクニックを使うと、以下のことができるようになります。
+image:icons/alexa_icon.jpg[width="40"] 「**冷たいコーヒー**を**1つ**ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。」
+====
 
-* *セッションアトリビュート* を使って過去の対話で取得した情報を保持しておくテクニックを使えるようになる。
-* ユーザーのYES/NOの意思を取得するビルトインインテント  *AMAZON.YesIntent*、*AMAZON.NoIntent* を使えるようになる。
+====
+image:icons/user_speak.jpg[width="40"]「アレクサ、コーヒーショップを開いて、**カフェラテ**をください」
+
+image:icons/alexa_icon.jpg[width="40"] 「**カフェラテ**ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。」
+====
 
 .参考ドキュメント
 [NOTE]
 ====
-* https://developer.amazon.com/ja/docs/custom-skills/create-and-edit-custom-slot-types.html[カスタムスロットタイプの作成と編集]
+* https://developer.amazon.com/ja/docs/custom-skills/create-intents-utterances-and-slots.html[インテント、発話、スロットの作成]
+* https://developer.amazon.com/ja/docs/custom-skills/define-synonyms-and-ids-for-slot-type-values-entity-resolution.html[スロットタイプ値の同義語とIDを定義する（エンティティ解決）]
 ====
 
-[[課題4で作る対話モデル]]
-== 課題4で作る対話モデル
-.課題4の会話サンプル-1
-====
-image:icons/user_speak.jpg[width="25"]「アレクサ、コーヒーショップを開いて、コーヒーを2つください」
+=== インテントのサンプル発話を追加する
 
-image:icons/alexa_icon.jpg[width="25"] 「コーヒーを2つですね、ありがとうございます。*お砂糖をおつけしますか？*」
+インテントに対するユーザーの発話パターンは一つとは限りません。同じ内容のことを話す場合でも、人によって様々な言い回しをします。住む地域によっては方言もあるでしょう。これら発話の多様性に対応できるようスキルを改良しましょう。
 
-image:icons/user_speak.jpg[width="25"]「はい」
+. 開発者コンソールのスキルビルダーを開きます。
+. インテント「*OrderIntent*」をクリックして、サンプル発話を追加します。言葉の揺れ、異なる言い回し、方言なども考慮すると良いでしょう。また、全てのスロットが含まれる場合、一部のスロットしか含まれない場合、スロットが全く含まれない場合、スロットの順番が異なる場合など、あらゆる発話パターンを想定し、できるだけ多く入力します。
++
+[NOTE]
+サンプル発話に入力したフレーズは、Alexaの機械学習の教師データとして登録されます。サンプル発話の数が多ければ多いほど、認識率が向上します。
 
-image:icons/alexa_icon.jpg[width="25"] 「コーヒーを2つ、*お砂糖をつけて* ご用意いたします。ご利用ありがとうございました。」
-====
++
+image::EX4/Add_OrderIntent_SampleUtterances.png[]
++
+. 同様に、インテント「*RecommendIntent*」をクリックして、サンプル発話を追加します。
++
+. 対話モデルを修正したら対話モデルを保存し、ビルドします。
++
+. AlexaシミュレーターまたはAlexa対応デバイスでテストをします。
 
-さらに、もしお客様が数量を言ってくれなかった場合にも、それを尋ねる処理も加えましょう。
+[[シノニムを追加する]]
+=== 同義語（シノニム）を追加する
 
-.課題4の会話サンプル-2
-====
-image:icons/user_speak.jpg[width="25"]「アレクサ、コーヒーショップを開いて、コーヒーをください」
+同じ意味を持つ言葉でも様々なフレーズを使います。例えば「アイスコーヒー」のことを「冷たいコーヒー」という人もいるでしょう。「カフェオレ」という人もいれば「カフェオーレ」という人もいるでしょう。こうした言葉の揺れはスロット値の取得に影響を及ぼします。異なるフレーズでも同じスロット値として取り扱いたい場合には、シノニムの機能を使うと便利です。
 
-image:icons/alexa_icon.jpg[width="25"] 「コーヒーですね。*おいくつご用意しましょうか？*」
+ここでは、既に登録済みの *MenuList* スロットタイプの各値にシノニムを追加しましょう。
 
-image:icons/user_speak.jpg[width="25"]「*二つお願い*」
+. 開発者コンソールのスキルビルダーを開きます。
+. 左パネルの「スロットタイプ」から *MenuList* をクリックします。
+. 既に登録されているドリンクメニューの名前に対し、それぞれ別の言い回しを追加します。
+. プログラムコードで処理しやすいように各スロット値に固有のIdを付与することもできます。Idは任意で入力します。
+. 対話モデルを修正したら対話モデルを保存し、ビルドします。
+. AlexaシミュレーターまたはAlexa対応デバイスでテストをします。
++
+image::EX4/Add_Synonyms.png[]
 
-image:icons/alexa_icon.jpg[width="25"] 「コーヒーを2つですね。お砂糖はおつけしますか？」
-
-image:icons/user_speak.jpg[width="25"]「はい」
-
-image:icons/alexa_icon.jpg[width="25"] 「コーヒーを2つ、お砂糖をつけてご用意いたします。ご利用ありがとうございました。」
-====
-
-かなり自然な会話に近づきますね？これをどのようにスキルで実現するかを学習しましょう。
-
-[[課題4_lambdaのコードを改良する]]
 == Lambdaのコードを改良する
 
-プログラミングに自信がない方は、サンプルコード <<Sample4.js>> の中身をコピーしてLambda関数の内容を置き換え、スキルビルダーの対話モデルのみを編集してください。
+[NOTE]
+プログラミングに自信のない方は、Lambdaの *index.js* のコードをサンプルファイル <<Sample4.js>> のコードに置き換えてください。
 
-image::EX4/Sample4_JS.png[]
+=== スロット値の有無によって応答を変える
 
-自力でプログラミングしたい方は、以下のヒントを元にコードを修正してください。
+例えば *OrderIntent* に注目した場合、ユーザーは必ずしもメニューと個数を言ってくれるとは限りません。もし発話の中でスロット値が提供されなかった場合、リクエストデータにはそのスロット値は含まれず、Node.js のスロット変数の値は `undefined` となります。
 
-. 「コーヒーを2つですね。ありがとうございます」と返して終了する部分を、「コーヒーを2つですね。お砂糖はおつけしますか？」とユーザーに尋ねるように変更しましょう。
-+
-.変更前のコード
-[source,javascript,linenums]
-----
-const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-return handlerInput.responseBuilder
-.speak(speechOutput)
-.getResponse();
-----
-+
-.変更後のコード
-[source,javascript,linenums]
-----
-const speechOutput = menu + 'を' + amount + 'つですね。お砂糖はおつけしますか？';
-const reprompt = 'お砂糖はおつけしますか？';
-return handlerInput.responseBuilder
-.speak(speechOutput)
-.reprompt(reprompt)
-.getResponse();
-----
-+
-. 「お砂糖をおつけしますか？」を聞かれた後、ユーザーは「はい」か「いいえ」と言った応答をしてくるでしょう。これを受け取るインテントも用意しておきます。これには標準インテントの *AMAZON.YesIntent*、*AMAZON.NoIntent* を利用します。スキルビルダーに追加しておきましょう。
-. スキルビルダーのインテント画面を開き「インテントを追加」ボタンをクリックします。
-+
-image::EX4/Add_Intent_Button.png[]
-+
-. 「アレクサのビルトインライブラリから既存のインテントを使用」を選択し、検索フィールドに *YES* とタイプします。すると、*AMAZON.YesIntent* が表示されます。「インテントを追加」ボタンをクリックします。
-+
-image::EX4/Add_YesIntent.png[]
-+
-. 左側のビルトインインテントのリストに *AMAZON.YesIntent* が追加されたことを確認します。必要に応じ *AMAZON.YesIntent* のサンプル発話を追加し、モデルを保存します。
-+
-image::EX4/Save_YesIntent.png[]
-+
-. 同様に、*AMAZON.NoIntent* も追加します。
-+
-image::EX4/Add_NoIntent.png[]
-+
-. もしお客様が数量を言ってくれなかった場合に、Alexaが数を聞き返す処理と、ユーザーが数量だけを話すスロットを含むインテント（*AmountIntent*）が必要になります。これらを追加しましょう。
-+
-.ユーザーに数量を聞き返すコード
-[source,javascript,linenums]
-----
-if(amount === undefined){
-    attributes.menu = menu;
-    handlerInput.attributesManager.setSessionAttributes(attributes);
+コードの中ではこのような場合のエラー処理も考慮する必要があります。例えば下のようにコードを修正します。
 
-    const speechOutput = menu + 'ですね。おいくつご用意しましょうか？';
-    const reprompt = 'おいくつご用意しますか？';
-    return handlerInput.responseBuilder
-    .speak(speechOutput)
-    .reprompt(reprompt)
-    .getResponse();
+[source,javascript]
+.スロット値の有無によって応答を変えるコードの例
+const OrderIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
+    },
+    handle(handlerInput) {
+        var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
+        var menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
+        if (menu == undefined){
+          // ユーザーがメニューを言わなかった場合
+            const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
+            const reprompt = '何にしますか？';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+        } else if(amount === undefined){
+            // ユーザーが数量を言わなかった場合
+            const speechOutput = menu + 'ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+        } else {
+            // ユーザーがメニューと数量の両方を言った場合
+            const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+            return handlerInput.responseBuilder
+            .speak(speechOutput)
+            .getResponse();
+        }
+    }
+};
+
+=== 同義語に含まれるフレーズかどうかを確認する（エンティティ解決）
+
+ユーザーが話したスロット値が、同義語に含まれるフレーズかそうではないかは、`slots` データに含まれるステータスコード `<slot名>.resolutions.resolutionsPerAuthority[].status.code` の値を調べることで判別できます。
+
+ステータスコードの意味は、次の通りです。
+
+- ユーザーの値がカスタム値または同義語の1つに一致した場合、ステータスコードは**ER_SUCCESS_MATCH**になります。
+- ユーザーの値がそれ以外の値（そのタイプのビルトインデータなど）に一致した場合、ステータスコードは**ER_SUCCESS_NO_MATCH**になります。
+
+ステータスコードを調べ、同義語に含まれる場合、そのスロット値の代表値で応答を返すサンプルコードは以下のようになります。お好みでLambdaコードに組み込んでください。
+
+[source,javascript]
+.同義語に含まれる場合は、その代表値で応答を返すコードの例
+ // ステータスコードを取得する
+let status = handlerInput.requestEnvelope.request.intent.slots.menu.resolutions.resolutionsPerAuthority[0].status.code;
+if (status === "ER_SUCCESS_MATCH"){
+    // ステータスコードを調べて、MATCHだったら代表値を取得してmenuにセットする
+    menu = handlerInput.requestEnvelope.request.intent.slots.menu.resolutions.resolutionsPerAuthority[0].values[0].value.name;
 }
-----
-+
-.ユーザーから数量の情報を受け取るインテントを追加する
-image::EX4/AmountIntent.png[]
-. はじめの会話で、メニュー品目と数量を取得し、Alexaは砂糖が必要かどうかを尋ねます。ユーザーがお砂糖の要不要の回答を受信するインテント、*AMAZON.YesIntent* や *AMAZON.NoIntent* には、メニュー品目や数量を取得するスロットはありません。これらの情報はどこから入手するのでしょうか？
-+
-これには、*セッションアトリビュート* の機能を利用すると良いでしょう。 セッションアトリビュートとは、ユーザーとの対話が継続している間（セッションと呼びます）、一時的に情報を保持するための機構です。情報を取得したタイミングで、以下のコードを追加し、セッションアトリビュートに保存しておきましょう。
-+
-.セッションアトリビュートのデータを保存するコード
-[source,javascript,linenums]
-----
-attributes.menu = menu;
-attributes.amount = amount;
-handlerInput.attributesManager.setSessionAttributes(attributes);
-----
-+
-対話の中でこれらの情報が必要ななった時は、以下のようなコードでセッションアトリビュートから情報を取得しましょう。
-+
-.セッションアトリビュートのデータを取り出すコード
-[source,javascript,linenums]
-----
-const attributes = handlerInput.attributesManager.getSessionAttributes();
-const amount = attributes.amount;
-const menu = attributes.menu;
-----
 
-以上の修正ができたら対話モデルの変更を保存しビルドしましょう。Lambda関数も正しく保存されていることも確認しましょう。
-
-[[テスト4]]
 == テストする
 
-でき上がったスキルをテストしましょう。Alexaシミュレータを開いて、マルチターンの会話がうまく動作するかテストしてください。
+対話モデル及びLambda関数の修正が終わったら、あらゆるユーザーの発話のバリエーションでも正しくスキルが動作するかどうかテストしましょう。
 
-image::EX4/Alexa_Simulator_Demo.png[]
-
-以上で課題4は終了です。お疲れ様でした！
+. Alexaシミュレータを開き、様々な発話のバリエーションを試してください。テキストのタイプ入力だけでなく、音声入力でも試してください。
++
+.様々な発話のバリエーションでテストする
+image::EX4/Test_VariousUtterances.png[]
++
+. カスタムスロットタイプのリストに含まれるメニューを言った場合と、含まれないメニューを言った場合のJSONデータの違いを確認してください。
++
+.カスタムスロットタイプの同義語に含まれる場合
+image::EX4/Review_JSON_IO.png[]
++
+.カスタムスロットタイプの同義語に含まれない場合
+image::EX4/Review_JSON_IO2.png[]

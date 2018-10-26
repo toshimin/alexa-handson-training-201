@@ -20,21 +20,10 @@ const OrderIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
     },
     handle(handlerInput) {
-        var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
-        if (amount === undefined){
-            const speechOutput = 'コーヒーですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-
-            return handlerInput.responseBuilder
+        const speechOutput = 'コーヒーですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+        return handlerInput.responseBuilder
             .speak(speechOutput)
             .getResponse();
-
-        } else {
-            const speechOutput = 'コーヒーを' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
-
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .getResponse();
-        }
     }
 };
 
@@ -91,17 +80,16 @@ const SessionEndedRequestHandler = {
 
 const ErrorHandler = {
     canHandle () {
-      return true;
+      return true
     },
     handle (handlerInput, error) {
-      console.log(`Error handled: ${error.message}`);
-      const message = "すみません、うまく聞き取れませんでした。もう一度言ってください。";
+      console.log(`Error handled: ${error.message}`)
+      const message = "すみません、なんだかうまく行かないようです。もう一度お試しください。";
       return handlerInput.responseBuilder
         .speak(message)
-        .reprompt(message)
         .getResponse()
     }
-};
+}
 
 const skillBuilder = Alexa.SkillBuilders.custom();
 exports.handler = skillBuilder

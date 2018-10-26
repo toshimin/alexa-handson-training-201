@@ -17,87 +17,37 @@ const LaunchRequestHandler = {
 const OrderIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && (handlerInput.requestEnvelope.request.intent.name === 'OrderIntent' ||
-                handlerInput.requestEnvelope.request.intent.name === 'AmountIntent');
+            && handlerInput.requestEnvelope.request.intent.name === 'OrderIntent';
     },
     handle(handlerInput) {
-        const attributes = handlerInput.attributesManager.getSessionAttributes();
-        let amount = attributes.amount;
-        let menu = attributes.menu;
-        if (amount === undefined){
-            if (handlerInput.requestEnvelope.request.intent.slots.amount) {
-                amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
-            }
-        }
-        if (menu === undefined){
-            if (handlerInput.requestEnvelope.request.intent.slots.menu) {
-                menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
-            }
-        }
-
-        if(menu === undefined){
+        var amount = handlerInput.requestEnvelope.request.intent.slots.amount.value;
+        var menu = handlerInput.requestEnvelope.request.intent.slots.menu.value;
+        if (menu == undefined){
             const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
             const reprompt = '何にしますか？';
             return handlerInput.responseBuilder
             .speak(speechOutput)
             .reprompt(reprompt)
             .getResponse();
-        }else if(amount === undefined){
-            attributes.menu = menu;
-            handlerInput.attributesManager.setSessionAttributes(attributes);
+        } else {
+            let status = handlerInput.requestEnvelope.request.intent.slots.menu.resolutions.resolutionsPerAuthority[0].status.code;
+            console.log(status);
+            if (status === "ER_SUCCESS_MATCH"){
+                menu = handlerInput.requestEnvelope.request.intent.slots.menu.resolutions.resolutionsPerAuthority[0].values[0].value.name;
+            }
 
-            const speechOutput = menu + 'ですね。おいくつご用意しましょうか？';
-            const reprompt = 'おいくつご用意しますか？';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-        }else{
-            attributes.menu = menu;
-            attributes.amount = amount;
-            handlerInput.attributesManager.setSessionAttributes(attributes);
-
-            const speechOutput = menu + 'を' + amount + 'つですね。お砂糖はおつけしますか？';
-            const reprompt = 'お砂糖はおつけしますか？';
-            return handlerInput.responseBuilder
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
+            if (amount === undefined){
+                const speechOutput = menu + 'ですね。ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+                return handlerInput.responseBuilder
+                .speak(speechOutput)
+                .getResponse();
+            } else {
+                const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
+                return handlerInput.responseBuilder
+                .speak(speechOutput)
+                .getResponse();
+            }
         }
-    }
-};
-
-const YesIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent';
-    },
-    handle(handlerInput) {
-        const attributes = handlerInput.attributesManager.getSessionAttributes();
-        const amount = attributes.amount;
-        const menu = attributes.menu;
-
-        const speechOutput = menu + 'を' + amount + 'つ。お砂糖をつけてご用意いたします。ご利用ありがとうございました。';
-        return handlerInput.responseBuilder
-        .speak(speechOutput)
-        .getResponse();
-    }
-};
-
-const NoIntentHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NoIntent';
-    },
-    handle(handlerInput) {
-        const attributes = handlerInput.attributesManager.getSessionAttributes();
-        const amount = attributes.amount;
-        const menu = attributes.menu;
-
-        const speechOutput = menu + 'を' + amount + 'つ。お砂糖なしでご用意いたします。ご利用ありがとうございました。';
-        return handlerInput.responseBuilder
-        .speak(speechOutput)
-        .getResponse();
     }
 };
 
@@ -172,8 +122,6 @@ exports.handler = skillBuilder
     LaunchRequestHandler,
     OrderIntentHandler,
     RecommendIntentHandler,
-    YesIntentHandler,
-    NoIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler

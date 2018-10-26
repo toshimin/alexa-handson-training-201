@@ -104,11 +104,11 @@ header:
   recto_content:
     #left: '{document-title}'
     #right: 'v{revnumber}'
-    right: image:theme/Amazon_Alexa_Horizontal_RGB_Dark-Color.png[width="120"]
+    left: image:theme/Amazon_Alexa_Horizontal_RGB_Dark-Color.png[width="120"]
   verso_content:
     #left: '{document-title}'
     #right: 'v{revnumber}'
-    left: image:theme/Amazon_Alexa_Horizontal_RGB_Dark-Color.png[width="120"]
+    right: image:theme/Amazon_Alexa_Horizontal_RGB_Dark-Color.png[width="120"]
 #------
 # Footer Section
 #------
