@@ -1,0 +1,12 @@
+{
+  "name": "alexa",
+  "version": "1.0.0",
+  "description": "Alexa Simple Custom Skill Package",
+  "author": "Toshimi Hatanaka",
+  "repository": "",
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk-core": "^2.1.0",
+    "ask-sdk-model": "^1.7.1"
+  }
+}

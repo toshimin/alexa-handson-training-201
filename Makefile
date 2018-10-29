@@ -7,13 +7,14 @@ SRC_DIR=src
 PDF_FILE=AlexaBasicTextBook.pdf
 PRINT_FILE=AlexaBasicTextBook_Print.pdf
 EPUB_FILE=AlexaBasicTextBook.epub
+LAMBDA_FILE=Coffeeshop.zip
 SAMPLE_FILE=Alexa_SampleCode_Basic.zip
 REDPEN_CONF=redpen-conf.xml
 S3_BUCKET=alexatrainingassets
 AWS_PROFILE=default
 
 .PHONY: all
-all: html pdf print samples s3
+all: html pdf print sample
 
 html: *.adoc
 		asciidoctor $(SRC_FILE)
@@ -27,12 +28,9 @@ print: *.adoc
 epub3: *.adoc
 		asciidoctor-epub3 $(SRC_FILE) -o $(DIST_DIR)/$(EPUB_FILE)
 
-samples: $(SRC_DIR)/UTF-8
-	mkdir -p $(SRC_DIR)/SJIS 2>/dev/null
-	cp $(SRC_DIR)/UTF-8/* $(SRC_DIR)/SJIS/
-	nkf -sLw --overwrite $(SRC_DIR)/SJIS/*
+sample: $(SRC_DIR)/lambda/custom
+	make -C $(SRC_DIR)/lambda/custom
 	zip -r $(DIST_DIR)/$(SAMPLE_FILE) $(SRC_DIR) -x "*.DS_Store"
-	rm -r $(SRC_DIR)/SJIS
 
 s3: $(DIST_DIR)
 	aws s3 sync $(DIST_DIR) s3://${S3_BUCKET}/handsontraining/2018/ --include "*" --exclude "*.DS_Store" --exact-timestamps --acl public-read --cache-control "max-age=3600" --profile=${AWS_PROFILE}
@@ -43,4 +41,5 @@ redpen: *.adoc
 
 clean:
 	rm $(DIST_DIR)/*
+	rm -r $(SRC_DIR)/lambda/custom/node_modules/*
 	rm index.html

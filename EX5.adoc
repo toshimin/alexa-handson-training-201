@@ -1,4 +1,4 @@
-= セッションアトリビュートを使う
+= セッションアトリビュート
 :imagesdir: ./images
 
 メニューの品目と数量を取得できたら、お砂糖が必要かどうかをユーザーに尋ねるスキルを作ってみましょう。
@@ -99,26 +99,6 @@ image::EX5/Save_YesIntent.png[]
 +
 image::EX5/Add_NoIntent.png[]
 +
-. もしお客様が数量を言ってくれなかった場合に、Alexaが数を聞き返す処理と、ユーザーが数量だけを話すスロットを含むインテント（*AmountIntent*）が必要になります。これらを追加しましょう。
-+
-.ユーザーに数量を聞き返すコード
-[source,javascript]
-----
-if(amount === undefined){
-    attributes.menu = menu;
-    handlerInput.attributesManager.setSessionAttributes(attributes);
-
-    const speechOutput = menu + 'ですね。おいくつご用意しましょうか？';
-    const reprompt = 'おいくつご用意しますか？';
-    return handlerInput.responseBuilder
-    .speak(speechOutput)
-    .reprompt(reprompt)
-    .getResponse();
-}
-----
-+
-.ユーザーから数量の情報を受け取るインテントを追加する
-image::EX5/AmountIntent.png[]
 . はじめの会話で、メニュー品目と数量を取得し、Alexaは砂糖が必要かどうかを尋ねます。ユーザーがお砂糖の要不要の回答を受信するインテント、*AMAZON.YesIntent* や *AMAZON.NoIntent* には、メニュー品目や数量を取得するスロットはありません。これらの情報はどこから入手するのでしょうか？
 +
 これには、*セッションアトリビュート* の機能を利用すると良いでしょう。 セッションアトリビュートとは、ユーザーとの対話が継続している間（セッションと呼びます）、一時的に情報を保持するための機構です。情報を取得したタイミングで、以下のコードを追加し、セッションアトリビュートに保存しておきましょう。

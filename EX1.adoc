@@ -297,9 +297,9 @@ image::EX1/Select_ZIP_File_Upload.png[]
 +
 image::EX1/Upload_Button.png[]
 +
-. 解凍したサンプルファイルのフォルダの中から、*SampleCode1.zip* ファイルを探し選択してください。
+. 解凍したサンプルファイルのフォルダの中から、*Coffeeshop.zip* ファイルを探し選択してください。
 +
-image::EX1/Select_SampleCode1_ZIP_File.png[]
+image::EX1/Select_ZIP_File.png[]
 +
 [NOTE]
 ====
@@ -311,7 +311,7 @@ https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs/wiki/%5BJapanese%5D-Set
 +
 image::EX1/Save_Button.png[]
 +
-. 課題1のサンプルコードが読み込まれた状態でコードエディタが開きます。ここでは *Sample1.js* のコードが *index.js* として読み込まれています。また、*ask-sdk-core* および *ask-sdk-model* のライブラリも同時にアップロードされていることが確認できます。
+. 課題1のサンプルコードが読み込まれた状態でコードエディタが開きます。ここではデフォルトで呼び出されるコード *index.js* と ASK-SDK のライブラリ *ask-sdk-core* および *ask-sdk-model* もデプロイされていることが確認できます。
 +
 image::EX1/Sample1_Uploaded.png[]
 +

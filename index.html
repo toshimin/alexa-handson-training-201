@@ -492,7 +492,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_テストする_4">4.4. テストする</a></li>
 </ul>
 </li>
-<li><a href="#_セッションアトリビュートを使う">5. セッションアトリビュートを使う</a>
+<li><a href="#_セッションアトリビュート">5. セッションアトリビュート</a>
 <ul class="sectlevel2">
 <li><a href="#_この実習の学習目標_5">5.1. この実習の学習目標</a></li>
 <li><a href="#_会話のサンプル">5.2. 会話のサンプル</a></li>
@@ -1381,10 +1381,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>解凍したサンプルファイルのフォルダの中から、<strong>SampleCode1.zip</strong> ファイルを探し選択してください。</p>
+<p>解凍したサンプルファイルのフォルダの中から、<strong>Coffeeshop.zip</strong> ファイルを探し選択してください。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX1/Select_SampleCode1_ZIP_File.png" alt="Select SampleCode1 ZIP File">
+<img src="./images/EX1/Select_ZIP_File.png" alt="Select ZIP File">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1412,7 +1412,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>課題1のサンプルコードが読み込まれた状態でコードエディタが開きます。ここでは <strong>Sample1.js</strong> のコードが <strong>index.js</strong> として読み込まれています。また、<strong>ask-sdk-core</strong> および <strong>ask-sdk-model</strong> のライブラリも同時にアップロードされていることが確認できます。</p>
+<p>課題1のサンプルコードが読み込まれた状態でコードエディタが開きます。ここではデフォルトで呼び出されるコード <strong>index.js</strong> と ASK-SDK のライブラリ <strong>ask-sdk-core</strong> および <strong>ask-sdk-model</strong> もデプロイされていることが確認できます。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX1/Sample1_Uploaded.png" alt="Sample1 Uploaded">
@@ -2166,7 +2166,10 @@ exports.handler = skillBuilder
 <p>開発者コンソールに戻りスキルビルダーを開きます。</p>
 </li>
 <li>
-<p>インテント「<strong>OrderIntent</strong>」をクリックして、スロットを含むサンプル発話を追加します。まず「コーヒーを一つください」と入力してみましょう。</p>
+<p>インテント「<strong>OrderIntent</strong>」をクリックします。</p>
+</li>
+<li>
+<p>スロットを含むサンプル発話を追加します。まず「コーヒーを一つ注文して」と入力します。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX3/OrderIntent.png" alt="OrderIntent">
@@ -2204,62 +2207,20 @@ exports.handler = skillBuilder
 <img src="./images/EX3/SlotType_AMAZON_Number.png" alt="SlotType AMAZON Number">
 </div>
 </div>
-</li>
-<li>
-<p>次にもう一つ同じスロットamountを含むサンプル発話を追加します。「コーヒーを一つ注文して」と入力し、同じように漢字の「一」を選択します。今度は、既存のスロットを選択にamountが表示されるので、これを選択しクリックします。</p>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX3/Existing_Slot.png" alt="Existing Slot">
-</div>
-</div>
-</li>
-<li>
-<p>サンプル発話の入力中に、スロットを挿入したい部分でキーボードの <strong>{</strong> をタイプしてもスロット選択のポップアップが表示されます。好みの方法で、スロットを含むサンプル発話をどんどん追加してください。</p>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX3/Select_Slot.png" alt="Select Slot">
-</div>
-</div>
-</li>
-<li>
-<p>充分な数のサンプル発話が追加できたら「モデルを保存」し「モデルをビルド」をクリックしてください。</p>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX3/Save_and_Build.png" alt="Save and Build">
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="注記"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>「〜つ」、「〜個」や「〜杯」など数の数え方の単位も含め、あらゆるパターンを追加しましょう。ある程度はAlexaが補完して認識しますが、何度ものテストを繰り返して満足できる認識結果が得られるまで調整しましょう。</p>
+<p>=== カスタムスロットタイプを追加する</p>
 </div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_カスタムスロットタイプを追加する"><a class="link" href="#_カスタムスロットタイプを追加する">3.2.2. カスタムスロットタイプを追加する</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
-<p>スキルビルダーを開き、左側のパネルからスロット値の「追加」ボタンをクリックします。</p>
+<p>左のパネルからスロットタイプの「追加」ボタンをクリックします。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX3/Slot_Data.png" alt="Slot Data">
+<img src="./images/EX3/Add_CustomSlotType.png" alt="Add CustomSlotType">
 </div>
 </div>
 </li>
 <li>
-<p>カスタムスロットタイプ名をMenuListにして、「カスタムスロットタイプを作成」ボタンをクリックします。</p>
+<p>カスタムスロットタイプ名を <strong>MenuList</strong> にして、「カスタムスロットタイプを作成」ボタンをクリックします。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX3/Create_Custom_SlotType.png" alt="Create Custom SlotType">
@@ -2286,20 +2247,20 @@ exports.handler = skillBuilder
 <p>新しいスロットを作成のテキストフィールドに、追加するスロット名menuを入力し、「追加」ボタンをクリックします。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX3/Name_SlotType.png" alt="Name SlotType">
+<img src="./images/EX3/Menu_Slot.png" alt="Menu Slot">
 </div>
 </div>
 </li>
 <li>
-<p>下方のインテントスロットを確認します。2行目を1クリックすると新しいスロットmenuが表示されます。スロットmenuのスロットタイプ MenuListをスロットタイプのリストから選択します。</p>
+<p>下方のインテントスロットを確認します。2行目を1クリックすると新しいスロットmenuが表示されます。スロットmenuのスロットタイプ <strong>MenuList</strong> をスロットタイプのリストから選択します。</p>
 <div class="imageblock">
 <div class="content">
-<img src="./images/EX3/Select_Menu_Slot.png" alt="Select Menu Slot">
+<img src="./images/EX3/Select_MenuList_SlotType.png" alt="Select MenuList SlotType">
 </div>
 </div>
 </li>
 <li>
-<p>他の既存のサンプル発話の「コーヒー」の部分を全てスロットmenuに置き換えましょう。手順は同様で既存のスロットの選択リストにmenuが追加されているはずです。</p>
+<p>他の既存のサンプル発話の「コーヒー」の部分もスロットmenuに置き換えます。</p>
 <div class="imageblock">
 <div class="content">
 <img src="./images/EX3/Select_MenuList.png" alt="Select MenuList">
@@ -2333,15 +2294,10 @@ exports.handler = skillBuilder
 <i class="fa icon-note" title="注記"></i>
 </td>
 <td class="content">
-プログラミングに自信のない方は、Lambdaの <strong>index.js</strong> のコードをサンプルファイル <a href="#Sample3.js">[Sample3.js]</a> のコードに置き換えてください。自分でコードを書いてみたい方は、以下のコードをヒントに、既存のコードに修正を加えてください。
+プログラミングに自信のない方は、Lambdaの <strong>index.js</strong> のコードをサンプルファイル <a href="#Sample3.js">[Sample3.js]</a> のコードに置き換えてください。
 </td>
 </tr>
 </table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX3/Sample3_JS.png" alt="Sample3 JS">
-</div>
 </div>
 <div class="listingblock">
 <div class="title">リスト 5. スロット menu と amount の値を取得し、それぞれの値を含めた応答を返すコード</div>
@@ -2354,31 +2310,6 @@ const speechOutput = menu + 'を' + amount + 'つですね、ありがとうご�
 return handlerInput.responseBuilder
 .speak(speechOutput)
 .getResponse();</code></pre>
-</div>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="注意"></i>
-</td>
-<td class="content">
-ユーザーは欲しい品目を言ってくれない場合もあります。例えば「アレクサ、コーヒーショップで一つ注文して」のような場合です（このサンプル発話も追加しておく必要があります）。この場合、何を注文したいのかユーザーに聞き返す処理が必要で、そのコードは次のように書くことができます。この処理もコードに追加しておきましょう。
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="title">リスト 6. ユーザーが欲しい商品を言ってくれなかった場合の判別と、ユーザーに尋ねるコード</div>
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">if (menu === undefined){
-    const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
-    const reprompt = '何にしますか？';
-    return handlerInput.responseBuilder
-    .speak(speechOutput)
-    .reprompt(reprompt)
-    .getResponse();
-}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2585,7 +2516,7 @@ return handlerInput.responseBuilder
 <p>コードの中ではこのような場合のエラー処理も考慮する必要があります。例えば下のようにコードを修正します。</p>
 </div>
 <div class="listingblock">
-<div class="title">リスト 7. スロット値の有無によって応答を変えるコードの例</div>
+<div class="title">リスト 6. スロット値の有無によって応答を変えるコードの例</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">const OrderIntentHandler = {
     canHandle(handlerInput) {
@@ -2643,7 +2574,7 @@ return handlerInput.responseBuilder
 <p>ステータスコードを調べ、同義語に含まれる場合、そのスロット値の代表値で応答を返すサンプルコードは以下のようになります。お好みでLambdaコードに組み込んでください。</p>
 </div>
 <div class="listingblock">
-<div class="title">リスト 8. 同義語に含まれる場合は、その代表値で応答を返すコードの例</div>
+<div class="title">リスト 7. 同義語に含まれる場合は、その代表値で応答を返すコードの例</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript"> // ステータスコードを取得する
 let status = handlerInput.requestEnvelope.request.intent.slots.menu.resolutions.resolutionsPerAuthority[0].status.code;
@@ -2692,7 +2623,7 @@ if (status === "ER_SUCCESS_MATCH"){
 </div>
 </div>
 <div class="sect1">
-<h2 id="_セッションアトリビュートを使う"><a class="link" href="#_セッションアトリビュートを使う">5. セッションアトリビュートを使う</a></h2>
+<h2 id="_セッションアトリビュート"><a class="link" href="#_セッションアトリビュート">5. セッションアトリビュート</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>メニューの品目と数量を取得できたら、お砂糖が必要かどうかをユーザーに尋ねるスキルを作ってみましょう。</p>
@@ -2812,7 +2743,7 @@ if (status === "ER_SUCCESS_MATCH"){
 <li>
 <p>「コーヒーを2つですね。ありがとうございます」と返して終了する部分を、「コーヒーを2つですね。お砂糖はおつけしますか？」とユーザーに尋ねるように変更しましょう。</p>
 <div class="listingblock">
-<div class="title">リスト 9. 変更前のコード</div>
+<div class="title">リスト 8. 変更前のコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">const speechOutput = menu + 'を' + amount + 'つですね、ありがとうございます。今日は天気がいいので全部100円でいいですよ。またの御利用をお待ちしております。';
 return handlerInput.responseBuilder
@@ -2821,7 +2752,7 @@ return handlerInput.responseBuilder
 </div>
 </div>
 <div class="listingblock">
-<div class="title">リスト 10. 変更後のコード</div>
+<div class="title">リスト 9. 変更後のコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">const speechOutput = menu + 'を' + amount + 'つですね。お砂糖はおつけしますか？';
 const reprompt = 'お砂糖はおつけしますか？';
@@ -2868,37 +2799,12 @@ return handlerInput.responseBuilder
 </div>
 </li>
 <li>
-<p>もしお客様が数量を言ってくれなかった場合に、Alexaが数を聞き返す処理と、ユーザーが数量だけを話すスロットを含むインテント（<strong>AmountIntent</strong>）が必要になります。これらを追加しましょう。</p>
-<div class="listingblock">
-<div class="title">リスト 11. ユーザーに数量を聞き返すコード</div>
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">if(amount === undefined){
-    attributes.menu = menu;
-    handlerInput.attributesManager.setSessionAttributes(attributes);
-
-    const speechOutput = menu + 'ですね。おいくつご用意しましょうか？';
-    const reprompt = 'おいくつご用意しますか？';
-    return handlerInput.responseBuilder
-    .speak(speechOutput)
-    .reprompt(reprompt)
-    .getResponse();
-}</code></pre>
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/EX5/AmountIntent.png" alt="AmountIntent">
-</div>
-<div class="title">図 4. ユーザーから数量の情報を受け取るインテントを追加する</div>
-</div>
-</li>
-<li>
 <p>はじめの会話で、メニュー品目と数量を取得し、Alexaは砂糖が必要かどうかを尋ねます。ユーザーがお砂糖の要不要の回答を受信するインテント、<strong>AMAZON.YesIntent</strong> や <strong>AMAZON.NoIntent</strong> には、メニュー品目や数量を取得するスロットはありません。これらの情報はどこから入手するのでしょうか？</p>
 <div class="paragraph">
 <p>これには、<strong>セッションアトリビュート</strong> の機能を利用すると良いでしょう。 セッションアトリビュートとは、ユーザーとの対話が継続している間（セッションと呼びます）、一時的に情報を保持するための機構です。情報を取得したタイミングで、以下のコードを追加し、セッションアトリビュートに保存しておきましょう。</p>
 </div>
 <div class="listingblock">
-<div class="title">リスト 12. セッションアトリビュートのデータを保存するコード</div>
+<div class="title">リスト 10. セッションアトリビュートのデータを保存するコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">attributes.menu = menu;
 attributes.amount = amount;
@@ -2909,7 +2815,7 @@ handlerInput.attributesManager.setSessionAttributes(attributes);</code></pre>
 <p>対話の中でこれらの情報が必要ななった時は、以下のようなコードでセッションアトリビュートから情報を取得しましょう。</p>
 </div>
 <div class="listingblock">
-<div class="title">リスト 13. セッションアトリビュートのデータを取り出すコード</div>
+<div class="title">リスト 11. セッションアトリビュートのデータを取り出すコード</div>
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">const attributes = handlerInput.attributesManager.getSessionAttributes();
 const amount = attributes.amount;
@@ -3225,7 +3131,7 @@ const menu = attributes.menu;</code></pre>
 <p>2018.07.10 v2.7.2 Alexaシミュレータのサンプル発話の入力でウェイクワードを省略</p>
 </li>
 <li>
-<p>2018.10.28 v2.8.0 インテントの追加/スロットの演習を統合/発話のバリエーション/ASK CLIを追加</p>
+<p>2018.10.28 v2.8.0 インテントの追加/スロットの演習を統合/発話のバリエーション/サンプルコードのASK CLI対応</p>
 </li>
 </ul>
 </div>
@@ -3235,7 +3141,7 @@ const menu = attributes.menu;</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 2.8<br>
-Last updated 2018-10-26 19:54:45 JST
+Last updated 2018-10-29 16:42:30 JST
 </div>
 </div>
 </body>

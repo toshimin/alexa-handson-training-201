@@ -36,7 +36,8 @@ image:icons/alexa_dojo.png[width="40"]  https://alexa.design/jp-alexadojo005[第
 
 === スロットを追加する
 . 開発者コンソールに戻りスキルビルダーを開きます。
-. インテント「*OrderIntent*」をクリックして、スロットを含むサンプル発話を追加します。まず「コーヒーを一つください」と入力してみましょう。
+. インテント「*OrderIntent*」をクリックします。
+. スロットを含むサンプル発話を追加します。まず「コーヒーを一つ注文して」と入力します。
 +
 image::EX3/OrderIntent.png[]
 +
@@ -56,29 +57,12 @@ image::EX3/Amount_Slot.png[]
 +
 image::EX3/SlotType_AMAZON_Number.png[]
 +
-. 次にもう一つ同じスロットamountを含むサンプル発話を追加します。「コーヒーを一つ注文して」と入力し、同じように漢字の「一」を選択します。今度は、既存のスロットを選択にamountが表示されるので、これを選択しクリックします。
-+
-image::EX3/Existing_Slot.png[]
-+
-. サンプル発話の入力中に、スロットを挿入したい部分でキーボードの *{* をタイプしてもスロット選択のポップアップが表示されます。好みの方法で、スロットを含むサンプル発話をどんどん追加してください。
-+
-image::EX3/Select_Slot.png[]
-+
-. 充分な数のサンプル発話が追加できたら「モデルを保存」し「モデルをビルド」をクリックしてください。
-+
-image::EX3/Save_and_Build.png[]
-
-[NOTE]
-====
-「〜つ」、「〜個」や「〜杯」など数の数え方の単位も含め、あらゆるパターンを追加しましょう。ある程度はAlexaが補完して認識しますが、何度ものテストを繰り返して満足できる認識結果が得られるまで調整しましょう。
-====
-
 === カスタムスロットタイプを追加する
-. スキルビルダーを開き、左側のパネルからスロット値の「追加」ボタンをクリックします。
+. 左のパネルからスロットタイプの「追加」ボタンをクリックします。
 +
-image::EX3/Slot_Data.png[]
+image::EX3/Add_CustomSlotType.png[]
 +
-. カスタムスロットタイプ名をMenuListにして、「カスタムスロットタイプを作成」ボタンをクリックします。
+. カスタムスロットタイプ名を **MenuList** にして、「カスタムスロットタイプを作成」ボタンをクリックします。
 +
 image::EX3/Create_Custom_SlotType.png[]
 +
@@ -92,13 +76,13 @@ image::EX3/Add_Menu_Slot.png[]
 +
 . 新しいスロットを作成のテキストフィールドに、追加するスロット名menuを入力し、「追加」ボタンをクリックします。
 +
-image::EX3/Name_SlotType.png[]
+image::EX3/Menu_Slot.png[]
 +
-. 下方のインテントスロットを確認します。2行目を1クリックすると新しいスロットmenuが表示されます。スロットmenuのスロットタイプ MenuListをスロットタイプのリストから選択します。
+. 下方のインテントスロットを確認します。2行目を1クリックすると新しいスロットmenuが表示されます。スロットmenuのスロットタイプ **MenuList** をスロットタイプのリストから選択します。
 +
-image::EX3/Select_Menu_Slot.png[]
+image::EX3/Select_MenuList_SlotType.png[]
 +
-. 他の既存のサンプル発話の「コーヒー」の部分を全てスロットmenuに置き換えましょう。手順は同様で既存のスロットの選択リストにmenuが追加されているはずです。
+. 他の既存のサンプル発話の「コーヒー」の部分もスロットmenuに置き換えます。
 +
 image::EX3/Select_MenuList.png[]
 +
@@ -113,9 +97,7 @@ image::EX3/Save_And_Build2.png[]
 スロットmenuの値を受け取れるようにLambda側のプログラムコードも修正しましょう。
 
 [NOTE]
-プログラミングに自信のない方は、Lambdaの *index.js* のコードをサンプルファイル <<Sample3.js>> のコードに置き換えてください。自分でコードを書いてみたい方は、以下のコードをヒントに、既存のコードに修正を加えてください。
-
-image::EX3/Sample3_JS.png[]
+プログラミングに自信のない方は、Lambdaの *index.js* のコードをサンプルファイル <<Sample3.js>> のコードに置き換えてください。
 
 [source,javascript]
 .スロット menu と amount の値を取得し、それぞれの値を含めた応答を返すコード
@@ -128,21 +110,6 @@ const speechOutput = menu + 'を' + amount + 'つですね、ありがとうご�
 return handlerInput.responseBuilder
 .speak(speechOutput)
 .getResponse();
-----
-
-CAUTION: ユーザーは欲しい品目を言ってくれない場合もあります。例えば「アレクサ、コーヒーショップで一つ注文して」のような場合です（このサンプル発話も追加しておく必要があります）。この場合、何を注文したいのかユーザーに聞き返す処理が必要で、そのコードは次のように書くことができます。この処理もコードに追加しておきましょう。
-
-[source,javascript]
-.ユーザーが欲しい商品を言ってくれなかった場合の判別と、ユーザーに尋ねるコード
-----
-if (menu === undefined){
-    const speechOutput = 'コーヒー、カフェラテ、カプチーノからお選びいただけます。どれにしますか？';
-    const reprompt = '何にしますか？';
-    return handlerInput.responseBuilder
-    .speak(speechOutput)
-    .reprompt(reprompt)
-    .getResponse();
-}
 ----
 
 Lambda関数のコードの修正が完了したら「保存」ボタンをクリックしてテストしましょう。

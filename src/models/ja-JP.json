@@ -1,0 +1,29 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "コーヒーショップ",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "OrderIntent",
+                    "slots": [],
+                    "samples": [
+                        "コーヒーを注文して"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}
