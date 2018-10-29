@@ -43,6 +43,11 @@ ascoiidoctor が index.adoc をHTML変換した出力ファイル。このまま
 
 「実習4」のasciidocファイル
 
+## EX5.adoc
+
+「実習5」のasciidocファイル
+
+
 ## References.adoc
 
 リファレンスのasciidocファイル
