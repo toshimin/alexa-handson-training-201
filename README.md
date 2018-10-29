@@ -3,11 +3,12 @@
 ## Makefile
 
 配布用のAlexa ハンズオントレーニング用テキストPDFと、サンプルコードZIPファイルをビルドするためのZIPファイル
-`make`だけで、Alexa_HandOnTraining_TextBook.pdf と SampleCodes.zip、及びHTML参照用の index.html を生成します。
+`make`だけで、画面表示用のPDF「AlexaBasicTextBook.pdf」、印刷用のPDF「AlexaBasicTextBook_Print.pdf」、ダウンロード用のサンプルコードパッケージ「Alexa_SampleCode_Basic.zip」を生成します。
 
 * `make pdf` は Alexa_HandOnTraining_TextBook.pdf を出力します。
 * `make html` は index.html を出力します。
-* `make samples` は SampleCodes.zip を出力します。SampleCodes.zip の中にはUTF-8のコードからSJIS用のコードを自動生成して収録します。
+* `make sample` は Alexa_SampleCode_Basic.zip を出力します。
+* `make s3` は *dist* フォルダー内に生成された出力PDFとサンプルコードを S3 にアップロードし公開します。
 * `make claen` で作成した出力ファイルを削除します。
 
 ## style/alexa_style.yml
@@ -28,23 +29,19 @@ ascoiidoctor が index.adoc をHTML変換した出力ファイル。このまま
 
 ## EX1.adoc
 
-「課題1」のasciidocファイル
+「実習1」のasciidocファイル
 
 ## EX2.adoc
 
-「課題2」のasciidocファイル
+「実習2」のasciidocファイル
 
 ## EX3.adoc
 
-「課題3」のasciidocファイル
+「実習3」のasciidocファイル
 
 ## EX4.adoc
 
-「課題4」のasciidocファイル
-
-## Sample_Codes.adoc
-
-サンプルコードのasciidocファイル。srcディレクトリ内の UTF-8/xxx.js ファイルを直接読み込んでいる。
+「実習4」のasciidocファイル
 
 ## References.adoc
 
@@ -52,8 +49,8 @@ ascoiidoctor が index.adoc をHTML変換した出力ファイル。このまま
 
 ## src
 
-サンプルコードが格納されている。Node.jsのコードと対話モデルのJSONコードがあるが、テキストで読み込んでいるのはNode.jsコードのみ。
-ソースコードはUTF-8で書かれているが、Windows環境の受講者ようにSJISファイルも用意する必要がある。`make samples`では、自動的にSJISフォルダを生成し、UTF-8フォルダに格納されているコードを全て`nkf`でSJISに変換したものをZIPファイル内に格納している。ZIPファイルが作成されるとSJISフォルダは削除される。最終的に配布用のサンプルコード SampleCodes.zip は distフォルダに作成される。
+サンプルコードがASK CLIのフォルダツリーで格納されている。
+`lambda/custom` 配下のサブMakefileで、最新の ask-sdk-core パッケージをダウンロードし、デプロイ用zip ファイル Coffeeshop.zip を生成し dist フォルダーにコピーしている。
 
 ## fonts
 
