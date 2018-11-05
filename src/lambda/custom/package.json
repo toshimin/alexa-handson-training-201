@@ -6,7 +6,7 @@
   "repository": "",
   "license": "ISC",
   "dependencies": {
-    "ask-sdk-core": "^2.1.0",
-    "ask-sdk-model": "^1.7.1"
+    "ask-sdk-core": "^2.2.0",
+    "ask-sdk-model": "^1.8.0"
   }
 }

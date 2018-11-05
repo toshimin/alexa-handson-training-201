@@ -51,7 +51,7 @@ Echoデバイス及びAlexaの進化に伴い、Alexaのスキル開発環境も
 
 この教材では、プログラミング経験がなくてもスキル開発のステップを体験できるように、あらかじめ用意したサンプルコードを利用します。下記のリンクからサンプルコードをダウンロードしておいてください。
 
-- https://alexa.design/jp-sample-basic[Alexa_SampleCode_Basic.zip]
+- https://alexa.design/jp-samplecode-basic[Alexa_SampleCode_Basic.zip]
 
 サンプルコードはZIP形式の圧縮ファイルになっています。ファイルをダウンロードしたら解凍ツールで解凍してください。
 
